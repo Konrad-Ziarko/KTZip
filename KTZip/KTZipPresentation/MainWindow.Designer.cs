@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -233,6 +233,8 @@
             // 
             // buttonBack
             // 
+            this.buttonBack.BackgroundImage = global::KTZipPresentation.Properties.Resources.left;
+            this.buttonBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonBack.Location = new System.Drawing.Point(0, 0);
             this.buttonBack.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBack.Name = "buttonBack";
@@ -243,6 +245,8 @@
             // 
             // buttonUp
             // 
+            this.buttonUp.BackgroundImage = global::KTZipPresentation.Properties.Resources.up;
+            this.buttonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonUp.Location = new System.Drawing.Point(25, 0);
             this.buttonUp.Margin = new System.Windows.Forms.Padding(0);
             this.buttonUp.Name = "buttonUp";
@@ -253,6 +257,8 @@
             // 
             // buttonNext
             // 
+            this.buttonNext.BackgroundImage = global::KTZipPresentation.Properties.Resources.rigth;
+            this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonNext.Enabled = false;
             this.buttonNext.Location = new System.Drawing.Point(50, 0);
             this.buttonNext.Margin = new System.Windows.Forms.Padding(0);
@@ -304,14 +310,14 @@
             this.Rozmiar,
             this.Modyfikowano,
             this.Utworzono});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle8;
             this.filesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesGrid.Location = new System.Drawing.Point(0, 0);
             this.filesGrid.Name = "filesGrid";
@@ -342,8 +348,8 @@
             // 
             // Rozmiar
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle5;
             this.Rozmiar.HeaderText = "Rozmiar";
             this.Rozmiar.Name = "Rozmiar";
             this.Rozmiar.ReadOnly = true;
@@ -351,8 +357,8 @@
             // 
             // Modyfikowano
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle6;
             this.Modyfikowano.HeaderText = "Modyfikowano";
             this.Modyfikowano.Name = "Modyfikowano";
             this.Modyfikowano.ReadOnly = true;
@@ -360,8 +366,8 @@
             // 
             // Utworzono
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle7;
             this.Utworzono.HeaderText = "Utworzono";
             this.Utworzono.Name = "Utworzono";
             this.Utworzono.ReadOnly = true;
