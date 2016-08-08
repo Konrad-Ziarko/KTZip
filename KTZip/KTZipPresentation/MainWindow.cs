@@ -47,5 +47,82 @@ namespace KTZipPresentation.View
         {
 
         }
+
+        #region MenuToolStripMethods
+        private void optionsToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void adsToolStrip_Click(object sender, EventArgs e)
+        {
+            adsToolStrip.Checked = !adsToolStrip.Checked;
+        }
+        private void editToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void createFolderToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void endToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void copyToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void cutToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void selectAllToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void unselectAllToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void changeNameToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void deleteToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void propertiesToolStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region ButtonMethods
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonUp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        private void textBox_Path_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+            }
+        }
+
+        
     }
 }
