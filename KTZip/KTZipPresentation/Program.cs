@@ -1,4 +1,7 @@
-﻿using System;
+﻿using KTZipPresentation.Control;
+using KTZipPresentation.Model;
+using KTZipPresentation.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +19,9 @@ namespace KTZipPresentation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            MainWindow mw = new MainWindow();
+            new MainControler(mw, new MainModel());
+            Application.Run(mw);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace KTZipPresentation
+﻿namespace KTZipPresentation.View
 {
     partial class MainWindow
     {
@@ -32,12 +32,18 @@
             // 
             // MainWindow
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(282, 253);
+            this.KeyPreview = true;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KTzip";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
+            this.Shown += new System.EventHandler(this.MainWindow_Shown);
+            this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
             this.ResumeLayout(false);
 
         }
