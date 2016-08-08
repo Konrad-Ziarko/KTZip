@@ -1,8 +1,10 @@
-﻿using System;
+﻿using KTZipPresentation.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,12 +22,48 @@ namespace KTZipPresentation.View
         public MainWindow()
         {
             InitializeComponent();
-
+            filesGrid.RowTemplate.Height = 21;
+            int widthToFill = filesGrid.Width;
+            widthToFill -= 270;
+            filesGrid.Columns[1].Width = widthToFill - 2;
         }
 
+        #region MainFormMethods
         private void MainWindow_Shown(object sender, EventArgs e)
         {
-            
+            string[] dirs = Directory.GetDirectories(Settings.Default.CurrentPath);
+            foreach (string dir in dirs)
+            {
+                string dirName = Path.GetFileName(dir);
+                FileInfo fi = new FileInfo(dir);
+                string modif, create;
+                if (fi.LastWriteTime.Date == DateTime.Today)
+                    modif = fi.LastWriteTime.ToString("HH:mm:ss");
+                else
+                    modif = fi.LastWriteTime.Date.ToString("dd-MM-yyyy");
+                if (fi.CreationTime.Date == DateTime.Today)
+                    create = fi.CreationTime.ToString("HH:mm:ss");
+                else
+                    create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
+                filesGrid.Rows.Add(new object[] { Properties.Resources.folder1, dirName, "", modif, create });
+            }
+            string[] files = Directory.GetFiles(Settings.Default.CurrentPath);
+            foreach (string file in files)
+            {
+                string fileName = Path.GetFileName(file);
+                FileInfo fi = new FileInfo(file);
+                string modif, create;
+                if (fi.LastWriteTime.Date == DateTime.Today)
+                    modif = fi.LastWriteTime.ToString("HH:mm:ss");
+                else
+                    modif = fi.LastWriteTime.Date.ToString("dd-MM-yyyy");
+                if (fi.CreationTime.Date == DateTime.Today)
+                    create = fi.CreationTime.ToString("HH:mm:ss");
+                else
+                    create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
+                filesGrid.Rows.Add(new object[]{ Icon.ExtractAssociatedIcon(file), fileName, String.Format("{0:n0}", fi.Length), modif, create });
+            }
+            textBox_Path.Text = Settings.Default.CurrentPath;
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -40,13 +78,16 @@ namespace KTZipPresentation.View
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
-
+            int widthToFill = filesGrid.Width;
+            widthToFill -= (30 + filesGrid.Columns[2].Width + filesGrid.Columns[3].Width + filesGrid.Columns[4].Width);
+            filesGrid.Columns[1].Width = widthToFill-2;
         }
 
         private void MainWindow_LocationChanged(object sender, EventArgs e)
         {
 
         }
+        #endregion
 
         #region MenuToolStripMethods
         private void optionsToolStrip_Click(object sender, EventArgs e)
@@ -123,6 +164,11 @@ namespace KTZipPresentation.View
             }
         }
 
-        
+        private void filesGrid_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            int widthToFill = filesGrid.Width;
+            widthToFill -= (30 + filesGrid.Columns[2].Width + filesGrid.Columns[3].Width + filesGrid.Columns[4].Width);
+            filesGrid.Columns[1].Width = widthToFill - 2;
+        }
     }
 }
