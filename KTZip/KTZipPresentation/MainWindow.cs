@@ -1,4 +1,5 @@
 ﻿using KTZipPresentation.Properties;
+using KTZipModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +32,44 @@ namespace KTZipPresentation.View
         #region MainFormMethods
         private void MainWindow_Shown(object sender, EventArgs e)
         {
+            reloadContent();
+        }
+
+        private void reloadContent()
+        {
+            textBox_Path.Text = Settings.Default.CurrentPath;
+            reloadDirs();
+            reloadFiles();
+        }
+
+        private void reloadFiles()
+        {
+            FileInfoGeter fig;
+            string[] files = Directory.GetFiles(Settings.Default.CurrentPath);
+            foreach (string file in files)
+            {
+                string fileName = Path.GetFileName(file);
+                unsafe
+                {
+                    fixed(char* ptr = &file[0])
+                    fig = new FileInfoGeter(ptr);
+                }
+                
+                //FileInfo fi = new FileInfo(file);
+                //string modif, create;
+                //if (fi.LastWriteTime.Date == DateTime.Today)
+                //    modif = fi.LastWriteTime.ToString("HH:mm:ss");
+                //else
+                //    modif = fi.LastWriteTime.Date.ToString("dd-MM-yyyy");
+                //if (fi.CreationTime.Date == DateTime.Today)
+                //    create = fi.CreationTime.ToString("HH:mm:ss");
+                //else
+                //    create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
+                filesGrid.Rows.Add(new object[] { Icon.ExtractAssociatedIcon(file), fileName, String.Format("{0:n0}", fi.Length), modif, create });
+            }
+        }
+        private void reloadDirs()
+        {
             string[] dirs = Directory.GetDirectories(Settings.Default.CurrentPath);
             foreach (string dir in dirs)
             {
@@ -47,23 +86,6 @@ namespace KTZipPresentation.View
                     create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
                 filesGrid.Rows.Add(new object[] { Properties.Resources.folder1, dirName, "", modif, create });
             }
-            string[] files = Directory.GetFiles(Settings.Default.CurrentPath);
-            foreach (string file in files)
-            {
-                string fileName = Path.GetFileName(file);
-                FileInfo fi = new FileInfo(file);
-                string modif, create;
-                if (fi.LastWriteTime.Date == DateTime.Today)
-                    modif = fi.LastWriteTime.ToString("HH:mm:ss");
-                else
-                    modif = fi.LastWriteTime.Date.ToString("dd-MM-yyyy");
-                if (fi.CreationTime.Date == DateTime.Today)
-                    create = fi.CreationTime.ToString("HH:mm:ss");
-                else
-                    create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
-                filesGrid.Rows.Add(new object[]{ Icon.ExtractAssociatedIcon(file), fileName, String.Format("{0:n0}", fi.Length), modif, create });
-            }
-            textBox_Path.Text = Settings.Default.CurrentPath;
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
