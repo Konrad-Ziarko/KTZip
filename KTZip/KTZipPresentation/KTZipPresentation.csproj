@@ -98,12 +98,6 @@
   <ItemGroup>
     <None Include="Resources\up.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KTZipModels\KTZipModels.vcxproj">
-      <Project>{de210b7a-db49-446d-9481-c5bd7ec5bd5a}</Project>
-      <Name>KTZipModels</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

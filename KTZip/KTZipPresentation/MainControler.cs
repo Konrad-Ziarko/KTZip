@@ -17,8 +17,20 @@ namespace KTZipPresentation.Control
             this.theModel = theModel;
             this.theView = theView;
 
-
+            this.theView.SendGridTempl += TheView_SendGridTempl;
+            this.theView.ReloadContent += TheView_ReloadContent;
         }
 
+        private void TheView_ReloadContent(string obj)
+        {
+            theModel.reloadDirs();
+            theModel.reloadFiles();
+            theView.SetDataGrid(theModel.filesGrid);
+        }
+
+        private void TheView_SendGridTempl()
+        {
+            theModel.filesGrid = theView.GetDataGrid();
+        }
     }
 }
