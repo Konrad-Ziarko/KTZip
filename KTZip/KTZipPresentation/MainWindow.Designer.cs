@@ -85,7 +85,7 @@
             this.inneToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(689, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(795, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip";
             // 
@@ -103,26 +103,26 @@
             // toolStripEdit
             // 
             this.toolStripEdit.Name = "toolStripEdit";
-            this.toolStripEdit.Size = new System.Drawing.Size(175, 26);
+            this.toolStripEdit.Size = new System.Drawing.Size(181, 26);
             this.toolStripEdit.Text = "Edycja";
             this.toolStripEdit.Click += new System.EventHandler(this.toolStripEdit_Click);
             // 
             // toolStripNewFolder
             // 
             this.toolStripNewFolder.Name = "toolStripNewFolder";
-            this.toolStripNewFolder.Size = new System.Drawing.Size(175, 26);
-            this.toolStripNewFolder.Text = "Utwórz folder";
+            this.toolStripNewFolder.Size = new System.Drawing.Size(181, 26);
+            this.toolStripNewFolder.Text = "Utwórz...";
             this.toolStripNewFolder.Click += new System.EventHandler(this.toolStripNewFolder_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(172, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(178, 6);
             // 
             // toolStripEnd
             // 
             this.toolStripEnd.Name = "toolStripEnd";
-            this.toolStripEnd.Size = new System.Drawing.Size(175, 26);
+            this.toolStripEnd.Size = new System.Drawing.Size(181, 26);
             this.toolStripEnd.Text = "Zakończ";
             this.toolStripEnd.Click += new System.EventHandler(this.toolStripEnd_Click);
             // 
@@ -215,7 +215,7 @@
             this.textBox_Path.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_Path.Location = new System.Drawing.Point(77, 0);
             this.textBox_Path.Name = "textBox_Path";
-            this.textBox_Path.Size = new System.Drawing.Size(612, 22);
+            this.textBox_Path.Size = new System.Drawing.Size(718, 22);
             this.textBox_Path.TabIndex = 2;
             this.textBox_Path.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Path_KeyDown);
             // 
@@ -262,7 +262,7 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 28);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(689, 25);
+            this.panelTop.Size = new System.Drawing.Size(795, 25);
             this.panelTop.TabIndex = 6;
             // 
             // panelTopLeft
@@ -282,7 +282,7 @@
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBottom.Location = new System.Drawing.Point(0, 53);
             this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(689, 410);
+            this.panelBottom.Size = new System.Drawing.Size(795, 527);
             this.panelBottom.TabIndex = 7;
             // 
             // filesGrid
@@ -313,7 +313,7 @@
             this.filesGrid.RowHeadersWidth = 12;
             this.filesGrid.RowTemplate.Height = 24;
             this.filesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.filesGrid.Size = new System.Drawing.Size(689, 410);
+            this.filesGrid.Size = new System.Drawing.Size(795, 527);
             this.filesGrid.TabIndex = 0;
             this.filesGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.filesGrid_CellMouseClick);
             this.filesGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.filesGrid_CellMouseDoubleClick);
@@ -327,7 +327,7 @@
             this.Ico.Name = "Ico";
             this.Ico.ReadOnly = true;
             this.Ico.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Ico.Width = 20;
+            this.Ico.Width = 17;
             // 
             // Nazwa
             // 
@@ -408,7 +408,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(689, 463);
+            this.ClientSize = new System.Drawing.Size(795, 580);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.menuStrip1);
@@ -462,15 +462,15 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripTurnAds;
         private System.Windows.Forms.ToolStripMenuItem toolStripEdit;
         private System.Windows.Forms.DataGridView filesGrid;
+        private System.Windows.Forms.ContextMenuStrip filesGrid_contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem contextCopy;
+        private System.Windows.Forms.ToolStripMenuItem contextCut;
+        private System.Windows.Forms.ToolStripMenuItem contextPaste;
         private System.Windows.Forms.DataGridViewImageColumn Ico;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nazwa;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rozmiar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Modyfikowano;
         private System.Windows.Forms.DataGridViewTextBoxColumn Utworzono;
-        private System.Windows.Forms.ContextMenuStrip filesGrid_contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem contextCopy;
-        private System.Windows.Forms.ToolStripMenuItem contextCut;
-        private System.Windows.Forms.ToolStripMenuItem contextPaste;
     }
 }
 

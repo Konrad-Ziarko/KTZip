@@ -14,21 +14,20 @@ namespace KTZipPresentation.View
 {
     public partial class MainWindow : Form
     {
-        public event Action SendGridTempl;
+        public event Action ASendGridTempl;
 
         public event Action AFormLoad;
         public event Action AFormClosing;
         public event Action ADragDrop;
         public event Action AResizeEnd;
-        public event Action<string, int> ReloadContent;
+        public event Action<string, int> AReloadContent;
 
+        #region Other
         public MainWindow()
         {
             InitializeComponent();
             filesGrid.RowTemplate.Height = 21;
         }
-
-        #region Other
         public delegate void SetTextDelegate(string txt);
         public void SetTextBoxText(string txt)
         {
@@ -51,8 +50,8 @@ namespace KTZipPresentation.View
         #region MainFormMethods
         private void MainWindow_Shown(object sender, EventArgs e)
         {
-            SendGridTempl();
-            ReloadContent(textBox_Path.Text, 0);
+            ASendGridTempl();
+            AReloadContent(textBox_Path.Text, 0);
             MainWindow_Resize(sender, e);
         }
         private void MainWindow_Resize(object sender, EventArgs e)
@@ -83,19 +82,17 @@ namespace KTZipPresentation.View
         {
             if (e.KeyCode == Keys.F5)
             {
-                ReloadContent("", int.MaxValue);
+                AReloadContent("", int.MaxValue);
             }
         }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Default.Save();
+            
         }
-
         private void MainWindow_DragDrop(object sender, DragEventArgs e)
         {
 
         }
-
         private void MainWindow_LocationChanged(object sender, EventArgs e)
         {
 
@@ -105,7 +102,7 @@ namespace KTZipPresentation.View
         #region ButtonMethods
         private void buttonBack_Click(object sender, EventArgs e)
         {
-            ReloadContent("", -1);
+            AReloadContent("", -1);
         }
         private void buttonUp_Click(object sender, EventArgs e)
         {
@@ -117,13 +114,13 @@ namespace KTZipPresentation.View
             for (int i = 0; i < parts.Length - j; i++)
                 tmp += parts[i] + '\\';
             if (Settings.Default.CurrentPath != "C:\\")
-                ReloadContent(tmp, 1);
+                AReloadContent(tmp, 1);
             else
-                ReloadContent("", int.MinValue);
+                AReloadContent("", int.MinValue);
         }
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            ReloadContent("", 2);
+            AReloadContent("", 2);
         }
         #endregion
 
@@ -131,7 +128,7 @@ namespace KTZipPresentation.View
         {
             if (e.KeyCode == Keys.Enter)
             {
-                ReloadContent(textBox_Path.Text, 1);
+                AReloadContent(textBox_Path.Text, 1);
             }
         }
 
@@ -153,17 +150,17 @@ namespace KTZipPresentation.View
             }
             else if (e.Button == MouseButtons.XButton1)
             {
-                ReloadContent("", -1);
+                AReloadContent("", -1);
             }
             else if (e.Button == MouseButtons.XButton2)
             {
-                ReloadContent("", 2);
+                AReloadContent("", 2);
             }
         }
         private void filesGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && e.RowIndex != -1)
-                ReloadContent(textBox_Path.Text + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), 1);
+                AReloadContent(textBox_Path.Text + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), 1);
         }
         #endregion
 
@@ -175,7 +172,11 @@ namespace KTZipPresentation.View
 
         private void toolStripNewFolder_Click(object sender, EventArgs e)
         {
-
+            using (NewFileForm form = new NewFileForm())
+            {
+                form.ShowDialog();
+                AReloadContent("", int.MaxValue);
+            }
         }
 
         private void toolStripEnd_Click(object sender, EventArgs e)

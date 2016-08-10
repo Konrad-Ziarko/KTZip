@@ -20,8 +20,9 @@ namespace KTZipPresentation.Model
 
         public MainModel()
         {
-
         }
+
+        #region LodingFilesFromCurrentLocation
         public void reloadContent(string obj, int isForward)
         {
             bool reload = true;
@@ -94,7 +95,8 @@ namespace KTZipPresentation.Model
                 else
                     create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
                 AddToGridDelegate d = new AddToGridDelegate(addToGrid);
-                filesGrid.Invoke(d, Icon.ExtractAssociatedIcon(file), fileName, string.Format("{0:n0}", fi.Length), modif, create);
+                Image img = new Bitmap(Icon.ExtractAssociatedIcon(file).ToBitmap(), new Size(20, 20));
+                filesGrid.Invoke(d, img, fileName, string.Format("{0:n0}", fi.Length), modif, create);
             }
         }
         private void reloadDirs()
@@ -116,9 +118,12 @@ namespace KTZipPresentation.Model
                 else
                     create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
                 AddToGridDelegate d2 = new AddToGridDelegate(addToGrid);
-                filesGrid.Invoke(d2, Resources.folder1, dirName, "", modif, create);
+                filesGrid.Invoke(d2, new Bitmap(Resources.folder1, new Size(20, 20)), dirName, "", modif, create);
             }
         }
+        #endregion
+
+        #region DataGrid
         public delegate void AddToGridDelegate(object ico, object dir_name, object size, object mod, object create);
         public void addToGrid(object ico, object dir_name, object size, object mod, object create)
         {
@@ -129,5 +134,6 @@ namespace KTZipPresentation.Model
         {
             filesGrid.Rows.Clear();
         }
+        #endregion
     }
 }
