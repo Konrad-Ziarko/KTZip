@@ -1,7 +1,9 @@
 ﻿using KTZipPresentation.Model;
+using KTZipPresentation.Properties;
 using KTZipPresentation.View;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +23,11 @@ namespace KTZipPresentation.Control
             this.theView.ReloadContent += TheView_ReloadContent;
         }
 
-        private void TheView_ReloadContent(string obj)
+        private void TheView_ReloadContent(string obj, int isForward)
         {
-            theModel.reloadDirs();
-            theModel.reloadFiles();
+            theModel.reloadContent(obj, isForward);
             theView.SetDataGrid(theModel.filesGrid);
+            theView.SetTextBoxText(Settings.Default.CurrentPath);
         }
 
         private void TheView_SendGridTempl()

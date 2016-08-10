@@ -3,7 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="CurrentPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\</Value>
+      <Value Profile="(Default)">C:\</Value>
+    </Setting>
+    <Setting Name="History" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PositionInHistory" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

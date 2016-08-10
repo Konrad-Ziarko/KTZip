@@ -81,7 +81,7 @@
             this.inneToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(508, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(689, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip";
             // 
@@ -227,7 +227,7 @@
             this.textBox_Path.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_Path.Location = new System.Drawing.Point(77, 0);
             this.textBox_Path.Name = "textBox_Path";
-            this.textBox_Path.Size = new System.Drawing.Size(431, 22);
+            this.textBox_Path.Size = new System.Drawing.Size(612, 22);
             this.textBox_Path.TabIndex = 2;
             this.textBox_Path.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Path_KeyDown);
             // 
@@ -259,7 +259,6 @@
             // 
             this.buttonNext.BackgroundImage = global::KTZipPresentation.Properties.Resources.rigth;
             this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonNext.Enabled = false;
             this.buttonNext.Location = new System.Drawing.Point(50, 0);
             this.buttonNext.Margin = new System.Windows.Forms.Padding(0);
             this.buttonNext.Name = "buttonNext";
@@ -275,7 +274,7 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 28);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(508, 25);
+            this.panelTop.Size = new System.Drawing.Size(689, 25);
             this.panelTop.TabIndex = 6;
             // 
             // panelTopLeft
@@ -295,7 +294,7 @@
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBottom.Location = new System.Drawing.Point(0, 53);
             this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(508, 347);
+            this.panelBottom.Size = new System.Drawing.Size(689, 410);
             this.panelBottom.TabIndex = 7;
             // 
             // filesGrid
@@ -326,8 +325,10 @@
             this.filesGrid.RowHeadersWidth = 12;
             this.filesGrid.RowTemplate.Height = 24;
             this.filesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.filesGrid.Size = new System.Drawing.Size(508, 347);
+            this.filesGrid.Size = new System.Drawing.Size(689, 410);
             this.filesGrid.TabIndex = 0;
+            this.filesGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.filesGrid_CellEndEdit);
+            this.filesGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.filesGrid_CellMouseDoubleClick);
             this.filesGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.filesGrid_ColumnWidthChanged);
             // 
             // Ico
@@ -342,43 +343,55 @@
             // 
             // Nazwa
             // 
+            this.Nazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Nazwa.Frozen = true;
             this.Nazwa.HeaderText = "Nazwa";
+            this.Nazwa.MinimumWidth = 100;
             this.Nazwa.Name = "Nazwa";
+            this.Nazwa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Rozmiar
             // 
+            this.Rozmiar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle5;
             this.Rozmiar.HeaderText = "Rozmiar";
+            this.Rozmiar.MinimumWidth = 80;
             this.Rozmiar.Name = "Rozmiar";
             this.Rozmiar.ReadOnly = true;
-            this.Rozmiar.Width = 80;
+            this.Rozmiar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Rozmiar.Width = 89;
             // 
             // Modyfikowano
             // 
+            this.Modyfikowano.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle6;
             this.Modyfikowano.HeaderText = "Modyfikowano";
+            this.Modyfikowano.MinimumWidth = 80;
             this.Modyfikowano.Name = "Modyfikowano";
             this.Modyfikowano.ReadOnly = true;
-            this.Modyfikowano.Width = 80;
+            this.Modyfikowano.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Modyfikowano.Width = 126;
             // 
             // Utworzono
             // 
+            this.Utworzono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.Utworzono.DefaultCellStyle = dataGridViewCellStyle7;
             this.Utworzono.HeaderText = "Utworzono";
+            this.Utworzono.MinimumWidth = 80;
             this.Utworzono.Name = "Utworzono";
             this.Utworzono.ReadOnly = true;
-            this.Utworzono.Width = 80;
+            this.Utworzono.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Utworzono.Width = 104;
             // 
             // MainWindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(508, 400);
+            this.ClientSize = new System.Drawing.Size(689, 463);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.menuStrip1);
@@ -389,8 +402,9 @@
             this.Text = "KTzip";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Shown += new System.EventHandler(this.MainWindow_Shown);
-            this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
+            this.Resize += new System.EventHandler(this.MainWindow_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panelTop.ResumeLayout(false);

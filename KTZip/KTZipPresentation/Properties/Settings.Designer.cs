@@ -25,13 +25,36 @@ namespace KTZipPresentation.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\")]
         public string CurrentPath {
             get {
                 return ((string)(this["CurrentPath"]));
             }
             set {
                 this["CurrentPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection History {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["History"]));
+            }
+            set {
+                this["History"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PositionInHistory {
+            get {
+                return ((int)(this["PositionInHistory"]));
+            }
+            set {
+                this["PositionInHistory"] = value;
             }
         }
     }
