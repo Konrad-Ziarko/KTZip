@@ -13,42 +13,69 @@ namespace KTZipPresentation.Model
     public class MainModel
     {
         public DataGridView filesGrid { get; set; }
+        public void SetDataGrid (ref DataGridView dgv)
+        {
+            filesGrid = dgv;
+        }
+
         public MainModel()
         {
 
         }
         public void reloadContent(string obj, int isForward)
         {
+            bool reload = true;
+            if (obj == @"\")
+                obj = @"C:\";
             if (Directory.Exists(obj))
             {
-                Settings.Default.CurrentPath = obj;
-                Settings.Default.CurrentPath = Settings.Default.CurrentPath.Replace(@"\\", @"\");
-                if (isForward == 1)
+                try
                 {
-                    for (int i = Settings.Default.History.Count - 1; i > Settings.Default.PositionInHistory; i--)
-                        Settings.Default.History.RemoveAt(i);
-                    Settings.Default.History.Add(obj);
-                    Settings.Default.PositionInHistory++;
+                    Directory.GetDirectories(obj);
+                    obj = obj.Replace(@"\\", @"\");
+                    Settings.Default.CurrentPath = obj.Replace(@"\\", @"\");
+                    if (isForward == 1)
+                    {
+                        for (int i = Settings.Default.History.Count - 1; i > Settings.Default.PositionInHistory; i--)
+                            Settings.Default.History.RemoveAt(i);
+                        Settings.Default.History.Add(obj);
+                        Settings.Default.PositionInHistory++;
+                    }
+                    else if (isForward == 0)
+                    {
+                        Settings.Default.History.Add(obj);
+                    }
                 }
-                else if (isForward == 0)
+                catch
                 {
-                    Settings.Default.History.Add(obj);
+                    reload = false;
                 }
             }
-            else if (obj == "" && isForward == -1 && Settings.Default.PositionInHistory > 0)
+            else if (obj == "" && isForward == -1)
             {
-                Settings.Default.CurrentPath = Settings.Default.History[--Settings.Default.PositionInHistory];
+                if (Settings.Default.PositionInHistory > 0)
+                    Settings.Default.CurrentPath = Settings.Default.History[--Settings.Default.PositionInHistory];
+                else
+                    reload = false;
             }
-            else if (obj == "" && isForward == 2 && Settings.Default.PositionInHistory < Settings.Default.History.Count - 1)
+            else if (obj == "" && isForward == 2)
             {
-                Settings.Default.CurrentPath = Settings.Default.History[++Settings.Default.PositionInHistory];
+                if (Settings.Default.PositionInHistory < Settings.Default.History.Count - 1)
+                    Settings.Default.CurrentPath = Settings.Default.History[++Settings.Default.PositionInHistory];
+                else
+                    reload = false;
             }
             else if (obj == "" && isForward == 0)
             {
                 Settings.Default.History.Add(Settings.Default.CurrentPath = @"C:\");
             }
-            reloadDirs();
-            reloadFiles();
+            else if (isForward == int.MinValue)
+                reload = false;
+            if (reload || isForward == int.MaxValue)
+            {
+                reloadDirs();
+                reloadFiles();
+            }
         }
         private void reloadFiles()
         {
@@ -66,12 +93,14 @@ namespace KTZipPresentation.Model
                     create = fi.CreationTime.ToString("HH:mm:ss");
                 else
                     create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
-                filesGrid.Rows.Add(new object[] { Icon.ExtractAssociatedIcon(file), fileName, string.Format("{0:n0}", fi.Length), modif, create });
+                AddToGridDelegate d = new AddToGridDelegate(addToGrid);
+                filesGrid.Invoke(d, Icon.ExtractAssociatedIcon(file), fileName, string.Format("{0:n0}", fi.Length), modif, create);
             }
         }
         private void reloadDirs()
         {
-            filesGrid.Rows.Clear();
+            ClearGridDelagate d1 = new ClearGridDelagate(clearGrid);
+            filesGrid.Invoke(d1);
             string[] dirs = Directory.GetDirectories(Settings.Default.CurrentPath);
             foreach (string dir in dirs)
             {
@@ -86,8 +115,19 @@ namespace KTZipPresentation.Model
                     create = fi.CreationTime.ToString("HH:mm:ss");
                 else
                     create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
-                filesGrid.Rows.Add(new object[] { Properties.Resources.folder1, dirName, "", modif, create });
+                AddToGridDelegate d2 = new AddToGridDelegate(addToGrid);
+                filesGrid.Invoke(d2, Resources.folder1, dirName, "", modif, create);
             }
+        }
+        public delegate void AddToGridDelegate(object ico, object dir_name, object size, object mod, object create);
+        public void addToGrid(object ico, object dir_name, object size, object mod, object create)
+        {
+            filesGrid.Rows.Add(new object[] { ico, dir_name, size, mod, create });
+        }
+        public delegate void ClearGridDelagate();
+        public void clearGrid()
+        {
+            filesGrid.Rows.Clear();
         }
     }
 }

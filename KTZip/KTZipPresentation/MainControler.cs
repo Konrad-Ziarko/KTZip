@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace KTZipPresentation.Control
 {
@@ -14,6 +16,7 @@ namespace KTZipPresentation.Control
     {
         MainModel theModel;
         MainWindow theView;
+        Thread T;
         public MainControler(MainWindow theView, MainModel theModel)
         {
             this.theModel = theModel;
@@ -25,14 +28,21 @@ namespace KTZipPresentation.Control
 
         private void TheView_ReloadContent(string obj, int isForward)
         {
-            theModel.reloadContent(obj, isForward);
-            theView.SetDataGrid(theModel.filesGrid);
-            theView.SetTextBoxText(Settings.Default.CurrentPath);
+            if (T != null)
+                T.Abort();
+            T = new Thread(() =>
+            {
+                theModel.reloadContent(obj, isForward);
+                theView.SetTextBoxText(Settings.Default.CurrentPath);
+            });
+            T.Start();
         }
 
         private void TheView_SendGridTempl()
         {
-            theModel.filesGrid = theView.GetDataGrid();
+            DataGridView dgv = null;
+            theView.GetDataGrid(ref dgv);
+            theModel.filesGrid = dgv;
         }
     }
 }

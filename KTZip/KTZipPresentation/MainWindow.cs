@@ -29,17 +29,22 @@ namespace KTZipPresentation.View
         }
 
         #region Other
+        public delegate void SetTextDelegate(string txt);
         public void SetTextBoxText(string txt)
         {
-            textBox_Path.Text = txt;
+            if (InvokeRequired)
+            {
+                SetTextDelegate d = new SetTextDelegate(SetTextBoxText);
+                Invoke(d, txt);
+            }
+            else
+            {
+                textBox_Path.Text = txt;
+            }
         }
-        public DataGridView GetDataGrid()
+        public void GetDataGrid(ref DataGridView dgv)
         {
-            return filesGrid;
-        }
-        public void SetDataGrid(DataGridView dgv)
-        {
-            filesGrid = dgv;
+            dgv =  filesGrid;
         }
         #endregion
 
@@ -74,6 +79,13 @@ namespace KTZipPresentation.View
             widthToFill -= filesGrid.Columns[2].Width;
             filesGrid.Columns[1].Width = widthToFill;
         }
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                ReloadContent("", int.MaxValue);
+            }
+        }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.Default.Save();
@@ -85,57 +97,6 @@ namespace KTZipPresentation.View
         }
 
         private void MainWindow_LocationChanged(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
-
-        #region MenuToolStripMethods
-        private void optionsToolStrip_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void adsToolStrip_Click(object sender, EventArgs e)
-        {
-            adsToolStrip.Checked = !adsToolStrip.Checked;
-        }
-        private void editToolStrip_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void createFolderToolStrip_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void endToolStrip_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void copyToolStrip_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void cutToolStrip_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void selectAllToolStrip_Click(object sender, EventArgs e)
-        {
-            filesGrid.SelectAll();
-        }
-        private void unselectAllToolStrip_Click(object sender, EventArgs e)
-        {
-            filesGrid.ClearSelection();
-        }
-        private void changeNameToolStrip_Click(object sender, EventArgs e)
-        {
-            //filesGrid.Rows[filesGrid.SelectedRows[0].Index].
-        }
-        private void deleteToolStrip_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void propertiesToolStrip_Click(object sender, EventArgs e)
         {
 
         }
@@ -155,7 +116,10 @@ namespace KTZipPresentation.View
                 j++;
             for (int i = 0; i < parts.Length - j; i++)
                 tmp += parts[i] + '\\';
-            ReloadContent(tmp, 1);
+            if (Settings.Default.CurrentPath != "C:\\")
+                ReloadContent(tmp, 1);
+            else
+                ReloadContent("", int.MinValue);
         }
         private void buttonNext_Click(object sender, EventArgs e)
         {
@@ -171,27 +135,88 @@ namespace KTZipPresentation.View
             }
         }
 
+        #region DataGridViewMethods
         private void filesGrid_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
             //e.Column.MinimumWidth = e.Column.Width;
         }
-
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        private void filesGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.KeyCode == Keys.F5)
+            if (e.RowIndex != -1 && e.Button == MouseButtons.Right)
             {
-                ReloadContent(textBox_Path.Text, int.MinValue);
+                if (!filesGrid.SelectedRows.Contains(filesGrid.Rows[e.RowIndex]))
+                {
+                    filesGrid.ClearSelection();
+                    filesGrid.Rows[e.RowIndex].Selected = true;
+                }
+                filesGrid_contextMenu.Show(Cursor.Position);
+            }
+            else if (e.Button == MouseButtons.XButton1)
+            {
+                ReloadContent("", -1);
+            }
+            else if (e.Button == MouseButtons.XButton2)
+            {
+                ReloadContent("", 2);
             }
         }
-
         private void filesGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            ReloadContent(textBox_Path.Text + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), 1);
+            if (e.Button == MouseButtons.Left && e.RowIndex != -1)
+                ReloadContent(textBox_Path.Text + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), 1);
         }
+        #endregion
 
-        private void filesGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        #region MenuToolStripMethods
+        private void toolStripEdit_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void toolStripNewFolder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripEnd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripSelectAll_Click(object sender, EventArgs e)
+        {
+            filesGrid.SelectAll();
+        }
+
+        private void toolStripUnselectAll_Click(object sender, EventArgs e)
+        {
+            filesGrid.ClearSelection();
+        }
+
+        private void toolStripChangeName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripDeleteFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripFileProperties_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripTurnAds_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripOptions_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
