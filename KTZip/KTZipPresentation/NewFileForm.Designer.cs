@@ -33,6 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -45,7 +46,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(19, 100);
+            this.checkBox1.Location = new System.Drawing.Point(19, 127);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(66, 21);
             this.checkBox1.TabIndex = 1;
@@ -54,7 +55,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(19, 148);
+            this.button1.Location = new System.Drawing.Point(19, 161);
             this.button1.Margin = new System.Windows.Forms.Padding(10);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -65,27 +66,36 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(161, 148);
+            this.button2.Location = new System.Drawing.Point(161, 161);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
-            this.button2.Text = "Anuluj";
+            this.button2.Text = "Zamknij";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Zamknij);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(19, 57);
+            this.textBox2.Location = new System.Drawing.Point(19, 49);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(146, 22);
             this.textBox2.TabIndex = 4;
             this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(19, 86);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(146, 22);
+            this.textBox3.TabIndex = 5;
+            this.textBox3.Enter += new System.EventHandler(this.textBox3_Enter);
+            // 
             // NewFileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 190);
+            this.ClientSize = new System.Drawing.Size(281, 203);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -106,5 +116,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

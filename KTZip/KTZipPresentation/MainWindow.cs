@@ -20,7 +20,9 @@ namespace KTZipPresentation.View
         public event Action AFormClosing;
         public event Action ADragDrop;
         public event Action AResizeEnd;
+        public event Action AReloadSameContent;
         public event Action<string, int> AReloadContent;
+        public event Action<DataGridViewSelectedRowCollection> ADeleteSelectedFiles;
 
         #region Other
         public MainWindow()
@@ -51,7 +53,7 @@ namespace KTZipPresentation.View
         private void MainWindow_Shown(object sender, EventArgs e)
         {
             ASendGridTempl();
-            AReloadContent(textBox_Path.Text, 0);
+            AReloadContent(textBox_Path.Text, 666);
             MainWindow_Resize(sender, e);
         }
         private void MainWindow_Resize(object sender, EventArgs e)
@@ -82,12 +84,12 @@ namespace KTZipPresentation.View
         {
             if (e.KeyCode == Keys.F5)
             {
-                AReloadContent("", int.MaxValue);
+                AReloadSameContent();
             }
         }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+            Settings.Default.Save();
         }
         private void MainWindow_DragDrop(object sender, DragEventArgs e)
         {
@@ -122,6 +124,10 @@ namespace KTZipPresentation.View
         {
             AReloadContent("", 2);
         }
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            AReloadSameContent();
+        }
         #endregion
 
         private void textBox_Path_KeyDown(object sender, KeyEventArgs e)
@@ -142,10 +148,8 @@ namespace KTZipPresentation.View
             if (e.RowIndex != -1 && e.Button == MouseButtons.Right)
             {
                 if (!filesGrid.SelectedRows.Contains(filesGrid.Rows[e.RowIndex]))
-                {
                     filesGrid.ClearSelection();
-                    filesGrid.Rows[e.RowIndex].Selected = true;
-                }
+                filesGrid.Rows[e.RowIndex].Selected = true;
                 filesGrid_contextMenu.Show(Cursor.Position);
             }
             else if (e.Button == MouseButtons.XButton1)
@@ -165,23 +169,18 @@ namespace KTZipPresentation.View
         #endregion
 
         #region MenuToolStripMethods
-        private void toolStripEdit_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void toolStripNewFolder_Click(object sender, EventArgs e)
         {
             using (NewFileForm form = new NewFileForm())
             {
                 form.ShowDialog();
-                AReloadContent("", int.MaxValue);
+                AReloadSameContent();
             }
         }
 
         private void toolStripEnd_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
 
         private void toolStripSelectAll_Click(object sender, EventArgs e)
@@ -199,11 +198,6 @@ namespace KTZipPresentation.View
 
         }
 
-        private void toolStripDeleteFile_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void toolStripFileProperties_Click(object sender, EventArgs e)
         {
 
@@ -217,6 +211,11 @@ namespace KTZipPresentation.View
         private void toolStripOptions_Click(object sender, EventArgs e)
         {
 
+        }
+        private void deletFileToolStrip_Click(object sender, EventArgs e)
+        {
+            ADeleteSelectedFiles(filesGrid.SelectedRows);
+            AReloadSameContent();
         }
         #endregion
     }

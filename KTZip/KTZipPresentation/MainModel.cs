@@ -2,16 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Trinet.Core.IO.Ntfs;
 
 namespace KTZipPresentation.Model
 {
     public class MainModel
     {
+        public string notDeletedFiles { get; set; }
         public DataGridView filesGrid { get; set; }
         public void SetDataGrid (ref DataGridView dgv)
         {
@@ -23,6 +27,24 @@ namespace KTZipPresentation.Model
         }
 
         #region LodingFilesFromCurrentLocation
+        private Bitmap ChangeOpacity(Image img, float opacityvalue = 0.5f)
+        {
+            Bitmap bmp = new Bitmap(20, 20);
+            Graphics graphics = Graphics.FromImage(bmp);
+            ColorMatrix colormatrix = new ColorMatrix() { Matrix33 = opacityvalue };
+            ImageAttributes imgAttribute = new ImageAttributes();
+            imgAttribute.SetColorMatrix(colormatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+            graphics.DrawImage(img, new Rectangle(0, 0, 20, 20), 0, 0, 20, 20, GraphicsUnit.Pixel, imgAttribute);
+            graphics.Dispose();
+            return bmp;
+        }
+
+        internal void reloadSameContent()
+        {
+            reloadDirs();
+            reloadFiles();
+        }
+
         public void reloadContent(string obj, int isForward)
         {
             bool reload = true;
@@ -72,7 +94,7 @@ namespace KTZipPresentation.Model
             }
             else if (isForward == int.MinValue)
                 reload = false;
-            if (reload || isForward == int.MaxValue)
+            if (reload)
             {
                 reloadDirs();
                 reloadFiles();
@@ -94,9 +116,15 @@ namespace KTZipPresentation.Model
                     create = fi.CreationTime.ToString("HH:mm:ss");
                 else
                     create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
-                AddToGridDelegate d = new AddToGridDelegate(addToGrid);
                 Image img = new Bitmap(Icon.ExtractAssociatedIcon(file).ToBitmap(), new Size(20, 20));
-                filesGrid.Invoke(d, img, fileName, string.Format("{0:n0}", fi.Length), modif, create);
+                if ((fi.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                    img = ChangeOpacity(img);
+                filesGrid.Rows.Add(img, fileName, string.Format("{0:n0}", fi.Length), modif, create);
+                img = new Bitmap(Resources.stream, new Size(20, 20));
+                foreach (AlternateDataStreamInfo s in fi.ListAlternateDataStreams())
+                {
+                    filesGrid.Rows.Add(img, fileName+":"+s.Name, s.Size, modif, create);
+                }
             }
         }
         private void reloadDirs()
@@ -108,6 +136,7 @@ namespace KTZipPresentation.Model
             {
                 string dirName = Path.GetFileName(dir);
                 FileInfo fi = new FileInfo(dir);
+                DirectoryInfo di = new DirectoryInfo(dir);
                 string modif, create;
                 if (fi.LastWriteTime.Date == DateTime.Today)
                     modif = fi.LastWriteTime.ToString("HH:mm:ss");
@@ -117,8 +146,15 @@ namespace KTZipPresentation.Model
                     create = fi.CreationTime.ToString("HH:mm:ss");
                 else
                     create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
-                AddToGridDelegate d2 = new AddToGridDelegate(addToGrid);
-                filesGrid.Invoke(d2, new Bitmap(Resources.folder1, new Size(20, 20)), dirName, "", modif, create);
+                Image img = new Bitmap(Resources.folder, new Size(20, 20));
+                if ((fi.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                    img = ChangeOpacity(img);
+                filesGrid.Rows.Add(img, dirName, "", modif, create);
+                img = new Bitmap(Resources.stream, new Size(20, 20));
+                foreach (AlternateDataStreamInfo s in di.ListAlternateDataStreams())
+                {
+                    filesGrid.Rows.Add(img, dirName + ":" + s.Name, s.Size, modif, create);
+                }
             }
         }
         #endregion
@@ -133,6 +169,70 @@ namespace KTZipPresentation.Model
         public void clearGrid()
         {
             filesGrid.Rows.Clear();
+        }
+        #endregion
+
+        #region OtherMethods
+        public void DeleteSelectedFiles(DataGridViewSelectedRowCollection obj)
+        {
+            foreach (DataGridViewRow row in obj)
+            {
+                if (row.Cells[2].Value.ToString() != "")
+                    try
+                    {
+                        File.Delete(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                    }
+                    catch
+                    {
+                        notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
+                    }
+                else
+                    try
+                    {
+                        if (!Directory.EnumerateFileSystemEntries(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString()).Any())
+                            Directory.Delete(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                        else
+                        {
+                            DialogResult dr = MessageBox.Show("Ten folder nie jest pusty. Czy chcesz go usunąć wraz z zawartością?", "", MessageBoxButtons.YesNo);
+                            if (dr == DialogResult.Yes)
+                            {
+                                DeleteDirectory(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
+                    }
+            }
+            if (notDeletedFiles != "")
+                new ErrorForm(notDeletedFiles).ShowDialog();
+        }
+        public void DeleteDirectory(string target_dir)
+        {
+            string[] files = Directory.GetFiles(target_dir);
+            string[] dirs = Directory.GetDirectories(target_dir);
+
+            foreach (string file in files)
+            {
+                try
+                {
+                    File.SetAttributes(file, FileAttributes.Normal);
+                    File.Delete(file);
+                }
+                catch
+                {
+                    notDeletedFiles += file + "?";
+                }
+
+            }
+
+            foreach (string dir in dirs)
+            {
+                DeleteDirectory(dir);
+            }
+
+            Directory.Delete(target_dir, false);
         }
         #endregion
     }

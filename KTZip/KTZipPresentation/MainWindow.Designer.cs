@@ -35,7 +35,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripNewFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripEnd = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,11 +50,12 @@
             this.inneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox_Path = new System.Windows.Forms.TextBox();
-            this.buttonBack = new System.Windows.Forms.Button();
-            this.buttonUp = new System.Windows.Forms.Button();
-            this.buttonNext = new System.Windows.Forms.Button();
             this.panelTop = new System.Windows.Forms.Panel();
             this.panelTopLeft = new System.Windows.Forms.Panel();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonBack = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonUp = new System.Windows.Forms.Button();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.filesGrid = new System.Windows.Forms.DataGridView();
             this.Ico = new System.Windows.Forms.DataGridViewImageColumn();
@@ -67,6 +67,7 @@
             this.contextCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCut = new System.Windows.Forms.ToolStripMenuItem();
             this.contextPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelTopLeft.SuspendLayout();
@@ -92,7 +93,6 @@
             // plikToolStripMenuItem
             // 
             this.plikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripEdit,
             this.toolStripNewFolder,
             this.toolStripMenuItem1,
             this.toolStripEnd});
@@ -100,29 +100,22 @@
             this.plikToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.plikToolStripMenuItem.Text = "Plik";
             // 
-            // toolStripEdit
-            // 
-            this.toolStripEdit.Name = "toolStripEdit";
-            this.toolStripEdit.Size = new System.Drawing.Size(181, 26);
-            this.toolStripEdit.Text = "Edycja";
-            this.toolStripEdit.Click += new System.EventHandler(this.toolStripEdit_Click);
-            // 
             // toolStripNewFolder
             // 
             this.toolStripNewFolder.Name = "toolStripNewFolder";
-            this.toolStripNewFolder.Size = new System.Drawing.Size(181, 26);
+            this.toolStripNewFolder.Size = new System.Drawing.Size(140, 26);
             this.toolStripNewFolder.Text = "Utwórz...";
             this.toolStripNewFolder.Click += new System.EventHandler(this.toolStripNewFolder_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(137, 6);
             // 
             // toolStripEnd
             // 
             this.toolStripEnd.Name = "toolStripEnd";
-            this.toolStripEnd.Size = new System.Drawing.Size(181, 26);
+            this.toolStripEnd.Size = new System.Drawing.Size(140, 26);
             this.toolStripEnd.Text = "Zakończ";
             this.toolStripEnd.Click += new System.EventHandler(this.toolStripEnd_Click);
             // 
@@ -162,7 +155,7 @@
             // 
             this.toolStripChangeName.Name = "toolStripChangeName";
             this.toolStripChangeName.Size = new System.Drawing.Size(203, 26);
-            this.toolStripChangeName.Text = "Zmień nazwę";
+            this.toolStripChangeName.Text = "Zmień nazwę...";
             this.toolStripChangeName.Click += new System.EventHandler(this.toolStripChangeName_Click);
             // 
             // toolStripDeleteFile
@@ -170,7 +163,6 @@
             this.toolStripDeleteFile.Name = "toolStripDeleteFile";
             this.toolStripDeleteFile.Size = new System.Drawing.Size(203, 26);
             this.toolStripDeleteFile.Text = "Usuń";
-            this.toolStripDeleteFile.Click += new System.EventHandler(this.toolStripDeleteFile_Click);
             // 
             // toolStripFileProperties
             // 
@@ -213,47 +205,11 @@
             // textBox_Path
             // 
             this.textBox_Path.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Path.Location = new System.Drawing.Point(77, 0);
+            this.textBox_Path.Location = new System.Drawing.Point(100, 0);
             this.textBox_Path.Name = "textBox_Path";
-            this.textBox_Path.Size = new System.Drawing.Size(718, 22);
+            this.textBox_Path.Size = new System.Drawing.Size(695, 22);
             this.textBox_Path.TabIndex = 2;
             this.textBox_Path.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Path_KeyDown);
-            // 
-            // buttonBack
-            // 
-            this.buttonBack.BackgroundImage = global::KTZipPresentation.Properties.Resources.left;
-            this.buttonBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonBack.Location = new System.Drawing.Point(0, 0);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(25, 22);
-            this.buttonBack.TabIndex = 3;
-            this.buttonBack.UseVisualStyleBackColor = true;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
-            // 
-            // buttonUp
-            // 
-            this.buttonUp.BackgroundImage = global::KTZipPresentation.Properties.Resources.up;
-            this.buttonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonUp.Location = new System.Drawing.Point(25, 0);
-            this.buttonUp.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonUp.Name = "buttonUp";
-            this.buttonUp.Size = new System.Drawing.Size(25, 22);
-            this.buttonUp.TabIndex = 4;
-            this.buttonUp.UseVisualStyleBackColor = true;
-            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
-            // 
-            // buttonNext
-            // 
-            this.buttonNext.BackgroundImage = global::KTZipPresentation.Properties.Resources.rigth;
-            this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonNext.Location = new System.Drawing.Point(50, 0);
-            this.buttonNext.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(25, 22);
-            this.buttonNext.TabIndex = 5;
-            this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // panelTop
             // 
@@ -267,14 +223,63 @@
             // 
             // panelTopLeft
             // 
+            this.panelTopLeft.Controls.Add(this.buttonRefresh);
             this.panelTopLeft.Controls.Add(this.buttonBack);
             this.panelTopLeft.Controls.Add(this.buttonNext);
             this.panelTopLeft.Controls.Add(this.buttonUp);
             this.panelTopLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelTopLeft.Location = new System.Drawing.Point(0, 0);
             this.panelTopLeft.Name = "panelTopLeft";
-            this.panelTopLeft.Size = new System.Drawing.Size(77, 25);
+            this.panelTopLeft.Size = new System.Drawing.Size(100, 25);
             this.panelTopLeft.TabIndex = 3;
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.BackgroundImage = global::KTZipPresentation.Properties.Resources.refresh;
+            this.buttonRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonRefresh.Location = new System.Drawing.Point(75, 0);
+            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(25, 22);
+            this.buttonRefresh.TabIndex = 6;
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // buttonBack
+            // 
+            this.buttonBack.BackgroundImage = global::KTZipPresentation.Properties.Resources.left;
+            this.buttonBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonBack.Location = new System.Drawing.Point(0, 0);
+            this.buttonBack.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(25, 22);
+            this.buttonBack.TabIndex = 3;
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.BackgroundImage = global::KTZipPresentation.Properties.Resources.rigth;
+            this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonNext.Location = new System.Drawing.Point(50, 0);
+            this.buttonNext.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(25, 22);
+            this.buttonNext.TabIndex = 5;
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            // 
+            // buttonUp
+            // 
+            this.buttonUp.BackgroundImage = global::KTZipPresentation.Properties.Resources.up;
+            this.buttonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonUp.Location = new System.Drawing.Point(25, 0);
+            this.buttonUp.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonUp.Name = "buttonUp";
+            this.buttonUp.Size = new System.Drawing.Size(25, 22);
+            this.buttonUp.TabIndex = 4;
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
             // 
             // panelBottom
             // 
@@ -381,9 +386,10 @@
             this.filesGrid_contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextCopy,
             this.contextCut,
-            this.contextPaste});
+            this.contextPaste,
+            this.usuńToolStripMenuItem});
             this.filesGrid_contextMenu.Name = "filesGrid_contextMenu";
-            this.filesGrid_contextMenu.Size = new System.Drawing.Size(128, 82);
+            this.filesGrid_contextMenu.Size = new System.Drawing.Size(128, 108);
             // 
             // contextCopy
             // 
@@ -402,6 +408,13 @@
             this.contextPaste.Name = "contextPaste";
             this.contextPaste.Size = new System.Drawing.Size(127, 26);
             this.contextPaste.Text = "Wklej";
+            // 
+            // usuńToolStripMenuItem
+            // 
+            this.usuńToolStripMenuItem.Name = "usuńToolStripMenuItem";
+            this.usuńToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.usuńToolStripMenuItem.Text = "Usuń";
+            this.usuńToolStripMenuItem.Click += new System.EventHandler(this.deletFileToolStrip_Click);
             // 
             // MainWindow
             // 
@@ -460,7 +473,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripDeleteFile;
         private System.Windows.Forms.ToolStripMenuItem toolStripFileProperties;
         private System.Windows.Forms.ToolStripMenuItem toolStripTurnAds;
-        private System.Windows.Forms.ToolStripMenuItem toolStripEdit;
         private System.Windows.Forms.DataGridView filesGrid;
         private System.Windows.Forms.ContextMenuStrip filesGrid_contextMenu;
         private System.Windows.Forms.ToolStripMenuItem contextCopy;
@@ -471,6 +483,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Rozmiar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Modyfikowano;
         private System.Windows.Forms.DataGridViewTextBoxColumn Utworzono;
+        private System.Windows.Forms.ToolStripMenuItem usuńToolStripMenuItem;
+        private System.Windows.Forms.Button buttonRefresh;
     }
 }
 
