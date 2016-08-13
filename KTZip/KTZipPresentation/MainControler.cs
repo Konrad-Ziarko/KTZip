@@ -16,6 +16,16 @@ namespace KTZipPresentation.Control
     {
         MainModel theModel;
         MainWindow theView;
+        public enum OperationType
+        {
+            FirstLoad,
+            LoadNext,
+            LoadPrev,
+            Reload,
+            LoadNew,
+            MoveUp,
+            NoReload,
+        }
         public MainControler(MainWindow theView, MainModel theModel)
         {
             this.theModel = theModel;
@@ -23,7 +33,6 @@ namespace KTZipPresentation.Control
 
             this.theView.ASendGridTempl += TheView_SendGridTempl;
             this.theView.AReloadContent += TheView_ReloadContent;
-            this.theView.AReloadSameContent += TheView_AReloadSameContent;
             this.theView.ADeleteSelectedFiles += TheView_ADeleteSelectedFiles;
         }
 
@@ -33,15 +42,9 @@ namespace KTZipPresentation.Control
             theModel.DeleteSelectedFiles(obj);
         }
 
-        private void TheView_AReloadSameContent()
+        private void TheView_ReloadContent(string obj, OperationType OpTy)
         {
-            theModel.reloadSameContent();
-            theView.SetTextBoxText(Settings.Default.CurrentPath);
-        }
-
-        private void TheView_ReloadContent(string obj, int isForward)
-        {
-            theModel.reloadContent(obj, isForward);
+            theModel.reloadContent(obj, OpTy);
             theView.SetTextBoxText(Settings.Default.CurrentPath);
         }
 

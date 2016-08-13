@@ -18,6 +18,7 @@ namespace KTZipPresentation
         public string path;
         private bool isAdsSet = false;
         private bool isTextSet = false;
+        private Form parent;
         public NewFileForm()
         {
             InitializeComponent();
@@ -65,12 +66,8 @@ namespace KTZipPresentation
                     OPEN_ALWAYS,
                     0,
                     IntPtr.Zero);
-                if (stream == IntPtr.Zero)
-                    MessageBox.Show("Błąd");
-                else
-                {
+                if (stream != IntPtr.Zero)
                     CloseHandle(stream);
-                }
             }
             else if (checkBox1.Checked && isAdsSet && textBox3.Text != "")
             {
@@ -84,12 +81,8 @@ namespace KTZipPresentation
                     OPEN_ALWAYS,
                     0,
                     IntPtr.Zero);
-                if (stream == IntPtr.Zero)
-                    MessageBox.Show("Błąd");
-                else
-                {
+                if (stream != IntPtr.Zero)
                     CloseHandle(stream);
-                }
             }
         }
         private void textBox2_Enter(object sender, EventArgs e)
@@ -129,7 +122,7 @@ namespace KTZipPresentation
         public static extern bool CloseHandle(IntPtr handle);
         #endregion
 
-        private void Zamknij(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             Close();
         }

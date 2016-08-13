@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Trinet.Core.IO.Ntfs;
+using static KTZipPresentation.Control.MainControler;
 
 namespace KTZipPresentation.Model
 {
@@ -39,34 +40,26 @@ namespace KTZipPresentation.Model
             return bmp;
         }
 
-        internal void reloadSameContent()
-        {
-            reloadDirs();
-            reloadFiles();
-        }
-
-        public void reloadContent(string obj, int isForward)
+        public void reloadContent(string obj, OperationType OpTy)
         {
             bool reload = true;
             if (obj == @"\")
                 obj = @"C:\";
-            if (Directory.Exists(obj))
+            if (OpTy == OperationType.Reload)
+                reload = true;
+            else if (Directory.Exists(obj))
             {
                 try
                 {
                     Directory.GetDirectories(obj);
                     obj = obj.Replace(@"\\", @"\");
                     Settings.Default.CurrentPath = obj.Replace(@"\\", @"\");
-                    if (isForward == 1)
+                    if (OpTy == OperationType.LoadNew || OpTy == OperationType.MoveUp)
                     {
                         for (int i = Settings.Default.History.Count - 1; i > Settings.Default.PositionInHistory; i--)
                             Settings.Default.History.RemoveAt(i);
                         Settings.Default.History.Add(obj);
                         Settings.Default.PositionInHistory++;
-                    }
-                    else if (isForward == 0)
-                    {
-                        Settings.Default.History.Add(obj);
                     }
                 }
                 catch
@@ -74,25 +67,25 @@ namespace KTZipPresentation.Model
                     reload = false;
                 }
             }
-            else if (obj == "" && isForward == -1)
+            else if (OpTy == OperationType.LoadPrev)
             {
                 if (Settings.Default.PositionInHistory > 0)
                     Settings.Default.CurrentPath = Settings.Default.History[--Settings.Default.PositionInHistory];
                 else
                     reload = false;
             }
-            else if (obj == "" && isForward == 2)
+            else if (OpTy == OperationType.LoadNext)
             {
                 if (Settings.Default.PositionInHistory < Settings.Default.History.Count - 1)
                     Settings.Default.CurrentPath = Settings.Default.History[++Settings.Default.PositionInHistory];
                 else
                     reload = false;
             }
-            else if (obj == "" && isForward == 0)
+            else if (OpTy == OperationType.FirstLoad)
             {
-                Settings.Default.History.Add(Settings.Default.CurrentPath = @"C:\");
+                Settings.Default.History.Add(Settings.Default.CurrentPath);
             }
-            else if (isForward == int.MinValue)
+            else if (OpTy == OperationType.NoReload)
                 reload = false;
             if (reload)
             {
@@ -123,7 +116,7 @@ namespace KTZipPresentation.Model
                 img = new Bitmap(Resources.stream, new Size(20, 20));
                 foreach (AlternateDataStreamInfo s in fi.ListAlternateDataStreams())
                 {
-                    filesGrid.Rows.Add(img, fileName+":"+s.Name, s.Size, modif, create);
+                    filesGrid.Rows.Add(img, fileName+":"+s.Name, s.Size, "ADS", "ADS");
                 }
             }
         }
@@ -131,6 +124,8 @@ namespace KTZipPresentation.Model
         {
             ClearGridDelagate d1 = new ClearGridDelagate(clearGrid);
             filesGrid.Invoke(d1);
+            if (!Directory.Exists(Settings.Default.CurrentPath))
+                Settings.Default.CurrentPath = @"C:\";
             string[] dirs = Directory.GetDirectories(Settings.Default.CurrentPath);
             foreach (string dir in dirs)
             {
@@ -153,7 +148,7 @@ namespace KTZipPresentation.Model
                 img = new Bitmap(Resources.stream, new Size(20, 20));
                 foreach (AlternateDataStreamInfo s in di.ListAlternateDataStreams())
                 {
-                    filesGrid.Rows.Add(img, dirName + ":" + s.Name, s.Size, modif, create);
+                    filesGrid.Rows.Add(img, dirName + ":" + s.Name, s.Size, "ADS", "ADS");
                 }
             }
         }
@@ -177,7 +172,15 @@ namespace KTZipPresentation.Model
         {
             foreach (DataGridViewRow row in obj)
             {
-                if (row.Cells[2].Value.ToString() != "")
+                if (row.Cells[3].Value.ToString() == "ADS" && row.Cells[4].Value.ToString() == "ADS")
+                {
+                    string[] split = row.Cells[1].Value.ToString().Split(':');
+                    FileInfo fi = new FileInfo(Settings.Default.CurrentPath+"\\"+split[0]);
+                    fi.DeleteAlternateDataStream(split[1]);
+                    DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + split[0]);
+                    di.DeleteAlternateDataStream(split[1]);
+                }
+                else if (row.Cells[2].Value.ToString() != "")
                     try
                     {
                         File.Delete(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());

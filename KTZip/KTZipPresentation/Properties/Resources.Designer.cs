@@ -73,6 +73,46 @@ namespace KTZipPresentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap KTZLogoL {
+            get {
+                object obj = ResourceManager.GetObject("KTZLogoL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon KTZLogoL_png {
+            get {
+                object obj = ResourceManager.GetObject("KTZLogoL_png", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap KTZLogoS {
+            get {
+                object obj = ResourceManager.GetObject("KTZLogoS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon KTZLogoS_png {
+            get {
+                object obj = ResourceManager.GetObject("KTZLogoS_png", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap left {
             get {
                 object obj = ResourceManager.GetObject("left", resourceCulture);

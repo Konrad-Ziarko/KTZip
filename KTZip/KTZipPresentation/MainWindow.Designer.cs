@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripNewFolder = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +68,9 @@
             this.contextCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCut = new System.Windows.Forms.ToolStripMenuItem();
             this.contextPaste = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextCreate = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelTopLeft.SuspendLayout();
@@ -283,6 +286,7 @@
             // 
             // panelBottom
             // 
+            this.panelBottom.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.panelBottom.Controls.Add(this.filesGrid);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBottom.Location = new System.Drawing.Point(0, 53);
@@ -294,6 +298,7 @@
             // 
             this.filesGrid.AllowUserToAddRows = false;
             this.filesGrid.AllowUserToResizeRows = false;
+            this.filesGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             this.filesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.filesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.filesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -311,6 +316,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.filesGrid.DefaultCellStyle = dataGridViewCellStyle4;
             this.filesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesGrid.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.filesGrid.Location = new System.Drawing.Point(0, 0);
             this.filesGrid.Name = "filesGrid";
             this.filesGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -322,7 +328,8 @@
             this.filesGrid.TabIndex = 0;
             this.filesGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.filesGrid_CellMouseClick);
             this.filesGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.filesGrid_CellMouseDoubleClick);
-            this.filesGrid.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.filesGrid_ColumnWidthChanged);
+            this.filesGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesGrid_KeyDown);
+            this.filesGrid.MouseClick += new System.Windows.Forms.MouseEventHandler(this.filesGrid_MouseClick);
             // 
             // Ico
             // 
@@ -387,34 +394,48 @@
             this.contextCopy,
             this.contextCut,
             this.contextPaste,
-            this.usuńToolStripMenuItem});
+            this.contextDelete,
+            this.toolStripMenuItem3,
+            this.contextCreate});
             this.filesGrid_contextMenu.Name = "filesGrid_contextMenu";
-            this.filesGrid_contextMenu.Size = new System.Drawing.Size(128, 108);
+            this.filesGrid_contextMenu.Size = new System.Drawing.Size(141, 140);
             // 
             // contextCopy
             // 
             this.contextCopy.Name = "contextCopy";
-            this.contextCopy.Size = new System.Drawing.Size(127, 26);
+            this.contextCopy.Size = new System.Drawing.Size(140, 26);
             this.contextCopy.Text = "Kopiuj";
             // 
             // contextCut
             // 
             this.contextCut.Name = "contextCut";
-            this.contextCut.Size = new System.Drawing.Size(127, 26);
+            this.contextCut.Size = new System.Drawing.Size(140, 26);
             this.contextCut.Text = "Wytnij";
             // 
             // contextPaste
             // 
             this.contextPaste.Name = "contextPaste";
-            this.contextPaste.Size = new System.Drawing.Size(127, 26);
+            this.contextPaste.Size = new System.Drawing.Size(140, 26);
             this.contextPaste.Text = "Wklej";
             // 
-            // usuńToolStripMenuItem
+            // contextDelete
             // 
-            this.usuńToolStripMenuItem.Name = "usuńToolStripMenuItem";
-            this.usuńToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
-            this.usuńToolStripMenuItem.Text = "Usuń";
-            this.usuńToolStripMenuItem.Click += new System.EventHandler(this.deletFileToolStrip_Click);
+            this.contextDelete.Name = "contextDelete";
+            this.contextDelete.Size = new System.Drawing.Size(140, 26);
+            this.contextDelete.Text = "Usuń";
+            this.contextDelete.Click += new System.EventHandler(this.contextDelete_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(137, 6);
+            // 
+            // contextCreate
+            // 
+            this.contextCreate.Name = "contextCreate";
+            this.contextCreate.Size = new System.Drawing.Size(140, 26);
+            this.contextCreate.Text = "Utwórz...";
+            this.contextCreate.Click += new System.EventHandler(this.contextCreate_Click);
             // 
             // MainWindow
             // 
@@ -425,6 +446,7 @@
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
@@ -483,8 +505,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Rozmiar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Modyfikowano;
         private System.Windows.Forms.DataGridViewTextBoxColumn Utworzono;
-        private System.Windows.Forms.ToolStripMenuItem usuńToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem contextDelete;
         private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem contextCreate;
     }
 }
 

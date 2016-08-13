@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\KTZLogoS.png.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -108,9 +111,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\folder.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\left.png" />
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +120,11 @@
     <None Include="Resources\up.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\1470885087_repeat.png" />
+    <Content Include="Resources\1470885087_repeat.png" />
+    <None Include="Resources\KTZLogoS.png.ico" />
+    <None Include="Resources\KTZLogoS.png" />
+    <None Include="Resources\KTZLogoL.png.ico" />
+    <None Include="Resources\KTZLogoL.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\1470886554_folder-close.png" />
