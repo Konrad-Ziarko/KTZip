@@ -1,16 +1,9 @@
 ﻿using KTZipPresentation.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static KTZipPresentation.Control.MainControler;
-using static KTZipPresentation.Model.MainModel;
 
 namespace KTZipPresentation.View
 {
@@ -24,6 +17,7 @@ namespace KTZipPresentation.View
         public event Action AResizeEnd;
         public event Action<string, OperationType> AReloadContent;
         public event Action<DataGridViewSelectedRowCollection> ADeleteSelectedFiles;
+        public event Action<string> AContentDoubleClick;
 
         #region Other
         public MainWindow()
@@ -50,11 +44,24 @@ namespace KTZipPresentation.View
         }
         private void newFileDialog()
         {
-            using (NewFileForm form = new NewFileForm())
+            using (NewFileForm form = new NewFileForm(this))
             {
                 form.ShowDialog();
-                AReloadContent("", OperationType.Reload);
+                RefreshContent();
             }
+        }
+        private void newRenameDialog(DataGridViewSelectedRowCollection files)
+        {
+            foreach(DataGridViewRow fileRow in files)
+            using (RenameForm form = new RenameForm(Settings.Default.CurrentPath+"\\", fileRow.Cells[1].Value.ToString()))
+            {
+                form.ShowDialog();
+                RefreshContent();
+            }
+        }
+        public void RefreshContent()
+        {
+            AReloadContent("", OperationType.Reload);
         }
         #endregion
 
@@ -93,9 +100,8 @@ namespace KTZipPresentation.View
         {
             if (e.KeyCode == Keys.F5)
             {
-                AReloadContent("", OperationType.Reload);
+                RefreshContent();
             }
-            //jeśli enter to wejdz w wybrany folder
         }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -136,7 +142,7 @@ namespace KTZipPresentation.View
         }
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            AReloadContent("", OperationType.Reload);
+            RefreshContent();
         }
         #endregion
 
@@ -163,9 +169,9 @@ namespace KTZipPresentation.View
                 if (!filesGrid.SelectedRows.Contains(filesGrid.Rows[e.RowIndex]))
                     filesGrid.ClearSelection();
                 filesGrid.Rows[e.RowIndex].Selected = true;
-                filesGrid_contextMenu.Items[0].Visible = true;
-                filesGrid_contextMenu.Items[1].Visible = true;
-                filesGrid_contextMenu.Items[3].Visible = true;
+                //filesGrid_contextMenu.Items[0].Visible = true;
+                //filesGrid_contextMenu.Items[1].Visible = true;
+                //filesGrid_contextMenu.Items[3].Visible = true;
                 filesGrid_contextMenu.Show(Cursor.Position);
             }
         }
@@ -173,6 +179,7 @@ namespace KTZipPresentation.View
         {
             if (e.Button == MouseButtons.Left && e.RowIndex != -1)
                 AReloadContent(textBox_Path.Text + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), OperationType.LoadNew);
+
         }
         private void filesGrid_MouseClick(object sender, MouseEventArgs e)
         {
@@ -186,9 +193,9 @@ namespace KTZipPresentation.View
             }
             else if (e.Button == MouseButtons.Right && e.Y > filesGrid.Rows.GetRowsHeight(DataGridViewElementStates.Displayed))
             {
-                filesGrid_contextMenu.Items[0].Visible = false;
-                filesGrid_contextMenu.Items[1].Visible = false;
-                filesGrid_contextMenu.Items[3].Visible = false;
+                //filesGrid_contextMenu.Items[0].Visible = false;
+                //filesGrid_contextMenu.Items[1].Visible = false;
+                //filesGrid_contextMenu.Items[3].Visible = false;
                 filesGrid_contextMenu.Show(Cursor.Position);
             }
         }
@@ -216,15 +223,10 @@ namespace KTZipPresentation.View
 
         private void toolStripChangeName_Click(object sender, EventArgs e)
         {
-
+            newRenameDialog(filesGrid.SelectedRows);
         }
 
         private void toolStripFileProperties_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripTurnAds_Click(object sender, EventArgs e)
         {
 
         }
@@ -235,10 +237,30 @@ namespace KTZipPresentation.View
         }
         #endregion
         #region ContextMenu
+        private void contextCut_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void contextCopy_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void contextPaste_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void contextRename_Click(object sender, EventArgs e)
+        {
+            newRenameDialog(filesGrid.SelectedRows);
+        }
+        private void contextProperties_Click(object sender, EventArgs e)
+        {
+
+        }
         private void contextDelete_Click(object sender, EventArgs e)
         {
             ADeleteSelectedFiles(filesGrid.SelectedRows);
-            AReloadContent("", OperationType.Reload);
+            RefreshContent();
         }
         private void contextCreate_Click(object sender, EventArgs e)
         {

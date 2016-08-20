@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,9 +45,9 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripChangeName = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDeleteFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripFileProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.widokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripTurnAds = new System.Windows.Forms.ToolStripMenuItem();
             this.inneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox_Path = new System.Windows.Forms.TextBox();
@@ -65,12 +65,16 @@
             this.Modyfikowano = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Utworzono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.filesGrid_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextCut = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextPaste = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.contextCreate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextRename = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelTopLeft.SuspendLayout();
@@ -130,6 +134,7 @@
             this.toolStripMenuItem2,
             this.toolStripChangeName,
             this.toolStripDeleteFile,
+            this.toolStripMenuItem6,
             this.toolStripFileProperties});
             this.edycjaToolStripMenuItem.Name = "edycjaToolStripMenuItem";
             this.edycjaToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
@@ -167,6 +172,11 @@
             this.toolStripDeleteFile.Size = new System.Drawing.Size(203, 26);
             this.toolStripDeleteFile.Text = "Usuń";
             // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(200, 6);
+            // 
             // toolStripFileProperties
             // 
             this.toolStripFileProperties.Name = "toolStripFileProperties";
@@ -176,18 +186,9 @@
             // 
             // widokToolStripMenuItem
             // 
-            this.widokToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTurnAds});
             this.widokToolStripMenuItem.Name = "widokToolStripMenuItem";
             this.widokToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.widokToolStripMenuItem.Text = "Widok";
-            // 
-            // toolStripTurnAds
-            // 
-            this.toolStripTurnAds.Name = "toolStripTurnAds";
-            this.toolStripTurnAds.Size = new System.Drawing.Size(244, 26);
-            this.toolStripTurnAds.Text = "Strumienie alternatywne";
-            this.toolStripTurnAds.Click += new System.EventHandler(this.toolStripTurnAds_Click);
             // 
             // inneToolStripMenuItem
             // 
@@ -307,14 +308,14 @@
             this.Rozmiar,
             this.Modyfikowano,
             this.Utworzono});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle12;
             this.filesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesGrid.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.filesGrid.Location = new System.Drawing.Point(0, 0);
@@ -354,8 +355,8 @@
             // Rozmiar
             // 
             this.Rozmiar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle9;
             this.Rozmiar.HeaderText = "Rozmiar";
             this.Rozmiar.MinimumWidth = 80;
             this.Rozmiar.Name = "Rozmiar";
@@ -366,8 +367,8 @@
             // Modyfikowano
             // 
             this.Modyfikowano.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle10;
             this.Modyfikowano.HeaderText = "Modyfikowano";
             this.Modyfikowano.MinimumWidth = 80;
             this.Modyfikowano.Name = "Modyfikowano";
@@ -378,8 +379,8 @@
             // Utworzono
             // 
             this.Utworzono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle11;
             this.Utworzono.HeaderText = "Utworzono";
             this.Utworzono.MinimumWidth = 80;
             this.Utworzono.Name = "Utworzono";
@@ -391,51 +392,86 @@
             // 
             this.filesGrid_contextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.filesGrid_contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextCopy,
+            this.contextCreate,
+            this.toolStripMenuItem4,
             this.contextCut,
+            this.contextCopy,
             this.contextPaste,
-            this.contextDelete,
             this.toolStripMenuItem3,
-            this.contextCreate});
+            this.contextRename,
+            this.contextDelete,
+            this.toolStripMenuItem5,
+            this.contextProperties});
             this.filesGrid_contextMenu.Name = "filesGrid_contextMenu";
-            this.filesGrid_contextMenu.Size = new System.Drawing.Size(141, 140);
-            // 
-            // contextCopy
-            // 
-            this.contextCopy.Name = "contextCopy";
-            this.contextCopy.Size = new System.Drawing.Size(140, 26);
-            this.contextCopy.Text = "Kopiuj";
-            // 
-            // contextCut
-            // 
-            this.contextCut.Name = "contextCut";
-            this.contextCut.Size = new System.Drawing.Size(140, 26);
-            this.contextCut.Text = "Wytnij";
-            // 
-            // contextPaste
-            // 
-            this.contextPaste.Name = "contextPaste";
-            this.contextPaste.Size = new System.Drawing.Size(140, 26);
-            this.contextPaste.Text = "Wklej";
-            // 
-            // contextDelete
-            // 
-            this.contextDelete.Name = "contextDelete";
-            this.contextDelete.Size = new System.Drawing.Size(140, 26);
-            this.contextDelete.Text = "Usuń";
-            this.contextDelete.Click += new System.EventHandler(this.contextDelete_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(137, 6);
+            this.filesGrid_contextMenu.Size = new System.Drawing.Size(182, 232);
             // 
             // contextCreate
             // 
             this.contextCreate.Name = "contextCreate";
-            this.contextCreate.Size = new System.Drawing.Size(140, 26);
+            this.contextCreate.Size = new System.Drawing.Size(181, 26);
             this.contextCreate.Text = "Utwórz...";
             this.contextCreate.Click += new System.EventHandler(this.contextCreate_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(178, 6);
+            // 
+            // contextCut
+            // 
+            this.contextCut.Enabled = false;
+            this.contextCut.Name = "contextCut";
+            this.contextCut.Size = new System.Drawing.Size(181, 26);
+            this.contextCut.Text = "Wytnij";
+            this.contextCut.Click += new System.EventHandler(this.contextCut_Click);
+            // 
+            // contextCopy
+            // 
+            this.contextCopy.Enabled = false;
+            this.contextCopy.Name = "contextCopy";
+            this.contextCopy.Size = new System.Drawing.Size(181, 26);
+            this.contextCopy.Text = "Kopiuj";
+            this.contextCopy.Click += new System.EventHandler(this.contextCopy_Click);
+            // 
+            // contextPaste
+            // 
+            this.contextPaste.Enabled = false;
+            this.contextPaste.Name = "contextPaste";
+            this.contextPaste.Size = new System.Drawing.Size(181, 26);
+            this.contextPaste.Text = "Wklej";
+            this.contextPaste.Click += new System.EventHandler(this.contextPaste_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(178, 6);
+            // 
+            // contextRename
+            // 
+            this.contextRename.Name = "contextRename";
+            this.contextRename.Size = new System.Drawing.Size(181, 26);
+            this.contextRename.Text = "Zmień nazwę...";
+            this.contextRename.Click += new System.EventHandler(this.contextRename_Click);
+            // 
+            // contextDelete
+            // 
+            this.contextDelete.Name = "contextDelete";
+            this.contextDelete.Size = new System.Drawing.Size(181, 26);
+            this.contextDelete.Text = "Usuń";
+            this.contextDelete.Click += new System.EventHandler(this.contextDelete_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(178, 6);
+            // 
+            // contextProperties
+            // 
+            this.contextProperties.Enabled = false;
+            this.contextProperties.Name = "contextProperties";
+            this.contextProperties.Size = new System.Drawing.Size(181, 26);
+            this.contextProperties.Text = "Właściwości";
+            this.contextProperties.Click += new System.EventHandler(this.contextProperties_Click);
             // 
             // MainWindow
             // 
@@ -494,7 +530,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripChangeName;
         private System.Windows.Forms.ToolStripMenuItem toolStripDeleteFile;
         private System.Windows.Forms.ToolStripMenuItem toolStripFileProperties;
-        private System.Windows.Forms.ToolStripMenuItem toolStripTurnAds;
         private System.Windows.Forms.DataGridView filesGrid;
         private System.Windows.Forms.ContextMenuStrip filesGrid_contextMenu;
         private System.Windows.Forms.ToolStripMenuItem contextCopy;
@@ -509,6 +544,11 @@
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem contextCreate;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem contextProperties;
+        private System.Windows.Forms.ToolStripMenuItem contextRename;
     }
 }
 

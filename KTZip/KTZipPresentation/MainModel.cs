@@ -1,13 +1,8 @@
 ﻿using KTZipPresentation.Properties;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Trinet.Core.IO.Ntfs;
 using static KTZipPresentation.Control.MainControler;
@@ -26,7 +21,6 @@ namespace KTZipPresentation.Model
         public MainModel()
         {
         }
-
         #region LodingFilesFromCurrentLocation
         private Bitmap ChangeOpacity(Image img, float opacityvalue = 0.5f)
         {
@@ -39,7 +33,6 @@ namespace KTZipPresentation.Model
             graphics.Dispose();
             return bmp;
         }
-
         public void reloadContent(string obj, OperationType OpTy)
         {
             bool reload = true;
@@ -99,24 +92,25 @@ namespace KTZipPresentation.Model
             foreach (string file in files)
             {
                 string fileName = Path.GetFileName(file);
-                FileInfo fi = new FileInfo(file);
+                FileInfo fileInfo = new FileInfo(file);
                 string modif, create;
-                if (fi.LastWriteTime.Date == DateTime.Today)
-                    modif = fi.LastWriteTime.ToString("HH:mm:ss");
+                if (fileInfo.LastWriteTime.Date == DateTime.Today)
+                    modif = fileInfo.LastWriteTime.ToString("HH:mm:ss");
                 else
-                    modif = fi.LastWriteTime.Date.ToString("dd-MM-yyyy");
-                if (fi.CreationTime.Date == DateTime.Today)
-                    create = fi.CreationTime.ToString("HH:mm:ss");
+                    modif = fileInfo.LastWriteTime.Date.ToString("dd-MM-yyyy");
+                if (fileInfo.CreationTime.Date == DateTime.Today)
+                    create = fileInfo.CreationTime.ToString("HH:mm:ss");
                 else
-                    create = fi.CreationTime.Date.ToString("dd-MM-yyyy");
+                    create = fileInfo.CreationTime.Date.ToString("dd-MM-yyyy");
                 Image img = new Bitmap(Icon.ExtractAssociatedIcon(file).ToBitmap(), new Size(20, 20));
-                if ((fi.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                     img = ChangeOpacity(img);
-                filesGrid.Rows.Add(img, fileName, string.Format("{0:n0}", fi.Length), modif, create);
+                filesGrid.Rows.Add(img, fileName, string.Format("{0:n0}", fileInfo.Length), modif, create);
                 img = new Bitmap(Resources.stream, new Size(20, 20));
-                foreach (AlternateDataStreamInfo s in fi.ListAlternateDataStreams())
+
+                foreach (AlternateDataStreamInfo stream in fileInfo.ListAlternateDataStreams())
                 {
-                    filesGrid.Rows.Add(img, fileName+":"+s.Name, s.Size, "ADS", "ADS");
+                    filesGrid.Rows.Add(img, stream.FullPath.Remove(0, file.Length+1), stream.Size, "ADS", "ADS");
                 }
             }
         }
@@ -170,46 +164,52 @@ namespace KTZipPresentation.Model
         #region OtherMethods
         public void DeleteSelectedFiles(DataGridViewSelectedRowCollection obj)
         {
-            foreach (DataGridViewRow row in obj)
+            string toDelete = "Czy chcesz usunąć następujące pliki:\n";
+            foreach(DataGridViewRow row in obj)
             {
-                if (row.Cells[3].Value.ToString() == "ADS" && row.Cells[4].Value.ToString() == "ADS")
+                toDelete += row.Cells[1].Value.ToString();
+                if (row.Cells[2].Value.ToString() == "")
                 {
-                    string[] split = row.Cells[1].Value.ToString().Split(':');
-                    FileInfo fi = new FileInfo(Settings.Default.CurrentPath+"\\"+split[0]);
-                    fi.DeleteAlternateDataStream(split[1]);
-                    DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + split[0]);
-                    di.DeleteAlternateDataStream(split[1]);
+                    DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                    toDelete += "(Folderów: " + di.GetDirectories().Length + ",  Plików: " + di.GetFiles().Length + ")";
                 }
-                else if (row.Cells[2].Value.ToString() != "")
-                    try
-                    {
-                        File.Delete(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
-                    }
-                    catch
-                    {
-                        notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
-                    }
-                else
-                    try
-                    {
-                        if (!Directory.EnumerateFileSystemEntries(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString()).Any())
-                            Directory.Delete(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
-                        else
-                        {
-                            DialogResult dr = MessageBox.Show("Ten folder nie jest pusty. Czy chcesz go usunąć wraz z zawartością?", "", MessageBoxButtons.YesNo);
-                            if (dr == DialogResult.Yes)
-                            {
-                                DeleteDirectory(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
-                            }
-                        }
-                    }
-                    catch
-                    {
-                        notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
-                    }
+                toDelete += "\n";
             }
-            if (notDeletedFiles != "")
-                new ErrorForm(notDeletedFiles).ShowDialog();
+            DialogResult doDeleteFiles = MessageBox.Show(toDelete, "Uwaga!",MessageBoxButtons.YesNo);
+            if (doDeleteFiles == DialogResult.Yes)
+            {
+                foreach (DataGridViewRow row in obj)
+                {
+                    if (row.Cells[3].Value.ToString() == "ADS" && row.Cells[4].Value.ToString() == "ADS")
+                    {
+                        string[] split = row.Cells[1].Value.ToString().Split(':');
+                        FileInfo fi = new FileInfo(Settings.Default.CurrentPath + "\\" + split[0]);
+                        fi.DeleteAlternateDataStream(split[1]);
+                        DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + split[0]);
+                        di.DeleteAlternateDataStream(split[1]);
+                    }
+                    else if (row.Cells[2].Value.ToString() != "")
+                        try
+                        {
+                            File.Delete(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                        }
+                        catch
+                        {
+                            notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
+                        }
+                    else
+                        try
+                        {
+                            DeleteDirectory(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                        }
+                        catch
+                        {
+                            notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
+                        }
+                }
+                if (notDeletedFiles != "")
+                    new ErrorForm(notDeletedFiles).ShowDialog();
+            }
         }
         public void DeleteDirectory(string target_dir)
         {
