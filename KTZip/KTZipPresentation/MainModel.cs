@@ -33,25 +33,25 @@ namespace KTZipPresentation.Model
             graphics.Dispose();
             return bmp;
         }
-        public void reloadContent(string obj, OperationType OpTy)
+        public void reloadContent(string path, OperationType OpTy)
         {
             bool reload = true;
-            if (obj == @"\")
-                obj = @"C:\";
+            if (path == @"\")
+                path = @"C:\";
             if (OpTy == OperationType.Reload)
                 reload = true;
-            else if (Directory.Exists(obj))
+            else if (Directory.Exists(path))
             {
                 try
                 {
-                    Directory.GetDirectories(obj);
-                    obj = obj.Replace(@"\\", @"\");
-                    Settings.Default.CurrentPath = obj.Replace(@"\\", @"\");
+                    Directory.GetDirectories(path);
+                    path = path.Replace(@"\\", @"\");
+                    Settings.Default.CurrentPath = path.Replace(@"\\", @"\");
                     if (OpTy == OperationType.LoadNew || OpTy == OperationType.MoveUp)
                     {
                         for (int i = Settings.Default.History.Count - 1; i > Settings.Default.PositionInHistory; i--)
                             Settings.Default.History.RemoveAt(i);
-                        Settings.Default.History.Add(obj);
+                        Settings.Default.History.Add(path);
                         Settings.Default.PositionInHistory++;
                     }
                 }
@@ -105,12 +105,12 @@ namespace KTZipPresentation.Model
                 Image img = new Bitmap(Icon.ExtractAssociatedIcon(file).ToBitmap(), new Size(20, 20));
                 if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                     img = ChangeOpacity(img);
-                filesGrid.Rows.Add(img, fileName, string.Format("{0:n0}", fileInfo.Length), modif, create);
+                filesGrid.Rows.Add(img, fileName, string.Format("{0:n0}", fileInfo.Length), modif, create, "F");
                 img = new Bitmap(Resources.stream, new Size(20, 20));
 
                 foreach (AlternateDataStreamInfo stream in fileInfo.ListAlternateDataStreams())
                 {
-                    filesGrid.Rows.Add(img, stream.FullPath.Remove(0, file.Length+1), stream.Size, "ADS", "ADS");
+                    filesGrid.Rows.Add(img, fileName + ":" + stream.Name, stream.Size, "", "", "A");
                 }
             }
         }
@@ -138,11 +138,11 @@ namespace KTZipPresentation.Model
                 Image img = new Bitmap(Resources.folder, new Size(20, 20));
                 if ((fi.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                     img = ChangeOpacity(img);
-                filesGrid.Rows.Add(img, dirName, "", modif, create);
+                filesGrid.Rows.Add(img, dirName, "", modif, create, "D");
                 img = new Bitmap(Resources.stream, new Size(20, 20));
-                foreach (AlternateDataStreamInfo s in di.ListAlternateDataStreams())
+                foreach (AlternateDataStreamInfo stream in di.ListAlternateDataStreams())
                 {
-                    filesGrid.Rows.Add(img, dirName + ":" + s.Name, s.Size, "ADS", "ADS");
+                    filesGrid.Rows.Add(img, dirName + ":" + stream.Name, stream.Size, "", "", "A");
                 }
             }
         }
@@ -162,25 +162,34 @@ namespace KTZipPresentation.Model
         #endregion
 
         #region OtherMethods
-        public void DeleteSelectedFiles(DataGridViewSelectedRowCollection obj)
+        public string DeleteSelectedFiles(DataGridViewSelectedRowCollection obj)
         {
-            string toDelete = "Czy chcesz usunąć następujące pliki:\n";
-            foreach(DataGridViewRow row in obj)
+            string toDelete = "Czy chcesz usunąć następujące pliki:";
+            notDeletedFiles = "";
+            if (obj.Count < 20)
             {
-                toDelete += row.Cells[1].Value.ToString();
-                if (row.Cells[2].Value.ToString() == "")
-                {
-                    DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
-                    toDelete += "(Folderów: " + di.GetDirectories().Length + ",  Plików: " + di.GetFiles().Length + ")";
-                }
                 toDelete += "\n";
+                foreach (DataGridViewRow row in obj)
+                {
+                    toDelete += row.Cells[1].Value.ToString();
+                    if (row.Cells[2].Value.ToString() == "")
+                    {
+                        DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                        toDelete += "(Folderów: " + di.GetDirectories().Length + ",  Plików: " + di.GetFiles().Length + ")";
+                    }
+                    toDelete += "\n";
+                }
             }
-            DialogResult doDeleteFiles = MessageBox.Show(toDelete, "Uwaga!",MessageBoxButtons.YesNo);
+            else
+            {
+                toDelete += "(" + obj.Count + ")";
+            }
+            DialogResult doDeleteFiles = MessageBox.Show(toDelete, "Uwaga!", MessageBoxButtons.YesNo);
             if (doDeleteFiles == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in obj)
                 {
-                    if (row.Cells[3].Value.ToString() == "ADS" && row.Cells[4].Value.ToString() == "ADS")
+                    if (row.Cells[3].Value.ToString() == "" && row.Cells[4].Value.ToString() == "")
                     {
                         string[] split = row.Cells[1].Value.ToString().Split(':');
                         FileInfo fi = new FileInfo(Settings.Default.CurrentPath + "\\" + split[0]);
@@ -207,9 +216,8 @@ namespace KTZipPresentation.Model
                             notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
                         }
                 }
-                if (notDeletedFiles != "")
-                    new ErrorForm(notDeletedFiles).ShowDialog();
             }
+            return notDeletedFiles;
         }
         public void DeleteDirectory(string target_dir)
         {

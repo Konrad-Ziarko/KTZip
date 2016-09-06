@@ -56,7 +56,8 @@ namespace KTZipPresentation
                 }
             else if (isAdsSet && textBox3.Text != "")
             {
-                if (checkBox1.Checked && !Directory.Exists(path))
+                
+                if (checkBox1.Checked && !Directory.Exists(path) && !File.Exists(path))
                     Directory.CreateDirectory(path);
                 var stream = CreateFile(
                     path + ":" + textBox3.Text,

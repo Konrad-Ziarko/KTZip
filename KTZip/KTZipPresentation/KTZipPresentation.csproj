@@ -76,6 +76,12 @@
     <Compile Include="NewFileForm.Designer.cs">
       <DependentUpon>NewFileForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PreviewEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PreviewEditForm.Designer.cs">
+      <DependentUpon>PreviewEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenameForm.cs">
@@ -89,9 +95,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NewFileForm.resx">
       <DependentUpon>NewFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreviewEditForm.resx">
+      <DependentUpon>PreviewEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

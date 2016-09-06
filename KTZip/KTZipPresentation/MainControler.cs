@@ -27,17 +27,38 @@ namespace KTZipPresentation.Control
             this.theView.ASendGridTempl += TheView_SendGridTempl;
             this.theView.AReloadContent += TheView_ReloadContent;
             this.theView.ADeleteSelectedFiles += TheView_ADeleteSelectedFiles;
+            this.theView.AContentDoubleClick += TheView_AContentDoubleClick1;
         }
 
-        private void TheView_ADeleteSelectedFiles(DataGridViewSelectedRowCollection obj)
+        private void TheView_AContentDoubleClick1(string path, string attributes)
         {
-            theModel.notDeletedFiles = "";
-            theModel.DeleteSelectedFiles(obj);
+            if (attributes == "D")
+                TheView_ReloadContent(path, OperationType.LoadNew);
+            else if (attributes == "F")
+                using(PreviewEditForm prevForm = new PreviewEditForm(path))
+                {
+
+                }
+            else if (attributes == "A")
+                ;
         }
 
-        private void TheView_ReloadContent(string obj, OperationType OpTy)
+        private void TheView_ADeleteSelectedFiles(DataGridViewSelectedRowCollection rows)
         {
-            theModel.reloadContent(obj, OpTy);
+            string result = theModel.DeleteSelectedFiles(rows);
+            if (result != "")
+                new ErrorForm(result).ShowDialog();
+        }
+
+        private void TheView_ReloadContent(string path, OperationType OpTy)
+        {
+            theModel.reloadContent(path, OpTy);
+            if (theModel.filesGrid.SortedColumn != null)
+            {
+                DataGridViewColumn col = theModel.filesGrid.SortedColumn;
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                col.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
             theView.SetTextBoxText(Settings.Default.CurrentPath);
         }
 

@@ -17,7 +17,7 @@ namespace KTZipPresentation.View
         public event Action AResizeEnd;
         public event Action<string, OperationType> AReloadContent;
         public event Action<DataGridViewSelectedRowCollection> ADeleteSelectedFiles;
-        public event Action<string> AContentDoubleClick;
+        public event Action<string, string> AContentDoubleClick;
 
         #region Other
         public MainWindow()
@@ -40,7 +40,7 @@ namespace KTZipPresentation.View
         }
         public void GetDataGrid(ref DataGridView dgv)
         {
-            dgv =  filesGrid;
+            dgv = filesGrid;
         }
         private void newFileDialog()
         {
@@ -52,12 +52,12 @@ namespace KTZipPresentation.View
         }
         private void newRenameDialog(DataGridViewSelectedRowCollection files)
         {
-            foreach(DataGridViewRow fileRow in files)
-            using (RenameForm form = new RenameForm(Settings.Default.CurrentPath+"\\", fileRow.Cells[1].Value.ToString()))
-            {
-                form.ShowDialog();
-                RefreshContent();
-            }
+            foreach (DataGridViewRow fileRow in files)
+                using (RenameForm form = new RenameForm(Settings.Default.CurrentPath + "\\", fileRow.Cells[1].Value.ToString()))
+                {
+                    form.ShowDialog();
+                    RefreshContent();
+                }
         }
         public void RefreshContent()
         {
@@ -117,7 +117,7 @@ namespace KTZipPresentation.View
         }
         #endregion
 
-        #region ButtonMethods
+        #region ButtonsMethods
         private void buttonBack_Click(object sender, EventArgs e)
         {
             AReloadContent("", OperationType.LoadPrev);
@@ -154,12 +154,12 @@ namespace KTZipPresentation.View
             }
         }
 
-        #region DataGridViewMethods
+        #region FilesGridViewMethods
         private void filesGrid_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && filesGrid.SelectedRows.Count==1)
+            if (e.KeyCode == Keys.Enter && filesGrid.SelectedRows.Count == 1)
             {
-                AReloadContent(Settings.Default.CurrentPath+"\\"+filesGrid.SelectedRows[0].Cells[1].Value.ToString(), OperationType.LoadNew);
+                AReloadContent(Settings.Default.CurrentPath + "\\" + filesGrid.SelectedRows[0].Cells[1].Value.ToString(), OperationType.LoadNew);
             }
         }
         private void filesGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -169,21 +169,21 @@ namespace KTZipPresentation.View
                 if (!filesGrid.SelectedRows.Contains(filesGrid.Rows[e.RowIndex]))
                     filesGrid.ClearSelection();
                 filesGrid.Rows[e.RowIndex].Selected = true;
-                //filesGrid_contextMenu.Items[0].Visible = true;
-                //filesGrid_contextMenu.Items[1].Visible = true;
-                //filesGrid_contextMenu.Items[3].Visible = true;
                 filesGrid_contextMenu.Show(Cursor.Position);
             }
         }
         private void filesGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && e.RowIndex != -1)
-                AReloadContent(textBox_Path.Text + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), OperationType.LoadNew);
-
+                AContentDoubleClick(textBox_Path.Text + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), filesGrid.Rows[e.RowIndex].Cells[5].Value.ToString());
         }
         private void filesGrid_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.XButton1)
+            if (e.Button == MouseButtons.Left && e.Location.Y > filesGrid.ColumnHeadersHeight + filesGrid.Rows.Cast<DataGridViewRow>().Sum(r => r.Height))
+            {
+                filesGrid.ClearSelection();
+            }
+            else if (e.Button == MouseButtons.XButton1)
             {
                 AReloadContent("", OperationType.LoadPrev);
             }
@@ -193,10 +193,26 @@ namespace KTZipPresentation.View
             }
             else if (e.Button == MouseButtons.Right && e.Y > filesGrid.Rows.GetRowsHeight(DataGridViewElementStates.Displayed))
             {
-                //filesGrid_contextMenu.Items[0].Visible = false;
-                //filesGrid_contextMenu.Items[1].Visible = false;
-                //filesGrid_contextMenu.Items[3].Visible = false;
                 filesGrid_contextMenu.Show(Cursor.Position);
+            }
+        }
+
+        private void filesGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            if (filesGrid.SelectedRows.Count > 0)
+            {
+                toolStripDeleteFile.Enabled = true;
+                contextDelete.Enabled = true;
+
+                toolStripChangeName.Enabled = true;
+                contextRename.Enabled = true;
+            }
+            else
+            {
+                toolStripDeleteFile.Enabled = false;
+                contextDelete.Enabled = false;
+                toolStripChangeName.Enabled = false;
+                contextRename.Enabled = false;
             }
         }
         #endregion
@@ -267,5 +283,6 @@ namespace KTZipPresentation.View
             newFileDialog();
         }
         #endregion
+
     }
 }
