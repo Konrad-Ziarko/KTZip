@@ -12,7 +12,8 @@ namespace KTZipPresentation
 {
     public partial class PreviewEditForm : Form
     {
-        public PreviewEditForm(string path)
+
+        public PreviewEditForm()
         {
             InitializeComponent();
         }

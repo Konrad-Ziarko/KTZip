@@ -2,6 +2,10 @@
 using KTZipPresentation.Properties;
 using KTZipPresentation.View;
 using System.Windows.Forms;
+using Be.Windows.Forms;
+using System.Threading;
+using System.Text;
+using System.IO;
 
 namespace KTZipPresentation.Control
 {
@@ -34,13 +38,13 @@ namespace KTZipPresentation.Control
         {
             if (attributes == "D")
                 TheView_ReloadContent(path, OperationType.LoadNew);
-            else if (attributes == "F")
-                using(PreviewEditForm prevForm = new PreviewEditForm(path))
-                {
-
-                }
-            else if (attributes == "A")
-                ;
+            else if (attributes == "F" || attributes == "A")
+            {
+                var prevEdit = new PreviewEditForm();
+                var hexBox = new HexBox { VScrollBarVisible = true, Dock = DockStyle.Fill, ByteProvider = new DynamicFileByteProvider(path) };
+                prevEdit.Controls.Add(hexBox);
+                prevEdit.ShowDialog();
+            }
         }
 
         private void TheView_ADeleteSelectedFiles(DataGridViewSelectedRowCollection rows)
