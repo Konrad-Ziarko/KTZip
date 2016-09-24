@@ -6,6 +6,7 @@ using Be.Windows.Forms;
 using System.Threading;
 using System.Text;
 using System.IO;
+using System.Drawing;
 
 namespace KTZipPresentation.Control
 {
@@ -33,7 +34,7 @@ namespace KTZipPresentation.Control
             this.theView.ADeleteSelectedFiles += TheView_ADeleteSelectedFiles;
             this.theView.AContentDoubleClick += TheView_AContentDoubleClick1;
         }
-
+    
         private void TheView_AContentDoubleClick1(string path, string attributes)
         {
             if (attributes == "D")
@@ -41,9 +42,20 @@ namespace KTZipPresentation.Control
             else if (attributes == "F" || attributes == "A")
             {
                 var prevEdit = new PreviewEditForm();
-                var hexBox = new HexBox { VScrollBarVisible = true, Dock = DockStyle.Fill, ByteProvider = new DynamicFileByteProvider(path) };
-                prevEdit.Controls.Add(hexBox);
-                prevEdit.ShowDialog();
+                var provider = new DynamicFileByteProvider(path);
+                using (var hexBox = new HexBox { VScrollBarVisible = true, Dock = DockStyle.Fill, ByteProvider = provider })
+                {
+                    hexBox.StringViewVisible = true;
+                    hexBox.ShadowSelectionVisible = true;
+                    hexBox.LineInfoVisible = true;
+                    hexBox.ColumnInfoVisible = true;
+                    hexBox.UseFixedBytesPerLine = true;
+                    hexBox.Font = new Font("Segoe", 11);
+                    prevEdit.addToPanel(hexBox);
+                    prevEdit.Width = hexBox.RequiredWidth+50;
+                    prevEdit.ShowDialog();
+                }
+                provider.Dispose();
             }
         }
 
