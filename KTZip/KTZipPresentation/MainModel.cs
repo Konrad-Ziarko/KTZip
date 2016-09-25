@@ -6,12 +6,13 @@ using System.IO;
 using System.Windows.Forms;
 using Trinet.Core.IO.Ntfs;
 using static KTZipPresentation.Control.MainControler;
+using System.Collections.Generic;
 
 namespace KTZipPresentation.Model
 {
     public class MainModel
     {
-        public string notDeletedFiles { get; set; }
+        public List<string> notDeletedFiles { get; set; }
         public DataGridView filesGrid { get; set; }
         public void SetDataGrid (ref DataGridView dgv)
         {
@@ -80,6 +81,10 @@ namespace KTZipPresentation.Model
             }
             else if (OpTy == OperationType.NoReload)
                 reload = false;
+            else if (!Directory.Exists(path))
+            {
+                MessageBox.Show("Nie ma takiej ścieżki!");
+            }
             if (reload)
             {
                 reloadDirs();
@@ -107,13 +112,51 @@ namespace KTZipPresentation.Model
                     img = ChangeOpacity(img);
                 filesGrid.Rows.Add(img, fileName, string.Format("{0:n0}", fileInfo.Length), modif, create, "F");
                 img = new Bitmap(Resources.stream, new Size(20, 20));
-
                 foreach (AlternateDataStreamInfo stream in fileInfo.ListAlternateDataStreams())
                 {
                     filesGrid.Rows.Add(img, fileName + ":" + stream.Name, stream.Size, "", "", "A");
                 }
             }
         }
+
+        internal List<string> TheModel_APasteFilesFromCopy(List<string> filesToCopy, string path)
+        {
+            List<string> notSuccessful = new List<string>();
+            foreach (string file in filesToCopy)
+            {
+                string[] afterSplit = file.Split('\\');
+                try
+                {
+                    File.Copy(file, path + '\\' + afterSplit[afterSplit.Length - 1]);
+                }
+                catch
+                {
+                    //
+                    notSuccessful.Add(file);
+                }
+            }
+            return notSuccessful;
+        }
+
+        internal List<string> TheModel_APasteFilesFromCut(List<string> filesToCut, string path)
+        {
+            List<string> notSuccessful = new List<string>();
+            foreach (string file in filesToCut)
+            {
+                string[] afterSplit = file.Split('\\');
+                try
+                {
+                    File.Move(file, path + '\\' +afterSplit[afterSplit.Length - 1]);
+                }
+                catch
+                {
+                    //
+                    notSuccessful.Add(file);
+                }
+            }
+            return notSuccessful;
+        }
+
         private void reloadDirs()
         {
             ClearGridDelagate d1 = new ClearGridDelagate(clearGrid);
@@ -121,6 +164,7 @@ namespace KTZipPresentation.Model
             if (!Directory.Exists(Settings.Default.CurrentPath))
                 Settings.Default.CurrentPath = @"C:\";
             string[] dirs = Directory.GetDirectories(Settings.Default.CurrentPath);
+
             foreach (string dir in dirs)
             {
                 string dirName = Path.GetFileName(dir);
@@ -148,6 +192,9 @@ namespace KTZipPresentation.Model
         }
         #endregion
 
+
+
+
         #region DataGrid
         public delegate void AddToGridDelegate(object ico, object dir_name, object size, object mod, object create);
         public void addToGrid(object ico, object dir_name, object size, object mod, object create)
@@ -162,10 +209,10 @@ namespace KTZipPresentation.Model
         #endregion
 
         #region OtherMethods
-        public string DeleteSelectedFiles(DataGridViewSelectedRowCollection obj)
+        public List<string> DeleteSelectedFiles(DataGridViewSelectedRowCollection obj)
         {
             string toDelete = "Czy chcesz usunąć następujące pliki:";
-            notDeletedFiles = "";
+            notDeletedFiles = new List<string>();
             if (obj.Count < 20)
             {
                 toDelete += "\n";
@@ -204,7 +251,7 @@ namespace KTZipPresentation.Model
                         }
                         catch
                         {
-                            notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
+                            notDeletedFiles.Add(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
                         }
                     else
                         try
@@ -213,7 +260,7 @@ namespace KTZipPresentation.Model
                         }
                         catch
                         {
-                            notDeletedFiles += Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString() + "?";
+                            notDeletedFiles.Add(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
                         }
                 }
             }
@@ -233,7 +280,7 @@ namespace KTZipPresentation.Model
                 }
                 catch
                 {
-                    notDeletedFiles += file + "?";
+                    notDeletedFiles.Add(file);
                 }
 
             }

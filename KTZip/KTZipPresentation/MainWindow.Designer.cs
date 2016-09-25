@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,8 +50,8 @@
             this.widokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox_Path = new System.Windows.Forms.TextBox();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.comboBox_Path = new System.Windows.Forms.ComboBox();
             this.panelTopLeft = new System.Windows.Forms.Panel();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
@@ -208,19 +208,9 @@
             this.toolStripOptions.Text = "Opcje";
             this.toolStripOptions.Click += new System.EventHandler(this.toolStripOptions_Click);
             // 
-            // textBox_Path
-            // 
-            this.textBox_Path.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Path.Location = new System.Drawing.Point(75, 0);
-            this.textBox_Path.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_Path.Name = "textBox_Path";
-            this.textBox_Path.Size = new System.Drawing.Size(521, 20);
-            this.textBox_Path.TabIndex = 2;
-            this.textBox_Path.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Path_KeyDown);
-            // 
             // panelTop
             // 
-            this.panelTop.Controls.Add(this.textBox_Path);
+            this.panelTop.Controls.Add(this.comboBox_Path);
             this.panelTop.Controls.Add(this.panelTopLeft);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 24);
@@ -228,6 +218,17 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(596, 20);
             this.panelTop.TabIndex = 6;
+            // 
+            // comboBox_Path
+            // 
+            this.comboBox_Path.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_Path.FormattingEnabled = true;
+            this.comboBox_Path.Location = new System.Drawing.Point(75, 0);
+            this.comboBox_Path.Name = "comboBox_Path";
+            this.comboBox_Path.Size = new System.Drawing.Size(521, 21);
+            this.comboBox_Path.TabIndex = 4;
+            this.comboBox_Path.SelectedIndexChanged += new System.EventHandler(this.comboBox_Path_SelectedIndexChanged);
+            this.comboBox_Path.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_Path_KeyDown);
             // 
             // panelTopLeft
             // 
@@ -315,14 +316,14 @@
             this.Modyfikowano,
             this.Utworzono,
             this.Atrybuty});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle8;
             this.filesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesGrid.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.filesGrid.Location = new System.Drawing.Point(0, 0);
@@ -340,6 +341,7 @@
             this.filesGrid.SelectionChanged += new System.EventHandler(this.filesGrid_SelectionChanged);
             this.filesGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filesGrid_KeyDown);
             this.filesGrid.MouseClick += new System.Windows.Forms.MouseEventHandler(this.filesGrid_MouseClick);
+            this.filesGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.filesGrid_MouseDown);
             // 
             // Ico
             // 
@@ -364,8 +366,8 @@
             // Rozmiar
             // 
             this.Rozmiar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle5;
             this.Rozmiar.HeaderText = "Rozmiar";
             this.Rozmiar.MinimumWidth = 80;
             this.Rozmiar.Name = "Rozmiar";
@@ -376,8 +378,8 @@
             // Modyfikowano
             // 
             this.Modyfikowano.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle6;
             this.Modyfikowano.HeaderText = "Modyfikowano";
             this.Modyfikowano.MinimumWidth = 80;
             this.Modyfikowano.Name = "Modyfikowano";
@@ -388,8 +390,8 @@
             // Utworzono
             // 
             this.Utworzono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle7;
             this.Utworzono.HeaderText = "Utworzono";
             this.Utworzono.MinimumWidth = 80;
             this.Utworzono.Name = "Utworzono";
@@ -418,7 +420,8 @@
             this.toolStripMenuItem5,
             this.contextProperties});
             this.filesGrid_contextMenu.Name = "filesGrid_contextMenu";
-            this.filesGrid_contextMenu.Size = new System.Drawing.Size(154, 176);
+            this.filesGrid_contextMenu.Size = new System.Drawing.Size(154, 198);
+            this.filesGrid_contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.filesGrid_contextMenu_Opening);
             // 
             // contextCreate
             // 
@@ -482,7 +485,6 @@
             // 
             // contextProperties
             // 
-            this.contextProperties.Enabled = false;
             this.contextProperties.Name = "contextProperties";
             this.contextProperties.Size = new System.Drawing.Size(153, 22);
             this.contextProperties.Text = "Właściwości";
@@ -512,7 +514,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panelTop.ResumeLayout(false);
-            this.panelTop.PerformLayout();
             this.panelTopLeft.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.filesGrid)).EndInit();
@@ -530,7 +531,6 @@
         private System.Windows.Forms.ToolStripMenuItem widokToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripOptions;
-        private System.Windows.Forms.TextBox textBox_Path;
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonNext;
@@ -566,6 +566,7 @@
         private System.Windows.Forms.ToolStripMenuItem contextProperties;
         private System.Windows.Forms.ToolStripMenuItem contextRename;
         private System.Windows.Forms.DataGridViewTextBoxColumn Atrybuty;
+        private System.Windows.Forms.ComboBox comboBox_Path;
     }
 }
 

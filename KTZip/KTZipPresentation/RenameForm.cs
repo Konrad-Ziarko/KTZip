@@ -38,7 +38,7 @@ namespace KTZipPresentation
             }
             catch (NotSupportedException)
             {
-                MessageBox.Show("Nie możesz nazwać pliku jak strumień alternatywny.");
+                MessageBox.Show("Operacje na strumieniach alternatywnych nie są wspierane.");
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using KTZipPresentation.Properties;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static KTZipPresentation.Control.MainControler;
@@ -12,30 +13,35 @@ namespace KTZipPresentation.View
         public event Action ASendGridTempl;
 
         public event Action AFormLoad;
-        public event Action AFormClosing;
         public event Action ADragDrop;
-        public event Action AResizeEnd;
         public event Action<string, OperationType> AReloadContent;
         public event Action<DataGridViewSelectedRowCollection> ADeleteSelectedFiles;
         public event Action<string, string> AContentDoubleClick;
+        public event Action<DataGridViewSelectedRowCollection> AShowProperties;
+        public event Action<DataGridViewSelectedRowCollection> ACutFiles;
+        public event Action<DataGridViewSelectedRowCollection> ACopyFiles;
+        public event Action<string> APasteFiles;
 
         #region Other
         public MainWindow()
         {
             InitializeComponent();
             filesGrid.RowTemplate.Height = 21;
+            DriveInfo[] allDrives = DriveInfo.GetDrives();
+            foreach (var drive in allDrives)
+                comboBox_Path.Items.Add(drive);
         }
         public delegate void SetTextDelegate(string txt);
-        public void SetTextBoxText(string txt)
+        public void SetComboBoxText(string txt)
         {
             if (InvokeRequired)
             {
-                SetTextDelegate d = new SetTextDelegate(SetTextBoxText);
+                SetTextDelegate d = new SetTextDelegate(SetComboBoxText);
                 Invoke(d, txt);
             }
             else
             {
-                textBox_Path.Text = txt;
+                comboBox_Path.Text = txt;
             }
         }
         public void GetDataGrid(ref DataGridView dgv)
@@ -63,13 +69,24 @@ namespace KTZipPresentation.View
         {
             AReloadContent("", OperationType.Reload);
         }
+        private void comboBox_Path_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AReloadContent(comboBox_Path.Text, OperationType.LoadNew);
+            }
+        }
+        private void comboBox_Path_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AReloadContent(comboBox_Path.Text, OperationType.LoadNew);
+        }
         #endregion
 
         #region MainFormMethods
         private void MainWindow_Shown(object sender, EventArgs e)
         {
             ASendGridTempl();
-            AReloadContent(textBox_Path.Text, OperationType.FirstLoad);
+            AReloadContent(comboBox_Path.Text, OperationType.FirstLoad);
             MainWindow_Resize(sender, e);
         }
         private void MainWindow_Resize(object sender, EventArgs e)
@@ -96,6 +113,12 @@ namespace KTZipPresentation.View
             widthToFill -= filesGrid.Columns[2].Width;
             filesGrid.Columns[1].Width = widthToFill;
         }
+
+        internal void resetCutPaste()
+        {
+            contextPaste.Enabled = false;
+        }
+
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F5)
@@ -108,10 +131,6 @@ namespace KTZipPresentation.View
             Settings.Default.Save();
         }
         private void MainWindow_DragDrop(object sender, DragEventArgs e)
-        {
-
-        }
-        private void MainWindow_LocationChanged(object sender, EventArgs e)
         {
 
         }
@@ -145,15 +164,7 @@ namespace KTZipPresentation.View
             RefreshContent();
         }
         #endregion
-
-        private void textBox_Path_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                AReloadContent(textBox_Path.Text, OperationType.LoadNew);
-            }
-        }
-
+        
         #region FilesGridViewMethods
         private void filesGrid_KeyDown(object sender, KeyEventArgs e)
         {
@@ -166,16 +177,23 @@ namespace KTZipPresentation.View
         {
             if (e.RowIndex != -1 && e.Button == MouseButtons.Right)
             {
-                if (!filesGrid.SelectedRows.Contains(filesGrid.Rows[e.RowIndex]))
-                    filesGrid.ClearSelection();
                 filesGrid.Rows[e.RowIndex].Selected = true;
                 filesGrid_contextMenu.Show(Cursor.Position);
             }
         }
+        private void filesGrid_MouseDown(object sender, MouseEventArgs e)
+        {
+            DataGridView.HitTestInfo myHitTest = filesGrid.HitTest(e.X, e.Y);
+            if (e.Button == MouseButtons.Right && myHitTest.RowIndex == -1)
+            {
+                filesGrid.ClearSelection();
+            }
+            filesGrid_CellMouseClick(sender, new DataGridViewCellMouseEventArgs(myHitTest.ColumnIndex, myHitTest.RowIndex, e.X, e.Y, e));
+        }
         private void filesGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && e.RowIndex != -1)
-                AContentDoubleClick(textBox_Path.Text + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), filesGrid.Rows[e.RowIndex].Cells[5].Value.ToString());
+                AContentDoubleClick(Settings.Default.CurrentPath + '\\' + filesGrid.Rows[e.RowIndex].Cells[1].Value.ToString(), filesGrid.Rows[e.RowIndex].Cells[5].Value.ToString());
         }
         private void filesGrid_MouseClick(object sender, MouseEventArgs e)
         {
@@ -196,16 +214,17 @@ namespace KTZipPresentation.View
                 filesGrid_contextMenu.Show(Cursor.Position);
             }
         }
-
         private void filesGrid_SelectionChanged(object sender, EventArgs e)
         {
             if (filesGrid.SelectedRows.Count > 0)
             {
                 toolStripDeleteFile.Enabled = true;
                 contextDelete.Enabled = true;
-
                 toolStripChangeName.Enabled = true;
                 contextRename.Enabled = true;
+
+                contextCut.Enabled = true;
+                contextCopy.Enabled = true;
             }
             else
             {
@@ -213,6 +232,9 @@ namespace KTZipPresentation.View
                 contextDelete.Enabled = false;
                 toolStripChangeName.Enabled = false;
                 contextRename.Enabled = false;
+
+                contextCut.Enabled = false;
+                contextCopy.Enabled = false;
             }
         }
         #endregion
@@ -244,7 +266,7 @@ namespace KTZipPresentation.View
 
         private void toolStripFileProperties_Click(object sender, EventArgs e)
         {
-
+            AShowProperties(filesGrid.SelectedRows);
         }
 
         private void toolStripOptions_Click(object sender, EventArgs e)
@@ -252,18 +274,38 @@ namespace KTZipPresentation.View
 
         }
         #endregion
+
         #region ContextMenu
         private void contextCut_Click(object sender, EventArgs e)
         {
-
+            ACutFiles(filesGrid.SelectedRows);
+            contextPaste.Enabled = true;
         }
         private void contextCopy_Click(object sender, EventArgs e)
         {
-
+            ACopyFiles(filesGrid.SelectedRows);
+            contextPaste.Enabled = true;
         }
         private void contextPaste_Click(object sender, EventArgs e)
         {
-
+            string whereToPaste = string.Empty;
+            if (filesGrid.SelectedRows.Count == 1)
+            {
+                foreach (DataGridViewRow row in filesGrid.SelectedRows)
+                {
+                    FileAttributes attributes = File.GetAttributes(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                    if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                        whereToPaste = Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString();
+                    else
+                        whereToPaste = Settings.Default.CurrentPath;
+                }
+            }
+            else
+            {
+                whereToPaste = Settings.Default.CurrentPath;
+            }
+            APasteFiles(whereToPaste);
+            RefreshContent();
         }
         private void contextRename_Click(object sender, EventArgs e)
         {
@@ -271,7 +313,7 @@ namespace KTZipPresentation.View
         }
         private void contextProperties_Click(object sender, EventArgs e)
         {
-
+            AShowProperties(filesGrid.SelectedRows);
         }
         private void contextDelete_Click(object sender, EventArgs e)
         {
@@ -282,7 +324,12 @@ namespace KTZipPresentation.View
         {
             newFileDialog();
         }
+        private void filesGrid_contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
         #endregion
+
 
     }
 }

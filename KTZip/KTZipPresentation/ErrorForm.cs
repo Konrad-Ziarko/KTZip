@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace KTZipPresentation
 {
     public partial class ErrorForm : Form
     {
-        string err;
-        public ErrorForm(string e)
+        List<string> content;
+        public ErrorForm(List<string> e, string labelText)
         {
             InitializeComponent();
-            err = e;            
+            content = e;
+            label1.Text = labelText;
         }
 
         private void ErrorForm_Load(object sender, EventArgs e)
         {
-            foreach (string s in err.Split('?'))
+            foreach (string s in content)
                 listView1.Items.Add(new ListViewItem(s));
         }
     }

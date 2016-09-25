@@ -46,22 +46,23 @@ namespace KTZipPresentation
 
         private void PreviewEditForm_SizeChanged(object sender, EventArgs e)
         {
-            int width = hexPanel.Width-50;
+            int width = hexPanel.Width-40;
             int widthLeft = box.RequiredWidth - width;
             float fontSize = box.Font.Size;
             if (widthLeft < 0)
             {
                 widthLeft *= -1;
             }
-            while (widthLeft > 50)
+            int i = 0;
+            while (widthLeft > 50 && i < 1000)
             {
-
-                if (box.RequiredWidth - width > 5)
+                i++;
+                if (box.RequiredWidth > width)
                 {
                     fontSize -= 0.1f;
                     box.Font = new Font("Segoe", fontSize);
                 }
-                else if (box.RequiredWidth - width < -5)
+                else if (box.RequiredWidth < width)
                 {
                     fontSize += 0.1f;
                     box.Font = new Font("Segoe", fontSize);
