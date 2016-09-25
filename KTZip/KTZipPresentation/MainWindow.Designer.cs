@@ -49,9 +49,9 @@
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripFileProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.widokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nightModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.nightModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTop = new System.Windows.Forms.Panel();
             this.comboBox_Path = new System.Windows.Forms.ComboBox();
             this.panelTopLeft = new System.Windows.Forms.Panel();
@@ -61,6 +61,12 @@
             this.buttonUp = new System.Windows.Forms.Button();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.filesGrid = new System.Windows.Forms.DataGridView();
+            this.Ico = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Nazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rozmiar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Modyfikowano = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Utworzono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Atrybuty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.filesGrid_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextCreate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -72,12 +78,6 @@
             this.contextDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.contextProperties = new System.Windows.Forms.ToolStripMenuItem();
-            this.Ico = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Nazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rozmiar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Modyfikowano = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Utworzono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Atrybuty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelTopLeft.SuspendLayout();
@@ -115,7 +115,7 @@
             // toolStripNewFolder
             // 
             this.toolStripNewFolder.Name = "toolStripNewFolder";
-            this.toolStripNewFolder.Size = new System.Drawing.Size(152, 22);
+            this.toolStripNewFolder.Size = new System.Drawing.Size(118, 22);
             this.toolStripNewFolder.Text = "Nowy...";
             this.toolStripNewFolder.Click += new System.EventHandler(this.toolStripNewFolder_Click);
             // 
@@ -123,12 +123,12 @@
             // 
             this.toolStripMenuItem1.BackColor = System.Drawing.SystemColors.Desktop;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(115, 6);
             // 
             // toolStripEnd
             // 
             this.toolStripEnd.Name = "toolStripEnd";
-            this.toolStripEnd.Size = new System.Drawing.Size(152, 22);
+            this.toolStripEnd.Size = new System.Drawing.Size(118, 22);
             this.toolStripEnd.Text = "Zakończ";
             this.toolStripEnd.Click += new System.EventHandler(this.toolStripEnd_Click);
             // 
@@ -192,15 +192,23 @@
             // 
             // widokToolStripMenuItem
             // 
+            this.widokToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nightModeToolStripMenuItem});
             this.widokToolStripMenuItem.Name = "widokToolStripMenuItem";
             this.widokToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.widokToolStripMenuItem.Text = "Widok";
             // 
+            // nightModeToolStripMenuItem
+            // 
+            this.nightModeToolStripMenuItem.Name = "nightModeToolStripMenuItem";
+            this.nightModeToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.nightModeToolStripMenuItem.Text = "Tryb Nocny";
+            this.nightModeToolStripMenuItem.Click += new System.EventHandler(this.nightModeToolStripMenuItem_Click);
+            // 
             // inneToolStripMenuItem
             // 
             this.inneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripOptions,
-            this.nightModeToolStripMenuItem});
+            this.toolStripOptions});
             this.inneToolStripMenuItem.Name = "inneToolStripMenuItem";
             this.inneToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.inneToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
@@ -209,18 +217,9 @@
             // toolStripOptions
             // 
             this.toolStripOptions.Name = "toolStripOptions";
-            this.toolStripOptions.Size = new System.Drawing.Size(152, 22);
+            this.toolStripOptions.Size = new System.Drawing.Size(105, 22);
             this.toolStripOptions.Text = "Opcje";
             this.toolStripOptions.Click += new System.EventHandler(this.toolStripOptions_Click);
-            // 
-            // nightModeToolStripMenuItem
-            // 
-            this.nightModeToolStripMenuItem.Checked = true;
-            this.nightModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.nightModeToolStripMenuItem.Name = "nightModeToolStripMenuItem";
-            this.nightModeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.nightModeToolStripMenuItem.Text = "Tryb Nocny";
-            this.nightModeToolStripMenuItem.Click += new System.EventHandler(this.nightModeToolStripMenuItem_Click);
             // 
             // panelTop
             // 
@@ -369,6 +368,68 @@
             this.filesGrid.MouseClick += new System.Windows.Forms.MouseEventHandler(this.filesGrid_MouseClick);
             this.filesGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.filesGrid_MouseDown);
             // 
+            // Ico
+            // 
+            this.Ico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Ico.Frozen = true;
+            this.Ico.HeaderText = "";
+            this.Ico.Name = "Ico";
+            this.Ico.ReadOnly = true;
+            this.Ico.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Ico.Width = 17;
+            // 
+            // Nazwa
+            // 
+            this.Nazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Nazwa.Frozen = true;
+            this.Nazwa.HeaderText = "Nazwa";
+            this.Nazwa.MinimumWidth = 100;
+            this.Nazwa.Name = "Nazwa";
+            this.Nazwa.ReadOnly = true;
+            this.Nazwa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Rozmiar
+            // 
+            this.Rozmiar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Rozmiar.HeaderText = "Rozmiar";
+            this.Rozmiar.MinimumWidth = 80;
+            this.Rozmiar.Name = "Rozmiar";
+            this.Rozmiar.ReadOnly = true;
+            this.Rozmiar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Rozmiar.Width = 89;
+            // 
+            // Modyfikowano
+            // 
+            this.Modyfikowano.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Modyfikowano.HeaderText = "Modyfikowano";
+            this.Modyfikowano.MinimumWidth = 80;
+            this.Modyfikowano.Name = "Modyfikowano";
+            this.Modyfikowano.ReadOnly = true;
+            this.Modyfikowano.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Modyfikowano.Width = 126;
+            // 
+            // Utworzono
+            // 
+            this.Utworzono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Utworzono.HeaderText = "Utworzono";
+            this.Utworzono.MinimumWidth = 80;
+            this.Utworzono.Name = "Utworzono";
+            this.Utworzono.ReadOnly = true;
+            this.Utworzono.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Utworzono.Width = 104;
+            // 
+            // Atrybuty
+            // 
+            this.Atrybuty.HeaderText = "Atrybuty";
+            this.Atrybuty.Name = "Atrybuty";
+            this.Atrybuty.Visible = false;
+            // 
             // filesGrid_contextMenu
             // 
             this.filesGrid_contextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -454,68 +515,6 @@
             this.contextProperties.Text = "Właściwości";
             this.contextProperties.Click += new System.EventHandler(this.contextProperties_Click);
             // 
-            // Ico
-            // 
-            this.Ico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Ico.Frozen = true;
-            this.Ico.HeaderText = "";
-            this.Ico.Name = "Ico";
-            this.Ico.ReadOnly = true;
-            this.Ico.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Ico.Width = 17;
-            // 
-            // Nazwa
-            // 
-            this.Nazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Nazwa.Frozen = true;
-            this.Nazwa.HeaderText = "Nazwa";
-            this.Nazwa.MinimumWidth = 100;
-            this.Nazwa.Name = "Nazwa";
-            this.Nazwa.ReadOnly = true;
-            this.Nazwa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Rozmiar
-            // 
-            this.Rozmiar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Rozmiar.HeaderText = "Rozmiar";
-            this.Rozmiar.MinimumWidth = 80;
-            this.Rozmiar.Name = "Rozmiar";
-            this.Rozmiar.ReadOnly = true;
-            this.Rozmiar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Rozmiar.Width = 89;
-            // 
-            // Modyfikowano
-            // 
-            this.Modyfikowano.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Modyfikowano.HeaderText = "Modyfikowano";
-            this.Modyfikowano.MinimumWidth = 80;
-            this.Modyfikowano.Name = "Modyfikowano";
-            this.Modyfikowano.ReadOnly = true;
-            this.Modyfikowano.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Modyfikowano.Width = 126;
-            // 
-            // Utworzono
-            // 
-            this.Utworzono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Utworzono.HeaderText = "Utworzono";
-            this.Utworzono.MinimumWidth = 80;
-            this.Utworzono.Name = "Utworzono";
-            this.Utworzono.ReadOnly = true;
-            this.Utworzono.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Utworzono.Width = 104;
-            // 
-            // Atrybuty
-            // 
-            this.Atrybuty.HeaderText = "Atrybuty";
-            this.Atrybuty.Name = "Atrybuty";
-            this.Atrybuty.Visible = false;
-            // 
             // MainWindow
             // 
             this.AllowDrop = true;
@@ -588,13 +587,13 @@
         private System.Windows.Forms.ToolStripMenuItem contextProperties;
         private System.Windows.Forms.ToolStripMenuItem contextRename;
         private System.Windows.Forms.ComboBox comboBox_Path;
-        private System.Windows.Forms.ToolStripMenuItem nightModeToolStripMenuItem;
         private System.Windows.Forms.DataGridViewImageColumn Ico;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nazwa;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rozmiar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Modyfikowano;
         private System.Windows.Forms.DataGridViewTextBoxColumn Utworzono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Atrybuty;
+        private System.Windows.Forms.ToolStripMenuItem nightModeToolStripMenuItem;
     }
 }
 

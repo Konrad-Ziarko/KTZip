@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Trinet.Core.IO.Ntfs;
 using static KTZipPresentation.Control.MainControler;
 using System.Collections.Generic;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace KTZipPresentation.Model
 {
@@ -14,7 +16,7 @@ namespace KTZipPresentation.Model
     {
         public List<string> notDeletedFiles { get; set; }
         public DataGridView filesGrid { get; set; }
-        public void SetDataGrid (ref DataGridView dgv)
+        public void SetDataGrid(ref DataGridView dgv)
         {
             filesGrid = dgv;
         }
@@ -146,7 +148,7 @@ namespace KTZipPresentation.Model
                 string[] afterSplit = file.Split('\\');
                 try
                 {
-                    File.Move(file, path + '\\' +afterSplit[afterSplit.Length - 1]);
+                    File.Move(file, path + '\\' + afterSplit[afterSplit.Length - 1]);
                 }
                 catch
                 {
@@ -217,12 +219,19 @@ namespace KTZipPresentation.Model
                 foreach (DataGridViewRow row in obj)
                 {
                     toDelete += row.Cells[1].Value.ToString();
-                    if (row.Cells[2].Value.ToString() == "")
+                    try
                     {
-                        DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
-                        toDelete += "(Folderów: " + di.GetDirectories().Length + ",  Plików: " + di.GetFiles().Length + ")";
+                        if (row.Cells[2].Value.ToString() == "")
+                        {
+                            DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+                            toDelete += "(Folderów: " + di.GetDirectories().Length + ",  Plików: " + di.GetFiles().Length + ")";
+                        }
+                        toDelete += "\n";
                     }
-                    toDelete += "\n";
+                    catch
+                    {
+
+                    }
                 }
             }
             else
@@ -238,13 +247,14 @@ namespace KTZipPresentation.Model
                     {
                         string[] split = row.Cells[1].Value.ToString().Split(':');
                         FileInfo fi = new FileInfo(Settings.Default.CurrentPath + "\\" + split[0]);
-                        fi.DeleteAlternateDataStream(split[1]);
                         DirectoryInfo di = new DirectoryInfo(Settings.Default.CurrentPath + "\\" + split[0]);
+                        di.Attributes = FileAttributes.Normal;
                         di.DeleteAlternateDataStream(split[1]);
                     }
                     else if (row.Cells[2].Value.ToString() != "")
                         try
                         {
+                            File.SetAttributes(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString(), FileAttributes.Normal);
                             File.Delete(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
                         }
                         catch
@@ -254,6 +264,7 @@ namespace KTZipPresentation.Model
                     else
                         try
                         {
+
                             DeleteDirectory(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
                         }
                         catch
@@ -287,7 +298,6 @@ namespace KTZipPresentation.Model
             {
                 DeleteDirectory(dir);
             }
-
             Directory.Delete(target_dir, false);
         }
         #endregion

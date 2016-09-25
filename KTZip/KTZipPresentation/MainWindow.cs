@@ -30,6 +30,7 @@ namespace KTZipPresentation.View
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             foreach (var drive in allDrives)
                 comboBox_Path.Items.Add(drive);
+            nightModeToolStripMenuItem.Checked = Settings.Default.NightMode;
             switchNightMode();
         }
         public delegate void SetTextDelegate(string txt);
