@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using KTZipPresentation.Properties;
+using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KTZipPresentation
@@ -45,6 +40,23 @@ namespace KTZipPresentation
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void RenameForm_Load(object sender, EventArgs e)
+        {
+            Color BackColor, ForeColor;
+            if (Settings.Default.NightMode)
+            {
+                BackColor = SystemColors.Desktop;
+                ForeColor = Color.FromArgb(255, 200, 200, 200);
+                foreach (System.Windows.Forms.Control item in this.Controls)
+                {
+                    item.BackColor = BackColor;
+                    item.ForeColor = ForeColor;
+                }
+                this.BackColor = BackColor;
+                this.ForeColor = ForeColor;
+            }
         }
     }
 }

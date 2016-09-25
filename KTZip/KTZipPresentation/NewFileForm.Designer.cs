@@ -38,27 +38,29 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(19, 12);
+            this.textBox1.Location = new System.Drawing.Point(14, 10);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 22);
+            this.textBox1.Size = new System.Drawing.Size(188, 20);
             this.textBox1.TabIndex = 0;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(19, 127);
+            this.checkBox1.Location = new System.Drawing.Point(14, 103);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(66, 21);
+            this.checkBox1.Size = new System.Drawing.Size(52, 17);
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "folder";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(19, 161);
-            this.button1.Margin = new System.Windows.Forms.Padding(10);
+            this.button1.Location = new System.Drawing.Point(14, 131);
+            this.button1.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(62, 25);
             this.button1.TabIndex = 2;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
@@ -66,9 +68,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(161, 161);
+            this.button2.Location = new System.Drawing.Point(135, 131);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(67, 25);
             this.button2.TabIndex = 3;
             this.button2.Text = "Zamknij";
             this.button2.UseVisualStyleBackColor = true;
@@ -76,26 +79,28 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(19, 49);
+            this.textBox2.Location = new System.Drawing.Point(14, 40);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(146, 22);
+            this.textBox2.Size = new System.Drawing.Size(110, 20);
             this.textBox2.TabIndex = 4;
             this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(19, 86);
+            this.textBox3.Location = new System.Drawing.Point(14, 70);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(146, 22);
+            this.textBox3.Size = new System.Drawing.Size(110, 20);
             this.textBox3.TabIndex = 5;
             this.textBox3.Enter += new System.EventHandler(this.textBox3_Enter);
             // 
             // NewFileForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(281, 203);
+            this.ClientSize = new System.Drawing.Size(233, 167);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button2);
@@ -103,6 +108,7 @@
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewFileForm";

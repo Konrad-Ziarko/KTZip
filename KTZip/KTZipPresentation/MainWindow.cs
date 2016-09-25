@@ -30,6 +30,7 @@ namespace KTZipPresentation.View
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             foreach (var drive in allDrives)
                 comboBox_Path.Items.Add(drive);
+            switchNightMode();
         }
         public delegate void SetTextDelegate(string txt);
         public void SetComboBoxText(string txt)
@@ -79,6 +80,71 @@ namespace KTZipPresentation.View
         private void comboBox_Path_SelectedIndexChanged(object sender, EventArgs e)
         {
             AReloadContent(comboBox_Path.Text, OperationType.LoadNew);
+        }
+        private void switchNightMode()
+        {
+            Color BackColor, ForeColor;
+            if (Settings.Default.NightMode)
+            {
+                BackColor = SystemColors.Desktop;
+                ForeColor = Color.FromArgb(255, 200, 200, 200);
+            }
+            else
+            {
+                BackColor = SystemColors.Control;
+                ForeColor = Color.FromArgb(255, 0, 0, 0);
+            }
+
+            foreach (System.Windows.Forms.Control item in this.Controls)
+            {
+                item.BackColor = BackColor;
+                item.ForeColor = ForeColor;
+            }
+            foreach (var item in menuStrip1.Items)
+            {
+                foreach (var child in ((ToolStripMenuItem)item).DropDownItems)
+                {
+                    if (child.GetType() == typeof(ToolStripMenuItem))
+                    {
+                        ((ToolStripMenuItem)child).BackColor = BackColor;
+                        ((ToolStripMenuItem)child).ForeColor = ForeColor;
+                    }
+                    else if ((child.GetType() == typeof(ToolStripSeparator)) && Settings.Default.NightMode)
+                        ((ToolStripSeparator)child).Paint += BlackToolStripSeparator_Paint;
+                    else if ((child.GetType() == typeof(ToolStripSeparator)) && !Settings.Default.NightMode)
+                        ((ToolStripSeparator)child).Paint += WhiteToolStripSeparator_Paint;
+                }
+                if (item.GetType() == typeof(ToolStripMenuItem))
+                {
+                    ((ToolStripMenuItem)item).BackColor = BackColor;
+                    ((ToolStripMenuItem)item).ForeColor = ForeColor;
+                }
+                else if ((item.GetType() == typeof(ToolStripSeparator)) && Settings.Default.NightMode)
+                    ((ToolStripSeparator)item).Paint += BlackToolStripSeparator_Paint;
+                else if ((item.GetType() == typeof(ToolStripSeparator)) && !Settings.Default.NightMode)
+                    ((ToolStripSeparator)item).Paint += WhiteToolStripSeparator_Paint;
+            }
+
+            foreach (var item in filesGrid_contextMenu.Items)
+            {
+                if (item.GetType() == typeof(ToolStripMenuItem))
+                {
+                    ((ToolStripMenuItem)item).BackColor = BackColor;
+                    ((ToolStripMenuItem)item).ForeColor = ForeColor;
+                }
+                else if ((item.GetType() == typeof(ToolStripSeparator)) && Settings.Default.NightMode)
+                    ((ToolStripSeparator)item).Paint += BlackToolStripSeparator_Paint;
+                else if ((item.GetType() == typeof(ToolStripSeparator)) && !Settings.Default.NightMode)
+                    ((ToolStripSeparator)item).Paint += WhiteToolStripSeparator_Paint;
+            }
+
+            filesGrid.BackgroundColor = BackColor;
+            filesGrid.DefaultCellStyle.BackColor = BackColor;
+            filesGrid.ColumnHeadersDefaultCellStyle.BackColor = BackColor;
+            comboBox_Path.BackColor = BackColor;
+            filesGrid.ForeColor = ForeColor;
+            filesGrid.ColumnHeadersDefaultCellStyle.ForeColor = ForeColor;
+            comboBox_Path.ForeColor = ForeColor;
         }
         #endregion
 
@@ -164,7 +230,7 @@ namespace KTZipPresentation.View
             RefreshContent();
         }
         #endregion
-        
+
         #region FilesGridViewMethods
         private void filesGrid_KeyDown(object sender, KeyEventArgs e)
         {
@@ -244,6 +310,7 @@ namespace KTZipPresentation.View
         {
             newFileDialog();
         }
+
         private void toolStripEnd_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -273,6 +340,14 @@ namespace KTZipPresentation.View
         {
 
         }
+
+        private void nightModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.Default.NightMode = !nightModeToolStripMenuItem.Checked;
+            nightModeToolStripMenuItem.Checked = !nightModeToolStripMenuItem.Checked;
+            switchNightMode();
+        }
+
         #endregion
 
         #region ContextMenu
@@ -328,8 +403,35 @@ namespace KTZipPresentation.View
         {
 
         }
+
         #endregion
 
+        #region CustomeMenuItemSeparator
 
+        private void BlackToolStripSeparator_Paint(object sender, PaintEventArgs e)
+        {
+            ToolStripSeparator toolStripSeparator = (ToolStripSeparator)sender;
+            int width = toolStripSeparator.Width;
+            int height = toolStripSeparator.Height;
+
+            Color foreColor = Color.FromArgb(255, 200, 200, 200);
+            Color backColor = SystemColors.Desktop;
+
+            e.Graphics.FillRectangle(new SolidBrush(backColor), 0, 0, width, height);
+            e.Graphics.DrawLine(new Pen(foreColor), 4, height / 2, width - 4, height / 2);
+        }
+        private void WhiteToolStripSeparator_Paint(object sender, PaintEventArgs e)
+        {
+            ToolStripSeparator toolStripSeparator = (ToolStripSeparator)sender;
+            int width = toolStripSeparator.Width;
+            int height = toolStripSeparator.Height;
+
+            Color foreColor = Color.FromArgb(255, 0, 0, 0);
+            Color backColor = SystemColors.Window;
+
+            e.Graphics.FillRectangle(new SolidBrush(backColor), 0, 0, width, height);
+            e.Graphics.DrawLine(new Pen(foreColor), 4, height / 2, width - 4, height / 2);
+        }
+        #endregion
     }
 }

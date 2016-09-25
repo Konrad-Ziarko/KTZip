@@ -131,7 +131,7 @@ namespace KTZipPresentation.Model
                 }
                 catch
                 {
-                    //
+                    //obsluga folderow
                     notSuccessful.Add(file);
                 }
             }
@@ -150,7 +150,7 @@ namespace KTZipPresentation.Model
                 }
                 catch
                 {
-                    //
+                    //obsluga folderow
                     notSuccessful.Add(file);
                 }
             }
@@ -192,9 +192,6 @@ namespace KTZipPresentation.Model
         }
         #endregion
 
-
-
-
         #region DataGrid
         public delegate void AddToGridDelegate(object ico, object dir_name, object size, object mod, object create);
         public void addToGrid(object ico, object dir_name, object size, object mod, object create)
@@ -211,6 +208,7 @@ namespace KTZipPresentation.Model
         #region OtherMethods
         public List<string> DeleteSelectedFiles(DataGridViewSelectedRowCollection obj)
         {
+            //czyscic pliki z atrybutow do usuwania
             string toDelete = "Czy chcesz usunąć następujące pliki:";
             notDeletedFiles = new List<string>();
             if (obj.Count < 20)

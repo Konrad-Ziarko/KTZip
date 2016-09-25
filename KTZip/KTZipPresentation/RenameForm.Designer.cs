@@ -38,25 +38,28 @@
             // 
             this.textBox1.Enabled = false;
             this.textBox1.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox1.Location = new System.Drawing.Point(26, 22);
+            this.textBox1.Location = new System.Drawing.Point(20, 18);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(314, 29);
+            this.textBox1.Size = new System.Drawing.Size(236, 25);
             this.textBox1.TabIndex = 0;
             // 
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox2.Location = new System.Drawing.Point(26, 81);
+            this.textBox2.Location = new System.Drawing.Point(20, 66);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(314, 29);
+            this.textBox2.Size = new System.Drawing.Size(236, 25);
             this.textBox2.TabIndex = 1;
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Tahoma", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(26, 139);
+            this.button1.Location = new System.Drawing.Point(20, 113);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 30);
+            this.button1.Size = new System.Drawing.Size(62, 24);
             this.button1.TabIndex = 2;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
@@ -65,9 +68,10 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Tahoma", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button2.Location = new System.Drawing.Point(258, 139);
+            this.button2.Location = new System.Drawing.Point(194, 113);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 30);
+            this.button2.Size = new System.Drawing.Size(62, 24);
             this.button2.TabIndex = 3;
             this.button2.Text = "Anuluj";
             this.button2.UseVisualStyleBackColor = true;
@@ -75,19 +79,21 @@
             // 
             // RenameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 205);
+            this.ClientSize = new System.Drawing.Size(277, 167);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RenameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Zmień nazwę pliku";
+            this.Load += new System.EventHandler(this.RenameForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

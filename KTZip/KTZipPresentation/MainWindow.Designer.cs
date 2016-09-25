@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +51,7 @@
             this.widokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.nightModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTop = new System.Windows.Forms.Panel();
             this.comboBox_Path = new System.Windows.Forms.ComboBox();
             this.panelTopLeft = new System.Windows.Forms.Panel();
@@ -59,12 +61,6 @@
             this.buttonUp = new System.Windows.Forms.Button();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.filesGrid = new System.Windows.Forms.DataGridView();
-            this.Ico = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Nazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rozmiar = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Modyfikowano = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Utworzono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Atrybuty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.filesGrid_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextCreate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -76,6 +72,12 @@
             this.contextDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.contextProperties = new System.Windows.Forms.ToolStripMenuItem();
+            this.Ico = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Nazwa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rozmiar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Modyfikowano = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Utworzono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Atrybuty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelTopLeft.SuspendLayout();
@@ -86,6 +88,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plikToolStripMenuItem,
@@ -118,6 +121,7 @@
             // 
             // toolStripMenuItem1
             // 
+            this.toolStripMenuItem1.BackColor = System.Drawing.SystemColors.Desktop;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
@@ -195,7 +199,8 @@
             // inneToolStripMenuItem
             // 
             this.inneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripOptions});
+            this.toolStripOptions,
+            this.nightModeToolStripMenuItem});
             this.inneToolStripMenuItem.Name = "inneToolStripMenuItem";
             this.inneToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.inneToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
@@ -204,9 +209,18 @@
             // toolStripOptions
             // 
             this.toolStripOptions.Name = "toolStripOptions";
-            this.toolStripOptions.Size = new System.Drawing.Size(105, 22);
+            this.toolStripOptions.Size = new System.Drawing.Size(152, 22);
             this.toolStripOptions.Text = "Opcje";
             this.toolStripOptions.Click += new System.EventHandler(this.toolStripOptions_Click);
+            // 
+            // nightModeToolStripMenuItem
+            // 
+            this.nightModeToolStripMenuItem.Checked = true;
+            this.nightModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.nightModeToolStripMenuItem.Name = "nightModeToolStripMenuItem";
+            this.nightModeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nightModeToolStripMenuItem.Text = "Tryb Nocny";
+            this.nightModeToolStripMenuItem.Click += new System.EventHandler(this.nightModeToolStripMenuItem_Click);
             // 
             // panelTop
             // 
@@ -245,6 +259,7 @@
             // 
             // buttonRefresh
             // 
+            this.buttonRefresh.BackColor = System.Drawing.SystemColors.Desktop;
             this.buttonRefresh.BackgroundImage = global::KTZipPresentation.Properties.Resources.refresh;
             this.buttonRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonRefresh.Location = new System.Drawing.Point(56, 0);
@@ -257,8 +272,10 @@
             // 
             // buttonBack
             // 
+            this.buttonBack.BackColor = System.Drawing.SystemColors.Control;
             this.buttonBack.BackgroundImage = global::KTZipPresentation.Properties.Resources.left;
             this.buttonBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonBack.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonBack.Location = new System.Drawing.Point(0, 0);
             this.buttonBack.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBack.Name = "buttonBack";
@@ -293,7 +310,7 @@
             // 
             // panelBottom
             // 
-            this.panelBottom.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panelBottom.BackColor = System.Drawing.SystemColors.Desktop;
             this.panelBottom.Controls.Add(this.filesGrid);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBottom.Location = new System.Drawing.Point(0, 44);
@@ -308,6 +325,14 @@
             this.filesGrid.AllowUserToResizeRows = false;
             this.filesGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             this.filesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.filesGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.filesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.filesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Ico,
@@ -316,15 +341,16 @@
             this.Modyfikowano,
             this.Utworzono,
             this.Atrybuty});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle5;
             this.filesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesGrid.EnableHeadersVisualStyles = false;
             this.filesGrid.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.filesGrid.Location = new System.Drawing.Point(0, 0);
             this.filesGrid.Margin = new System.Windows.Forms.Padding(2);
@@ -343,68 +369,6 @@
             this.filesGrid.MouseClick += new System.Windows.Forms.MouseEventHandler(this.filesGrid_MouseClick);
             this.filesGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.filesGrid_MouseDown);
             // 
-            // Ico
-            // 
-            this.Ico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Ico.Frozen = true;
-            this.Ico.HeaderText = "";
-            this.Ico.Name = "Ico";
-            this.Ico.ReadOnly = true;
-            this.Ico.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Ico.Width = 17;
-            // 
-            // Nazwa
-            // 
-            this.Nazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Nazwa.Frozen = true;
-            this.Nazwa.HeaderText = "Nazwa";
-            this.Nazwa.MinimumWidth = 100;
-            this.Nazwa.Name = "Nazwa";
-            this.Nazwa.ReadOnly = true;
-            this.Nazwa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Rozmiar
-            // 
-            this.Rozmiar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Rozmiar.HeaderText = "Rozmiar";
-            this.Rozmiar.MinimumWidth = 80;
-            this.Rozmiar.Name = "Rozmiar";
-            this.Rozmiar.ReadOnly = true;
-            this.Rozmiar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Rozmiar.Width = 89;
-            // 
-            // Modyfikowano
-            // 
-            this.Modyfikowano.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle6;
-            this.Modyfikowano.HeaderText = "Modyfikowano";
-            this.Modyfikowano.MinimumWidth = 80;
-            this.Modyfikowano.Name = "Modyfikowano";
-            this.Modyfikowano.ReadOnly = true;
-            this.Modyfikowano.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Modyfikowano.Width = 126;
-            // 
-            // Utworzono
-            // 
-            this.Utworzono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Utworzono.HeaderText = "Utworzono";
-            this.Utworzono.MinimumWidth = 80;
-            this.Utworzono.Name = "Utworzono";
-            this.Utworzono.ReadOnly = true;
-            this.Utworzono.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Utworzono.Width = 104;
-            // 
-            // Atrybuty
-            // 
-            this.Atrybuty.HeaderText = "Atrybuty";
-            this.Atrybuty.Name = "Atrybuty";
-            this.Atrybuty.Visible = false;
-            // 
             // filesGrid_contextMenu
             // 
             this.filesGrid_contextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -420,7 +384,7 @@
             this.toolStripMenuItem5,
             this.contextProperties});
             this.filesGrid_contextMenu.Name = "filesGrid_contextMenu";
-            this.filesGrid_contextMenu.Size = new System.Drawing.Size(154, 198);
+            this.filesGrid_contextMenu.Size = new System.Drawing.Size(154, 176);
             this.filesGrid_contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.filesGrid_contextMenu_Opening);
             // 
             // contextCreate
@@ -490,11 +454,74 @@
             this.contextProperties.Text = "Właściwości";
             this.contextProperties.Click += new System.EventHandler(this.contextProperties_Click);
             // 
+            // Ico
+            // 
+            this.Ico.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Ico.Frozen = true;
+            this.Ico.HeaderText = "";
+            this.Ico.Name = "Ico";
+            this.Ico.ReadOnly = true;
+            this.Ico.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Ico.Width = 17;
+            // 
+            // Nazwa
+            // 
+            this.Nazwa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Nazwa.Frozen = true;
+            this.Nazwa.HeaderText = "Nazwa";
+            this.Nazwa.MinimumWidth = 100;
+            this.Nazwa.Name = "Nazwa";
+            this.Nazwa.ReadOnly = true;
+            this.Nazwa.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Rozmiar
+            // 
+            this.Rozmiar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Rozmiar.HeaderText = "Rozmiar";
+            this.Rozmiar.MinimumWidth = 80;
+            this.Rozmiar.Name = "Rozmiar";
+            this.Rozmiar.ReadOnly = true;
+            this.Rozmiar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Rozmiar.Width = 89;
+            // 
+            // Modyfikowano
+            // 
+            this.Modyfikowano.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Modyfikowano.HeaderText = "Modyfikowano";
+            this.Modyfikowano.MinimumWidth = 80;
+            this.Modyfikowano.Name = "Modyfikowano";
+            this.Modyfikowano.ReadOnly = true;
+            this.Modyfikowano.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Modyfikowano.Width = 126;
+            // 
+            // Utworzono
+            // 
+            this.Utworzono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Utworzono.HeaderText = "Utworzono";
+            this.Utworzono.MinimumWidth = 80;
+            this.Utworzono.Name = "Utworzono";
+            this.Utworzono.ReadOnly = true;
+            this.Utworzono.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Utworzono.Width = 104;
+            // 
+            // Atrybuty
+            // 
+            this.Atrybuty.HeaderText = "Atrybuty";
+            this.Atrybuty.Name = "Atrybuty";
+            this.Atrybuty.Visible = false;
+            // 
             // MainWindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Desktop;
             this.ClientSize = new System.Drawing.Size(596, 471);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
@@ -551,11 +578,6 @@
         private System.Windows.Forms.ToolStripMenuItem contextCopy;
         private System.Windows.Forms.ToolStripMenuItem contextCut;
         private System.Windows.Forms.ToolStripMenuItem contextPaste;
-        private System.Windows.Forms.DataGridViewImageColumn Ico;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nazwa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rozmiar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Modyfikowano;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Utworzono;
         private System.Windows.Forms.ToolStripMenuItem contextDelete;
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
@@ -565,8 +587,14 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem contextProperties;
         private System.Windows.Forms.ToolStripMenuItem contextRename;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Atrybuty;
         private System.Windows.Forms.ComboBox comboBox_Path;
+        private System.Windows.Forms.ToolStripMenuItem nightModeToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewImageColumn Ico;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nazwa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Rozmiar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Modyfikowano;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Utworzono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Atrybuty;
     }
 }
 

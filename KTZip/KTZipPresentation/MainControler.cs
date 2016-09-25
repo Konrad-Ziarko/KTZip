@@ -2,12 +2,7 @@
 using KTZipPresentation.Properties;
 using KTZipPresentation.View;
 using System.Windows.Forms;
-using Be.Windows.Forms;
-using System.Threading;
-using System.Text;
 using System.IO;
-using System.Drawing;
-using Trinet.Core.IO.Ntfs;
 using System.Runtime.InteropServices;
 using System;
 using System.Collections.Generic;
@@ -71,7 +66,6 @@ namespace KTZipPresentation.Control
         #endregion
 
         #endregion
-
         MainModel theModel;
         MainWindow theView;
         List<string> filesToCut = null;
@@ -154,43 +148,10 @@ namespace KTZipPresentation.Control
                 TheView_ReloadContent(path, OperationType.LoadNew);
             else if (attributes == "F" || attributes == "A")
             {
-                var prevEdit = new PreviewEditForm();
-                DynamicFileByteProvider provider = null;
-                if (attributes == "F")
+                using (var prevEdit = new PreviewEditForm(path, attributes))
                 {
-                    provider = new DynamicFileByteProvider(path);
-                }
-                else
-                {
-                    string[] adsFilePathParts = path.Split(':');
-                    string newPath = string.Empty;
-                    for (int i = 0; i < adsFilePathParts.Length - 1; i++)
-                    {
-                        newPath += adsFilePathParts[i] + ':';
-                    }
-                    newPath = newPath.Remove(newPath.Length - 1);
-                    FileInfo fileInfo = new FileInfo(newPath);
-                    FileStream fs = fileInfo.GetAlternateDataStream(adsFilePathParts[adsFilePathParts.Length - 1]).OpenRead();
-                    provider = new DynamicFileByteProvider(fs);
-                }
-                using (var hexBox = new HexBox { ByteProvider = provider })
-                {
-                    hexBox.Dock = DockStyle.Fill;
-                    hexBox.VScrollBarVisible = true;
-                    hexBox.StringViewVisible = true;
-                    hexBox.ShadowSelectionVisible = true;
-                    hexBox.LineInfoVisible = true;
-                    hexBox.ColumnInfoVisible = true;
-                    hexBox.UseFixedBytesPerLine = true;
-                    hexBox.Font = new Font("Segoe", 11);
-                    hexBox.BackColor = Color.FromArgb(20, 20, 20);
-                    hexBox.ForeColor = Color.FromArgb(150, 150, 150);
-
-                    prevEdit.addToPanel(hexBox);
-                    prevEdit.Width = hexBox.RequiredWidth + 50;
                     prevEdit.ShowDialog();
                 }
-                provider.Dispose();
             }
         }
 

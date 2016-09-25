@@ -14,6 +14,7 @@ namespace KTZipPresentation
         private bool isAdsSet = false;
         private bool isTextSet = false;
         public MainWindow parent;
+        Color backColor, foreColor;
         public NewFileForm(MainWindow parent)
         {
             InitializeComponent();
@@ -26,9 +27,24 @@ namespace KTZipPresentation
             textBox1.Text = Settings.Default.CurrentPath;
             ActiveControl = textBox1;
             textBox2.Text = "Nazwa pliku";
-            textBox2.ForeColor = Color.LightGray;
             textBox3.Text = "ADS";
-            textBox3.ForeColor = Color.LightGray;
+
+            if (Settings.Default.NightMode)
+            {
+                backColor = SystemColors.Desktop;
+                foreColor = Color.FromArgb(255, 200, 200, 200);
+                foreach (System.Windows.Forms.Control item in this.Controls)
+                {
+                    item.BackColor = backColor;
+                    item.ForeColor = foreColor;
+                }
+                BackColor = backColor;
+                ForeColor = foreColor;
+            }
+            else
+            {
+                foreColor = Color.Black;
+            }
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -78,7 +94,7 @@ namespace KTZipPresentation
             {
                 isTextSet = true;
                 textBox2.Text = "";
-                textBox2.ForeColor = Color.Black;
+                textBox2.ForeColor = foreColor;
             }
         }
         private void textBox3_Enter(object sender, EventArgs e)
@@ -87,7 +103,7 @@ namespace KTZipPresentation
             {
                 isAdsSet = true;
                 textBox3.Text = "";
-                textBox3.ForeColor = Color.Black;
+                textBox3.ForeColor = foreColor;
             }
         }
 

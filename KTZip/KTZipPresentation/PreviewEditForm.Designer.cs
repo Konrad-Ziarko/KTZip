@@ -1,4 +1,7 @@
-﻿namespace KTZipPresentation
+﻿using System;
+using System.Windows.Forms;
+
+namespace KTZipPresentation
 {
     partial class PreviewEditForm
     {
@@ -66,7 +69,6 @@
             this.PerformLayout();
 
         }
-
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
