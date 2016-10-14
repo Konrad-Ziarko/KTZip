@@ -228,10 +228,7 @@ namespace KTZipPresentation.Model
                         }
                         toDelete += "\n";
                     }
-                    catch
-                    {
-
-                    }
+                    catch { }
                 }
             }
             else

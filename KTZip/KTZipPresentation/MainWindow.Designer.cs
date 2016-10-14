@@ -223,6 +223,7 @@
             // 
             // panelTop
             // 
+            this.panelTop.BackColor = System.Drawing.SystemColors.Control;
             this.panelTop.Controls.Add(this.comboBox_Path);
             this.panelTop.Controls.Add(this.panelTopLeft);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -234,7 +235,9 @@
             // 
             // comboBox_Path
             // 
+            this.comboBox_Path.BackColor = System.Drawing.SystemColors.Control;
             this.comboBox_Path.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_Path.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox_Path.FormattingEnabled = true;
             this.comboBox_Path.Location = new System.Drawing.Point(75, 0);
             this.comboBox_Path.Name = "comboBox_Path";
@@ -245,11 +248,13 @@
             // 
             // panelTopLeft
             // 
+            this.panelTopLeft.BackColor = System.Drawing.SystemColors.Desktop;
             this.panelTopLeft.Controls.Add(this.buttonRefresh);
             this.panelTopLeft.Controls.Add(this.buttonBack);
             this.panelTopLeft.Controls.Add(this.buttonNext);
             this.panelTopLeft.Controls.Add(this.buttonUp);
             this.panelTopLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelTopLeft.ForeColor = System.Drawing.SystemColors.Control;
             this.panelTopLeft.Location = new System.Drawing.Point(0, 0);
             this.panelTopLeft.Margin = new System.Windows.Forms.Padding(2);
             this.panelTopLeft.Name = "panelTopLeft";
@@ -261,6 +266,7 @@
             this.buttonRefresh.BackColor = System.Drawing.SystemColors.Desktop;
             this.buttonRefresh.BackgroundImage = global::KTZipPresentation.Properties.Resources.refresh;
             this.buttonRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRefresh.Location = new System.Drawing.Point(56, 0);
             this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
             this.buttonRefresh.Name = "buttonRefresh";
@@ -271,40 +277,45 @@
             // 
             // buttonBack
             // 
-            this.buttonBack.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonBack.BackColor = System.Drawing.SystemColors.Desktop;
             this.buttonBack.BackgroundImage = global::KTZipPresentation.Properties.Resources.left;
-            this.buttonBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonBack.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBack.ForeColor = System.Drawing.SystemColors.Control;
             this.buttonBack.Location = new System.Drawing.Point(0, 0);
             this.buttonBack.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(19, 18);
             this.buttonBack.TabIndex = 3;
-            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.UseVisualStyleBackColor = false;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // buttonNext
             // 
+            this.buttonNext.BackColor = System.Drawing.SystemColors.Desktop;
             this.buttonNext.BackgroundImage = global::KTZipPresentation.Properties.Resources.rigth;
             this.buttonNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNext.Location = new System.Drawing.Point(38, 0);
             this.buttonNext.Margin = new System.Windows.Forms.Padding(0);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(19, 18);
             this.buttonNext.TabIndex = 5;
-            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.UseVisualStyleBackColor = false;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // buttonUp
             // 
+            this.buttonUp.BackColor = System.Drawing.SystemColors.Desktop;
             this.buttonUp.BackgroundImage = global::KTZipPresentation.Properties.Resources.up;
-            this.buttonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonUp.Location = new System.Drawing.Point(19, 0);
             this.buttonUp.Margin = new System.Windows.Forms.Padding(0);
             this.buttonUp.Name = "buttonUp";
             this.buttonUp.Size = new System.Drawing.Size(19, 18);
             this.buttonUp.TabIndex = 4;
-            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.UseVisualStyleBackColor = false;
             this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
             // 
             // panelBottom

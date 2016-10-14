@@ -146,6 +146,12 @@ namespace KTZipPresentation.View
             filesGrid.ForeColor = ForeColor;
             filesGrid.ColumnHeadersDefaultCellStyle.ForeColor = ForeColor;
             comboBox_Path.ForeColor = ForeColor;
+
+            buttonBack.ForeColor = buttonBack.BackColor = BackColor;
+            buttonUp.ForeColor = buttonUp.BackColor = BackColor;
+            buttonNext.ForeColor = buttonNext.BackColor = BackColor;
+            buttonRefresh.ForeColor = buttonRefresh.BackColor = BackColor;
+            panelTopLeft.BackColor = BackColor;
         }
         #endregion
 
