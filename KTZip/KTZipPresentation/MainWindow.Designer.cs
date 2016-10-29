@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripNewFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripFileProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripEnd = new System.Windows.Forms.ToolStripMenuItem();
             this.edycjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +49,6 @@
             this.toolStripChangeName = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDeleteFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripFileProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.widokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nightModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +74,16 @@
             this.contextCut = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.contextPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.moreCRCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cRC32ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cRC64ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sHA256ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToAchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compresToZipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compresTo7zToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.contextRename = new System.Windows.Forms.ToolStripMenuItem();
             this.contextDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,6 +117,8 @@
             // 
             this.plikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripNewFolder,
+            this.toolStripSeparator2,
+            this.toolStripFileProperties,
             this.toolStripMenuItem1,
             this.toolStripEnd});
             this.plikToolStripMenuItem.Name = "plikToolStripMenuItem";
@@ -115,20 +128,33 @@
             // toolStripNewFolder
             // 
             this.toolStripNewFolder.Name = "toolStripNewFolder";
-            this.toolStripNewFolder.Size = new System.Drawing.Size(118, 22);
+            this.toolStripNewFolder.Size = new System.Drawing.Size(152, 22);
             this.toolStripNewFolder.Text = "Nowy...";
             this.toolStripNewFolder.Click += new System.EventHandler(this.toolStripNewFolder_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.Desktop;
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // toolStripFileProperties
+            // 
+            this.toolStripFileProperties.Name = "toolStripFileProperties";
+            this.toolStripFileProperties.Size = new System.Drawing.Size(152, 22);
+            this.toolStripFileProperties.Text = "Właściwości";
+            this.toolStripFileProperties.Click += new System.EventHandler(this.toolStripFileProperties_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.BackColor = System.Drawing.SystemColors.Desktop;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(115, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // toolStripEnd
             // 
             this.toolStripEnd.Name = "toolStripEnd";
-            this.toolStripEnd.Size = new System.Drawing.Size(118, 22);
+            this.toolStripEnd.Size = new System.Drawing.Size(152, 22);
             this.toolStripEnd.Text = "Zakończ";
             this.toolStripEnd.Click += new System.EventHandler(this.toolStripEnd_Click);
             // 
@@ -140,8 +166,7 @@
             this.toolStripMenuItem2,
             this.toolStripChangeName,
             this.toolStripDeleteFile,
-            this.toolStripMenuItem6,
-            this.toolStripFileProperties});
+            this.toolStripMenuItem6});
             this.edycjaToolStripMenuItem.Name = "edycjaToolStripMenuItem";
             this.edycjaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.edycjaToolStripMenuItem.Text = "Edycja";
@@ -182,13 +207,6 @@
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
             this.toolStripMenuItem6.Size = new System.Drawing.Size(166, 6);
-            // 
-            // toolStripFileProperties
-            // 
-            this.toolStripFileProperties.Name = "toolStripFileProperties";
-            this.toolStripFileProperties.Size = new System.Drawing.Size(169, 22);
-            this.toolStripFileProperties.Text = "Właściwości";
-            this.toolStripFileProperties.Click += new System.EventHandler(this.toolStripFileProperties_Click);
             // 
             // widokToolStripMenuItem
             // 
@@ -335,14 +353,14 @@
             this.filesGrid.AllowUserToResizeRows = false;
             this.filesGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             this.filesGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.filesGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.filesGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle36;
             this.filesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.filesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Ico,
@@ -351,14 +369,14 @@
             this.Modyfikowano,
             this.Utworzono,
             this.Atrybuty});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle40.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle40.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle40.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle40.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.filesGrid.DefaultCellStyle = dataGridViewCellStyle40;
             this.filesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesGrid.EnableHeadersVisualStyles = false;
             this.filesGrid.GridColor = System.Drawing.SystemColors.ButtonFace;
@@ -402,8 +420,8 @@
             // Rozmiar
             // 
             this.Rozmiar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Rozmiar.DefaultCellStyle = dataGridViewCellStyle37;
             this.Rozmiar.HeaderText = "Rozmiar";
             this.Rozmiar.MinimumWidth = 80;
             this.Rozmiar.Name = "Rozmiar";
@@ -414,8 +432,8 @@
             // Modyfikowano
             // 
             this.Modyfikowano.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Modyfikowano.DefaultCellStyle = dataGridViewCellStyle38;
             this.Modyfikowano.HeaderText = "Modyfikowano";
             this.Modyfikowano.MinimumWidth = 80;
             this.Modyfikowano.Name = "Modyfikowano";
@@ -426,8 +444,8 @@
             // Utworzono
             // 
             this.Utworzono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Utworzono.DefaultCellStyle = dataGridViewCellStyle39;
             this.Utworzono.HeaderText = "Utworzono";
             this.Utworzono.MinimumWidth = 80;
             this.Utworzono.Name = "Utworzono";
@@ -450,13 +468,16 @@
             this.contextCut,
             this.contextCopy,
             this.contextPaste,
+            this.toolStripSeparator1,
+            this.toolStripMenuItem7,
+            this.toolStripMenuItem8,
             this.toolStripMenuItem3,
             this.contextRename,
             this.contextDelete,
             this.toolStripMenuItem5,
             this.contextProperties});
             this.filesGrid_contextMenu.Name = "filesGrid_contextMenu";
-            this.filesGrid_contextMenu.Size = new System.Drawing.Size(154, 176);
+            this.filesGrid_contextMenu.Size = new System.Drawing.Size(154, 248);
             this.filesGrid_contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.filesGrid_contextMenu_Opening);
             // 
             // contextCreate
@@ -494,6 +515,81 @@
             this.contextPaste.Size = new System.Drawing.Size(153, 22);
             this.contextPaste.Text = "Wklej";
             this.contextPaste.Click += new System.EventHandler(this.contextPaste_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.moreCRCToolStripMenuItem,
+            this.cRC32ToolStripMenuItem,
+            this.cRC64ToolStripMenuItem,
+            this.sHA256ToolStripMenuItem});
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(153, 22);
+            this.toolStripMenuItem7.Text = "CRC";
+            // 
+            // moreCRCToolStripMenuItem
+            // 
+            this.moreCRCToolStripMenuItem.Name = "moreCRCToolStripMenuItem";
+            this.moreCRCToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.moreCRCToolStripMenuItem.Text = "Więcej...";
+            this.moreCRCToolStripMenuItem.Click += new System.EventHandler(this.moreCRCToolStripMenuItem_Click);
+            // 
+            // cRC32ToolStripMenuItem
+            // 
+            this.cRC32ToolStripMenuItem.Name = "cRC32ToolStripMenuItem";
+            this.cRC32ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cRC32ToolStripMenuItem.Text = "CRC-32";
+            this.cRC32ToolStripMenuItem.Click += new System.EventHandler(this.cRC32ToolStripMenuItem_Click);
+            // 
+            // cRC64ToolStripMenuItem
+            // 
+            this.cRC64ToolStripMenuItem.Name = "cRC64ToolStripMenuItem";
+            this.cRC64ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cRC64ToolStripMenuItem.Text = "CRC-64";
+            this.cRC64ToolStripMenuItem.Click += new System.EventHandler(this.cRC64ToolStripMenuItem_Click);
+            // 
+            // sHA256ToolStripMenuItem
+            // 
+            this.sHA256ToolStripMenuItem.Name = "sHA256ToolStripMenuItem";
+            this.sHA256ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sHA256ToolStripMenuItem.Text = "SHA-256";
+            this.sHA256ToolStripMenuItem.Click += new System.EventHandler(this.sHA256ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToAchiveToolStripMenuItem,
+            this.compresToZipToolStripMenuItem,
+            this.compresTo7zToolStripMenuItem});
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(153, 22);
+            this.toolStripMenuItem8.Text = "Zip";
+            // 
+            // addToAchiveToolStripMenuItem
+            // 
+            this.addToAchiveToolStripMenuItem.Name = "addToAchiveToolStripMenuItem";
+            this.addToAchiveToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.addToAchiveToolStripMenuItem.Text = "Dodaj do archiwum...";
+            this.addToAchiveToolStripMenuItem.Click += new System.EventHandler(this.addToAchiveToolStripMenuItem_Click);
+            // 
+            // compresToZipToolStripMenuItem
+            // 
+            this.compresToZipToolStripMenuItem.Name = "compresToZipToolStripMenuItem";
+            this.compresToZipToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.compresToZipToolStripMenuItem.Text = "Kompresuj do .zip";
+            this.compresToZipToolStripMenuItem.Click += new System.EventHandler(this.compresToZipToolStripMenuItem_Click);
+            // 
+            // compresTo7zToolStripMenuItem
+            // 
+            this.compresTo7zToolStripMenuItem.Name = "compresTo7zToolStripMenuItem";
+            this.compresTo7zToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.compresTo7zToolStripMenuItem.Text = "Kompresuj do .7z";
+            this.compresTo7zToolStripMenuItem.Click += new System.EventHandler(this.compresTo7zToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -582,7 +678,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripChangeName;
         private System.Windows.Forms.ToolStripMenuItem toolStripDeleteFile;
-        private System.Windows.Forms.ToolStripMenuItem toolStripFileProperties;
         private System.Windows.Forms.DataGridView filesGrid;
         private System.Windows.Forms.ContextMenuStrip filesGrid_contextMenu;
         private System.Windows.Forms.ToolStripMenuItem contextCopy;
@@ -605,6 +700,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Utworzono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Atrybuty;
         private System.Windows.Forms.ToolStripMenuItem nightModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
+        private System.Windows.Forms.ToolStripMenuItem addToAchiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compresToZipToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compresTo7zToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moreCRCToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cRC32ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cRC64ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sHA256ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripFileProperties;
     }
 }
 

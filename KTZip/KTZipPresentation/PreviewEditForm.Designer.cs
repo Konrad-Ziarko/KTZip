@@ -42,7 +42,6 @@ namespace KTZipPresentation
             this.menuStrip1.Size = new System.Drawing.Size(529, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // hexPanel
             // 
@@ -59,6 +58,7 @@ namespace KTZipPresentation
             this.ClientSize = new System.Drawing.Size(529, 685);
             this.Controls.Add(this.hexPanel);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "PreviewEditForm";
             this.Text = "PreviewEditForm";

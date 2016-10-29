@@ -10,7 +10,6 @@ namespace KTZipPresentation
 {
     public partial class PreviewEditForm : Form
     {
-        private bool isFileChanged = false;
         private HexBox box;
         private string attributes;
         private string path;
@@ -38,7 +37,10 @@ namespace KTZipPresentation
                 }
                 newPath = newPath.Remove(newPath.Length - 1);
                 FileInfo fileInfo = new FileInfo(newPath);
-                FileStream fs = fileInfo.GetAlternateDataStream(adsFilePathParts[adsFilePathParts.Length - 1]).OpenRead();
+                FileStream fs = fileInfo.GetAlternateDataStream(adsFilePathParts[adsFilePathParts.Length - 1], FileMode.Open).OpenRead();
+                //
+                //ads'y nie otwieraja sie do edycji - tylko odczyt
+                //
                 provider = new DynamicFileByteProvider(fs);
             }
             var hexBox = new HexBox { ByteProvider = provider };
@@ -51,10 +53,20 @@ namespace KTZipPresentation
             hexBox.UseFixedBytesPerLine = true;
             hexBox.Font = new Font("Segoe", 11);
             hexBox.Visible = true;
+            hexBox.KeyDown += HexBox_KeyDown;
             hexPanel.Controls.Add(hexBox);
             this.Width = hexBox.RequiredWidth + 50;
             box = hexBox;
             setFormColor();
+        }
+
+        private void HexBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control)
+            {
+                if (e.KeyCode == Keys.S)
+                    provider.ApplyChanges();
+            }
         }
 
         private void setFormColor()
@@ -74,18 +86,21 @@ namespace KTZipPresentation
             }
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void PreviewEditForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            provider.Dispose();
-            if (isFileChanged)
+            if (provider.HasChanges())
             {
-
+                DialogResult dr = MessageBox.Show("Czy chcesz zapisać zmiany w pliku?", "Zamykanie pliku", MessageBoxButtons.OKCancel);
+                if (dr == DialogResult.Cancel)
+                    e.Cancel = true;
+                else if (dr == DialogResult.OK)
+                {
+                    provider.ApplyChanges();
+                    provider.Dispose();
+                }
             }
+            else
+                provider.Dispose();
         }
 
         private void PreviewEditForm_SizeChanged(object sender, EventArgs e)
@@ -121,5 +136,6 @@ namespace KTZipPresentation
                 }
             }
         }
+
     }
 }

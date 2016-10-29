@@ -250,6 +250,8 @@ namespace KTZipPresentation.View
         {
             if (e.RowIndex != -1 && e.Button == MouseButtons.Right)
             {
+                if (filesGrid.Rows[e.RowIndex].Selected != true)
+                    filesGrid.ClearSelection();
                 filesGrid.Rows[e.RowIndex].Selected = true;
                 filesGrid_contextMenu.Show(Cursor.Position);
             }
@@ -336,11 +338,6 @@ namespace KTZipPresentation.View
         private void toolStripChangeName_Click(object sender, EventArgs e)
         {
             newRenameDialog(filesGrid.SelectedRows);
-        }
-
-        private void toolStripFileProperties_Click(object sender, EventArgs e)
-        {
-            AShowProperties(filesGrid.SelectedRows);
         }
 
         private void toolStripOptions_Click(object sender, EventArgs e)
@@ -440,5 +437,45 @@ namespace KTZipPresentation.View
             e.Graphics.DrawLine(new Pen(foreColor), 4, height / 2, width - 4, height / 2);
         }
         #endregion
+
+        private void toolStripFileProperties_Click(object sender, EventArgs e)
+        {
+            AShowProperties(filesGrid.SelectedRows);
+        }
+
+        private void cRC32ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cRC64ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sHA256ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void moreCRCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void compresToZipToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void compresTo7zToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addToAchiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
