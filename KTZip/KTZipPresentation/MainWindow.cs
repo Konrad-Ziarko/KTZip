@@ -1,5 +1,7 @@
 ﻿using KTZipPresentation.Properties;
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -445,7 +447,7 @@ namespace KTZipPresentation.View
 
         private void cRC32ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ;
         }
 
         private void cRC64ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -455,7 +457,19 @@ namespace KTZipPresentation.View
 
         private void sHA256ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            List<string> files = new List<string>();
+            foreach (DataGridViewRow row in filesGrid.SelectedRows)
+                files.Add(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
 
+            StringCollection Files = new StringCollection();
+            foreach (string s in files)
+            {
+                byte[] array = Crypto.computeSHA256(File.ReadAllBytes(s));
+                string hex = string.Empty;
+                foreach (byte b in array)
+                    hex += b.ToString("X");
+                MessageBox.Show(hex);
+            }
         }
 
         private void moreCRCToolStripMenuItem_Click(object sender, EventArgs e)
@@ -476,6 +490,23 @@ namespace KTZipPresentation.View
         private void addToAchiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void mD5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<string> files = new List<string>();
+            foreach (DataGridViewRow row in filesGrid.SelectedRows)
+                files.Add(Settings.Default.CurrentPath + "\\" + row.Cells[1].Value.ToString());
+
+            StringCollection Files = new StringCollection();
+            foreach (string s in files)
+            {
+                byte[] array = Crypto.computeMD5(File.ReadAllBytes(s));
+                string hex = string.Empty;
+                foreach (byte b in array)
+                    hex += b.ToString("X");
+                MessageBox.Show(hex);
+            }
         }
     }
 }
