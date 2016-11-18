@@ -35,8 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -84,6 +86,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -94,6 +97,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\1470885087_repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\1470886554_folder-close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\1471025684_retweet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\cos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\KTZLogoL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\KTZLogoL.png.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\KTZLogoS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\KTZLogoS.png.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\rigth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

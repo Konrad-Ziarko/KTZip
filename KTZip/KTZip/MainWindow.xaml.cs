@@ -24,5 +24,43 @@ namespace KTZip
         {
             InitializeComponent();
         }
+
+        private void button_Back_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_Up_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_Forward_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_Repeat_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void button_Max_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+                WindowState = WindowState.Normal;
+            else
+                WindowState = WindowState.Maximized;
+        }
+
+        private void button_Min_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 }
