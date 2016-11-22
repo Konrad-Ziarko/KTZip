@@ -129,7 +129,7 @@
             // toolStripNewFolder
             // 
             this.toolStripNewFolder.Name = "toolStripNewFolder";
-            this.toolStripNewFolder.Size = new System.Drawing.Size(152, 22);
+            this.toolStripNewFolder.Size = new System.Drawing.Size(138, 22);
             this.toolStripNewFolder.Text = "Nowy...";
             this.toolStripNewFolder.Click += new System.EventHandler(this.toolStripNewFolder_Click);
             // 
@@ -137,12 +137,12 @@
             // 
             this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.Desktop;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(135, 6);
             // 
             // toolStripFileProperties
             // 
             this.toolStripFileProperties.Name = "toolStripFileProperties";
-            this.toolStripFileProperties.Size = new System.Drawing.Size(152, 22);
+            this.toolStripFileProperties.Size = new System.Drawing.Size(138, 22);
             this.toolStripFileProperties.Text = "Właściwości";
             this.toolStripFileProperties.Click += new System.EventHandler(this.toolStripFileProperties_Click);
             // 
@@ -150,12 +150,12 @@
             // 
             this.toolStripMenuItem1.BackColor = System.Drawing.SystemColors.Desktop;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(135, 6);
             // 
             // toolStripEnd
             // 
             this.toolStripEnd.Name = "toolStripEnd";
-            this.toolStripEnd.Size = new System.Drawing.Size(152, 22);
+            this.toolStripEnd.Size = new System.Drawing.Size(138, 22);
             this.toolStripEnd.Text = "Zakończ";
             this.toolStripEnd.Click += new System.EventHandler(this.toolStripEnd_Click);
             // 

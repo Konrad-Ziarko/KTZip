@@ -930,30 +930,35 @@
         <WindowChrome CaptionHeight="{Binding ActualHeight, ElementName=titlebar}"/>
     </WindowChrome.WindowChrome>
     <DockPanel LastChildFill="True">
-        <Border DockPanel.Dock="Top" Height="25" x:Name="titlebar">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF474747" Offset="0"/>
-                    <GradientStop Color="#FF2E2E2E" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <TextBlock Text="{Binding Title, FallbackValue=Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
-                       Margin="10,0,0,0"
-                       VerticalAlignment="Center" FontWeight="Bold" FontFamily="Tahoma" FontSize="14">
-                <TextBlock.Foreground>
+        <Grid  DockPanel.Dock="Top" Height="25" >
+            <Border  Height="25"  x:Name="titlebar" Margin="0,0,75,0">
+                <Border.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White" Offset="0"/>
-                        <GradientStop Color="#FF686666" Offset="1"/>
+                        <GradientStop Color="#FF474747" Offset="0"/>
+                        <GradientStop Color="#FF2E2E2E" Offset="1"/>
                     </LinearGradientBrush>
-                </TextBlock.Foreground>
-                <TextBlock.Effect>
-                    <DropShadowEffect Color="Gray" ShadowDepth="3"/>
-                </TextBlock.Effect>
-            </TextBlock>
-        </Border>
+                </Border.Background>
+                <TextBlock Text="{Binding Title, FallbackValue=Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
+                       Margin="10,4,0,4"
+                       VerticalAlignment="Center" FontWeight="Bold" FontFamily="Tahoma" FontSize="14" HorizontalAlignment="Left" Width="190">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="#FF686666" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Gray" ShadowDepth="3"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Border>
+            <Button x:Name="button_Min" Content="_" VerticalAlignment="Top" Height="25" HorizontalAlignment="Right" Width="25" Background="White" Margin="0,0,50,0" Click="button_Min_Click"/>
+            <Button x:Name="button_Exit" Content="X" VerticalAlignment="Top" Height="25" HorizontalAlignment="Right" Width="25" Background="White" Style="{DynamicResource ButtonStyle2}" RenderTransformOrigin="2,0.583" Click="button_Exit_Click"/>
+            <Button x:Name="button_Max" Content="▢" VerticalAlignment="Top" Height="25" HorizontalAlignment="Right" Width="25" Background="White" Margin="0,0,25,0" Click="button_Max_Click"/>
+        </Grid>
         <Grid>
             <Grid>
-                <Menu x:Name="menu" Height="22" VerticalAlignment="Top" FontFamily="Tahoma" Margin="0,0,71,0">
+                <Menu x:Name="menu" Height="22" VerticalAlignment="Top" FontFamily="Tahoma">
                     <Menu.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF2E2E2E" Offset="0"/>
@@ -1064,16 +1069,11 @@
                                     <GradientStop Color="#FF2E2E2E" Offset="0"/>
                                 </LinearGradientBrush>
                             </MenuItem.Background>
-                            
+
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="_Inne" FontFamily="Tahoma" FontSize="14" BorderThickness="0" Foreground="#FF707070"  BorderBrush="#FF2E2E2E"/>
                 </Menu>
-                <Grid>
-                    <Button x:Name="button_Min" Content="_" VerticalAlignment="Top" Height="24" HorizontalAlignment="Right" Width="24" Background="White" Margin="0,0,48,0" Click="button_Min_Click"/>
-                    <Button x:Name="button_Exit" Content="X" VerticalAlignment="Top" Height="24" HorizontalAlignment="Right" Width="24" Background="White" Style="{DynamicResource ButtonStyle2}" RenderTransformOrigin="2,0.583" Click="button_Exit_Click"/>
-                    <Button x:Name="button_Max" Content="▢" VerticalAlignment="Top" Height="24" HorizontalAlignment="Right" Width="24" Background="White" Margin="0,0,24,0" Click="button_Max_Click"/>
-                </Grid>
             </Grid>
             <Grid Margin="0,22,0,0" Height="32" VerticalAlignment="Top">
                 <Grid.Background>
