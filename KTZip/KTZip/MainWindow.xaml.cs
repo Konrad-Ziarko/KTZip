@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace KTZip
 {
@@ -23,34 +14,64 @@ namespace KTZip
         public MainWindow()
         {
             InitializeComponent();
+            restoreLastSesion();
         }
 
+        private void restoreLastSesion()
+        {
+            return;
+            throw new NotImplementedException();
+        }
+        #region Buttons
         private void button_Back_Click(object sender, RoutedEventArgs e)
         {
-
+            OperationResult result = tryExecuteOperation("~`back`", false);
         }
 
         private void button_Up_Click(object sender, RoutedEventArgs e)
         {
-
+            OperationResult result = tryExecuteOperation("~`up`", true);
         }
 
         private void button_Forward_Click(object sender, RoutedEventArgs e)
         {
-
+            OperationResult result = tryExecuteOperation("~`forward`", false);
         }
 
         private void button_Repeat_Click(object sender, RoutedEventArgs e)
         {
-
+            OperationResult result = tryExecuteOperation("~`refresh`", false);
         }
+        #endregion
 
-        private OperationResult tryExecuteOperation (string path, bool newInHistory)
+        private OperationResult tryExecuteOperation(string path, bool newHistoryEntry)
         {
-            //
+            if (newHistoryEntry)
+            {
+                if (path == "~`up`")
+                {
+
+                }
+            }
+            else
+            {
+                if (path == "~`back`")
+                {
+
+                }
+                else if (path == "~`forward`")
+                {
+
+                }
+                else if (path == "~`refresh`")
+                {
+
+                }
+            }
 
             return OperationResult.OperationDone;
         }
+
         #region TitleBar buttons
         private void button_Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -133,9 +154,12 @@ namespace KTZip
             }
             catch (UriFormatException)
             {
-                //sprawdz czy adres typu google.pl www.google.pl
-
-                return OperatioType.unknown;
+                string websitePattern = @"^(www)?[^.](.)[^.](([-.\w]*[0-9a-zA-Z])+(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*))[^.](.)[^.]([a-zA-Z0-9]+)$";
+                Regex reg = new Regex(websitePattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                if (reg.IsMatch(path))
+                    return OperatioType.Http;
+                else
+                    return OperatioType.unknown;
             }
         }
         #endregion

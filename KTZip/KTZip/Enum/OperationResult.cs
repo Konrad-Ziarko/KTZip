@@ -6,7 +6,7 @@
         OperationAbort,
         NetworkLocationInaccessible,
         MissingPermisions,
-        WebpageDoesNotResponde,
+        WebsiteDoesNotResponde,
 
     }
 }
