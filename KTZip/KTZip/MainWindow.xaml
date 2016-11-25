@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:KTZip"
         xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="KTZip.MainWindow"
         mc:Ignorable="d"
-        WindowStyle="None" 
+    WindowStyle="None" 
         Title="KTZip" Height="550" Width="825"
         BorderThickness="2" 
         BorderBrush="Black"
@@ -1129,11 +1129,11 @@
                         <Image Source="Pictures/1470885087_repeat.png"/>
                     </StackPanel>
                 </Button>
-                <ComboBox x:Name="comboBox" Margin="128,0,0,0" VerticalAlignment="Top" Height="32" IsEditable="True" FontFamily="Tahoma" FontSize="16" Style="{DynamicResource ComboBoxStyle1}"/>
+                <ComboBox x:Name="comboBox" Margin="128,0,0,0" VerticalAlignment="Top" Height="32" IsEditable="True" FontFamily="Tahoma" FontSize="16" Style="{DynamicResource ComboBoxStyle1}" Foreground="#FFBFBFBF" SelectionChanged="comboBox_SelectionChanged" KeyDown="comboBox_KeyDown"/>
             </Grid>
             <Grid Margin="0,54,0,0">
                 <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
                         <GradientStop Color="#FF161CA2" Offset="0"/>
                         <GradientStop Color="#FF3F46C7" Offset="1"/>
                     </LinearGradientBrush>

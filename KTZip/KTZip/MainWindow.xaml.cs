@@ -45,6 +45,13 @@ namespace KTZip
 
         }
 
+        private OperationResult tryExecuteOperation (string path, bool newInHistory)
+        {
+            //
+
+            return OperationResult.OperationDone;
+        }
+        #region TitleBar buttons
         private void button_Exit_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -62,5 +69,75 @@ namespace KTZip
         {
             WindowState = WindowState.Minimized;
         }
+        #endregion
+
+        #region ComboBox
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var uri = new Uri(comboBox.Text);
+
+            if (uri.IsUnc)
+            {
+                Console.WriteLine("Connects to host '{0}'", uri.Host);
+            }
+            else
+            {
+
+            }
+        }
+
+        private void comboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string path = comboBox.Text;
+                determineOperation(path);
+            }
+        }
+
+        private OperatioType determineOperation(string path)
+        {
+            try
+            {
+                var uri = new Uri(path);
+                if (uri.IsUnc)
+                {
+                    Console.WriteLine("Connects to host '{0}'", uri.Host);
+                    return OperatioType.UNC;
+                }
+                else if (uri.IsFile)
+                {
+                    Console.WriteLine(uri);
+                    return OperatioType.File;
+                }
+                else //URL
+                {
+                    if (path.StartsWith("http:"))
+                    {
+                        return OperatioType.Http;
+                    }
+                    else if (path.StartsWith("ftp:"))
+                    {
+                        return OperatioType.Ftp;
+                    }
+                    else if (path.StartsWith("https:"))
+                    {
+                        return OperatioType.Https;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ten protokuł nie jest jeszcze obsługiwany");
+                        return OperatioType.unknown;
+                    }
+                }
+            }
+            catch (UriFormatException)
+            {
+                //sprawdz czy adres typu google.pl www.google.pl
+
+                return OperatioType.unknown;
+            }
+        }
+        #endregion
     }
 }
