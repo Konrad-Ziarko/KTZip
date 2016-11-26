@@ -14,7 +14,7 @@ namespace KTZip
     {
         public string fileName { get; private set; }
         public long size { get; private set; }
-        public DateTime mofifed { get; private set; }
+        public DateTime modified { get; private set; }
         public bool isDirectory { get; private set; }
         public ImageSource imgSource
         {
@@ -31,11 +31,11 @@ namespace KTZip
         public string fileType { get; private set; }
         public string absolutePath { get; private set; }
 
-        public FileObject(string fileName, long size, DateTime mofifed, bool isDirectory, Icon ico)
+        public FileObject(string fileName, long size, DateTime modified, bool isDirectory, Icon ico)
         {
             this.fileName = fileName;
             this.size = size;
-            this.mofifed = mofifed;
+            this.modified = modified;
             this.isDirectory = isDirectory;
             this.ico = ico;
         }
