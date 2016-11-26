@@ -14,18 +14,6 @@
         FontFamily="Tahoma"
         >
     <Window.Resources>
-        <ContextMenu x:Key="Base">
-            <MenuItem Header="Kopiuj" VerticalAlignment="Center" Margin="2,0,0,0" FontFamily="Tahoma" />
-            <MenuItem Header="Wytnij" Margin="2,0,0,0" VerticalAlignment="Center" FontFamily="Tahoma" />
-            <MenuItem Header="Wklej" VerticalAlignment="Center" Margin="2,0,0,0" FontFamily="Tahoma" />
-        </ContextMenu>
-        <Style x:Key="ContextLBI" TargetType="{x:Type ListBoxItem}">
-            <Setter Property="ContextMenu" Value="{StaticResource Base}">
-
-            </Setter>
-        </Style>
-
-
         <LinearGradientBrush x:Key="MenuItemSelectionFill" EndPoint="0,1" StartPoint="0,0">
             <GradientStop Color="#34C5EBFF" Offset="0"/>
             <GradientStop Color="#3481D8FF" Offset="1"/>
@@ -1150,17 +1138,22 @@
                         <GradientStop Color="#FF3F46C7" Offset="1"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                <ListView x:Name="listView" ItemContainerStyle="{StaticResource ContextLBI}" ItemsSource="{Binding FilesCollection}" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick" KeyDown="listView_KeyDown">
+                <ListView x:Name="listView" ItemsSource="{Binding FilesCollection}" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick" KeyDown="listView_KeyDown" AllowDrop="True" Drop="listView_Drop" MouseDown="listView_MouseDown" MouseMove="listView_MouseMove" SelectionMode="Multiple">
+                    <ListView.ContextMenu>
+                        <ContextMenu Name="ContexMenu">
+                            <MenuItem Name="ContextCopy"  Header="Kopiuj" VerticalAlignment="Center" Margin="2,0,0,0" FontFamily="Tahoma" />
+                            <MenuItem Name="ContextCut" Header="Wytnij" Margin="2,0,0,0" VerticalAlignment="Center" FontFamily="Tahoma" />
+                            <MenuItem Name="ContextPaste" IsEnabled="False" Header="Wklej" VerticalAlignment="Center" Margin="2,0,0,0" FontFamily="Tahoma" />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Nazwa"
-                                Width="Auto">
+                        <GridView >
+                            <GridViewColumn Header="Nazwa" Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{Binding Path=imgSource, Mode=OneTime}" Height="20" Width="20" Stretch="Fill"/>
-                                            <TextBlock x:Name="explorerText"  Text="{Binding fileName}" FontFamily="Tahoma" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
-                                            </TextBlock>
+                                            <TextBlock x:Name="explorerText"  Text="{Binding fileName}" FontFamily="Tahoma" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -1171,9 +1164,7 @@
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid>
                                             <TextBlock Text="{Binding size}" FontFamily="Tahoma" />
-                                        </Grid>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -1183,9 +1174,7 @@
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid>
                                             <TextBlock Text="{Binding isDirectory}" FontFamily="Tahoma" />
-                                        </Grid>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -1195,19 +1184,15 @@
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Text="{Binding mofifed, StringFormat='{}{0:dd/MM/yyyy HH:mm.ss}'}" FontFamily="Tahoma" />
-                                        </Grid>
+                                            <TextBlock Text="{Binding modified, StringFormat='{}{0:dd/MM/yyyy HH:mm.ss}'}" FontFamily="Tahoma" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-
                         </GridView>
                     </ListView.View>
                 </ListView>
 
             </Grid>
-
         </Grid>
     </DockPanel>
 

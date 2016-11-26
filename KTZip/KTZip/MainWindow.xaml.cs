@@ -13,6 +13,8 @@ namespace KTZip
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static bool supsuppressNextSelection = false;
+        private static string currentPath = @"C:\";
         private ObservableCollection<FileObject> _FilesCollection;
 
         public ObservableCollection<FileObject> FilesCollection
@@ -49,13 +51,13 @@ namespace KTZip
             //list.ItemSource = lista;
             _FilesCollection = new ObservableCollection<FileObject>();
             listView.ItemsSource = FilesCollection;
-            FilesCollection.Add(new FileObject("1",0,DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("2",1, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("3",2, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("4",3, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("5",4, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("6",5, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("7",6, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("1", 0, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("2", 1, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("3", 2, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("4", 3, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("5", 4, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("6", 5, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("7", 6, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
             //ICollectionView view = CollectionViewSource.GetDefaultView(listView.ItemsSource);
             //view.Refresh();
         }
@@ -209,18 +211,81 @@ namespace KTZip
         #region ListView
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var list = e.AddedItems;
+            if (!supsuppressNextSelection)
+            {
+                if (Keyboard.Modifiers != ModifierKeys.Control)
+                {
+                    listView.UnselectAll();
+                    listView.SelectedItems.Add(list);
+                    supsuppressNextSelection = true;
+                }
+            }
+            supsuppressNextSelection = false;
         }
 
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            //open
         }
 
         private void listView_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (e.Key == Key.C)
+                {
+                    ContextPaste.IsEnabled = true;
+                    MessageBox.Show("Copy");
+                }
+                else if (e.Key == Key.V)
+                {
+                    MessageBox.Show("Paste");
+                }
+                else if (e.Key == Key.X)
+                {
+                    ContextPaste.IsEnabled = true;
+                    MessageBox.Show("Cut");
+                }
+                else if (e.Key == Key.F)
+                {
+                    MessageBox.Show("Search");
+                }
+            }
+                
         }
-        #endregion
+
+        private void listView_DragEnter(object sender, DragEventArgs e)
+        {
+            Console.Out.WriteLine("Drag Enter");
+        }
+
+        private void listView_Drop(object sender, DragEventArgs e)
+        {
+            Console.Out.WriteLine("Drag drop");
+        }
+
+        private void listView_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FileObject fo = ((ListViewItem)sender).Content as FileObject;
+            if (Keyboard.Modifiers != ModifierKeys.Control || fo == null)
+            {
+                listView.UnselectAll();
+            }
+        }
+
+        private void listView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                string toSend = string.Empty;
+                foreach (FileObject str in listView.SelectedItems)
+                    toSend += str.fileName + "\n";
+                //DragDrop.DoDragDrop(listView, toSend, DragDropEffects.Copy);
+            }
+        }
     }
+    #endregion
+
 }
+

@@ -12,6 +12,7 @@ namespace KTZip
 {
     public class FileObject
     {
+        private FileSystemWatcher watcher;
         public string fileName { get; private set; }
         public long size { get; private set; }
         public DateTime modified { get; private set; }
@@ -38,6 +39,19 @@ namespace KTZip
             this.modified = modified;
             this.isDirectory = isDirectory;
             this.ico = ico;
+
+            //nie efektywne!!! jeden watcher na obecny katalog starczy
+            //watcher = new FileSystemWatcher();
+            //watcher.Path = Path.GetDirectoryName(absolutePath);
+            //watcher.Filter = Path.GetFileName(absolutePath);
+            //watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            //watcher.Changed += Watcher_Changed;
+            //watcher.EnableRaisingEvents = true;
+        }
+
+        private void Watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
