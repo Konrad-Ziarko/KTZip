@@ -9,7 +9,7 @@ namespace KTZip
 {
     public static class SecureIt
     {
-        private static readonly byte[] entropy = Encoding.Unicode.GetBytes(Environment.MachineName+Environment.UserName);
+        private static readonly byte[] entropy = Encoding.Unicode.GetBytes(Environment.MachineName + Environment.UserName);
 
         public static string EncryptString(this SecureString input)
         {

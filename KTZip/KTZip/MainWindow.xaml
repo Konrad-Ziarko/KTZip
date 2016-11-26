@@ -11,10 +11,19 @@
         Title="KTZip" Height="550" Width="825"
         BorderThickness="2" 
         BorderBrush="Black"
+        FontFamily="Tahoma"
         >
     <Window.Resources>
+        <ContextMenu x:Key="Base">
+            <MenuItem Header="Kopiuj" VerticalAlignment="Center" Margin="2,0,0,0" FontFamily="Tahoma" />
+            <MenuItem Header="Wytnij" Margin="2,0,0,0" VerticalAlignment="Center" FontFamily="Tahoma" />
+            <MenuItem Header="Wklej" VerticalAlignment="Center" Margin="2,0,0,0" FontFamily="Tahoma" />
+        </ContextMenu>
+        <Style x:Key="ContextLBI" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="ContextMenu" Value="{StaticResource Base}">
 
-
+            </Setter>
+        </Style>
 
 
         <LinearGradientBrush x:Key="MenuItemSelectionFill" EndPoint="0,1" StartPoint="0,0">
@@ -1078,6 +1087,8 @@
                     <MenuItem Header="_Inne" FontFamily="Tahoma" FontSize="14" BorderThickness="0" Foreground="#FF707070"  BorderBrush="#FF2E2E2E"/>
                 </Menu>
             </Grid>
+
+
             <Grid Margin="0,22,0,0" Height="32" VerticalAlignment="Top">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1131,6 +1142,7 @@
                 </Button>
                 <ComboBox x:Name="comboBox" Margin="128,0,0,0" VerticalAlignment="Top" Height="32" IsEditable="True" FontFamily="Tahoma" FontSize="16" Style="{DynamicResource ComboBoxStyle1}" Foreground="#FFBFBFBF" SelectionChanged="comboBox_SelectionChanged" KeyDown="comboBox_KeyDown"/>
             </Grid>
+
             <Grid Margin="0,54,0,0">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
@@ -1138,6 +1150,62 @@
                         <GradientStop Color="#FF3F46C7" Offset="1"/>
                     </LinearGradientBrush>
                 </Grid.Background>
+                <ListView x:Name="listView" ItemContainerStyle="{StaticResource ContextLBI}" ItemsSource="{Binding FilesCollection}" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick" KeyDown="listView_KeyDown">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Nazwa"
+                                Width="Auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding Path=imgSource, Mode=OneTime}" Height="20" Width="20" Stretch="Fill"/>
+                                            <TextBlock x:Name="explorerText"  Text="{Binding fileName}" FontFamily="Tahoma" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="Auto">
+                                <GridViewColumnHeader>
+                                    <TextBlock Text="Rozmiar" />
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding size}" FontFamily="Tahoma" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="Auto">
+                                <GridViewColumnHeader>
+                                    <TextBlock Text="Typ" />
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding isDirectory}" FontFamily="Tahoma" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="Auto" >
+                                <GridViewColumnHeader>
+                                    <TextBlock Text="Modyfikowano" />
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding mofifed, StringFormat='{}{0:dd/MM/yyyy HH:mm.ss}'}" FontFamily="Tahoma" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
             </Grid>
 
         </Grid>

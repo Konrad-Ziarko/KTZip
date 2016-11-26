@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,10 +13,51 @@ namespace KTZip
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ObservableCollection<FileObject> _FilesCollection;
+
+        public ObservableCollection<FileObject> FilesCollection
+        {
+            get { return _FilesCollection; }
+            set
+            {
+                if (_FilesCollection != value)
+                {
+                    _FilesCollection = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void OnPropertyChanged()
+        {
+            throw new NotImplementedException();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             restoreLastSesion();
+            //using (var secureString = "Some string to encrypt".ToSecureString())
+            //{
+            //    cypherText = secureString.EncryptString();
+            //}
+
+            //using (var secureString = cypherText.DecryptString())
+            //{
+            //    clearText = secureString.ToInsecureString();
+            //}
+            //list.ItemSource = lista;
+            _FilesCollection = new ObservableCollection<FileObject>();
+            listView.ItemsSource = FilesCollection;
+            FilesCollection.Add(new FileObject("1",0,DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("2",1, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("3",2, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("4",3, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("5",4, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("6",5, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            FilesCollection.Add(new FileObject("7",6, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            //ICollectionView view = CollectionViewSource.GetDefaultView(listView.ItemsSource);
+            //view.Refresh();
         }
 
         private void restoreLastSesion()
@@ -161,6 +204,22 @@ namespace KTZip
                 else
                     return OperatioType.unknown;
             }
+        }
+        #endregion
+        #region ListView
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void listView_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
         #endregion
     }

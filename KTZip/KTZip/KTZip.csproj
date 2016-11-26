@@ -80,6 +80,7 @@
     <Compile Include="Enum\OperationResult.cs" />
     <Compile Include="Enum\ProtocolType.cs" />
     <Compile Include="FileObject.cs" />
+    <Compile Include="IconUtilities.cs" />
     <Compile Include="SecureIt.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
