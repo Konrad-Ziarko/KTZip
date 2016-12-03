@@ -12,6 +12,7 @@
         BorderThickness="2" 
         BorderBrush="Black"
         FontFamily="Tahoma"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         >
     <Window.Resources>
         <LinearGradientBrush x:Key="MenuItemSelectionFill" EndPoint="0,1" StartPoint="0,0">
@@ -1138,7 +1139,7 @@
                         <GradientStop Color="#FF3F46C7" Offset="1"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                <ListView x:Name="listView" ItemsSource="{Binding FilesCollection}" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick" KeyDown="listView_KeyDown" AllowDrop="True" Drop="listView_Drop" MouseDown="listView_MouseDown" MouseMove="listView_MouseMove" SelectionMode="Multiple">
+                <ListView x:Name="listView" ItemsSource="{Binding FilesCollection}" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick" KeyDown="listView_KeyDown" AllowDrop="True" Drop="listView_Drop" MouseDown="listView_MouseDown" MouseMove="listView_MouseMove" SelectionMode="Multiple" >
                     <ListView.ContextMenu>
                         <ContextMenu Name="ContexMenu">
                             <MenuItem Name="ContextCopy"  Header="Kopiuj" VerticalAlignment="Center" Margin="2,0,0,0" FontFamily="Tahoma" />
@@ -1164,7 +1165,7 @@
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                            <TextBlock Text="{Binding size}" FontFamily="Tahoma" />
+                                        <TextBlock Text="{Binding size}" FontFamily="Tahoma" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -1174,7 +1175,7 @@
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                            <TextBlock Text="{Binding isDirectory}" FontFamily="Tahoma" />
+                                        <TextBlock Text="{Binding isDirectory}" FontFamily="Tahoma" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -1184,14 +1185,13 @@
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                            <TextBlock Text="{Binding modified, StringFormat='{}{0:dd/MM/yyyy HH:mm.ss}'}" FontFamily="Tahoma" />
+                                        <TextBlock Text="{Binding modified, StringFormat='{}{0:dd/MM/yyyy HH:mm.ss}'}" FontFamily="Tahoma" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
-
             </Grid>
         </Grid>
     </DockPanel>
