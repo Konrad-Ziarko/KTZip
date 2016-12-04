@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace KTZip
@@ -37,8 +39,6 @@ namespace KTZip
 
         public MainWindow()
         {
-            InitializeComponent();
-            restoreLastSesion();
             //using (var secureString = "Some string to encrypt".ToSecureString())
             //{
             //    cypherText = secureString.EncryptString();
@@ -49,8 +49,10 @@ namespace KTZip
             //    clearText = secureString.ToInsecureString();
             //}
             //list.ItemSource = lista;
+            restoreLastSesion();
+
             _FilesCollection = new ObservableCollection<FileObject>();
-            listView.ItemsSource = FilesCollection;
+
             FilesCollection.Add(new FileObject("1", 0, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
             FilesCollection.Add(new FileObject("2", 1, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
             FilesCollection.Add(new FileObject("3", 2, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
@@ -58,8 +60,9 @@ namespace KTZip
             FilesCollection.Add(new FileObject("5", 4, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
             FilesCollection.Add(new FileObject("6", 5, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
             FilesCollection.Add(new FileObject("7", 6, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            //ICollectionView view = CollectionViewSource.GetDefaultView(listView.ItemsSource);
-            //view.Refresh();
+
+            InitializeComponent();
+
         }
 
         private void restoreLastSesion()
