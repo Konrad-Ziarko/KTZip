@@ -21,7 +21,10 @@ namespace KTZip
         {
             get
             {
-                return ico.ToImageSource();
+                if(ico!=null)
+                    return ico.ToImageSource();
+                else
+                    return img.ToImageSource();
             }
             private set
             {
@@ -29,6 +32,7 @@ namespace KTZip
             }
         }
         public Icon ico { get; private set; }
+        public Image img { get; private set; }
         public string fileType { get; private set; }
         public string absolutePath { get; private set; }
 
@@ -48,7 +52,22 @@ namespace KTZip
             //watcher.Changed += Watcher_Changed;
             //watcher.EnableRaisingEvents = true;
         }
+        public FileObject(string fileName, long size, DateTime modified, bool isDirectory, Image img)
+        {
+            this.fileName = fileName;
+            this.size = size;
+            this.modified = modified;
+            this.isDirectory = isDirectory;
+            this.img = img;
 
+            //nie efektywne!!! jeden watcher na obecny katalog starczy
+            //watcher = new FileSystemWatcher();
+            //watcher.Path = Path.GetDirectoryName(absolutePath);
+            //watcher.Filter = Path.GetFileName(absolutePath);
+            //watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            //watcher.Changed += Watcher_Changed;
+            //watcher.EnableRaisingEvents = true;
+        }
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
             throw new NotImplementedException();

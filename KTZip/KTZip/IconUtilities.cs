@@ -32,5 +32,23 @@ namespace KTZip
 
             return wpfBitmap;
         }
+        public static ImageSource ToImageSource(this Image img)
+        {
+            Bitmap bitmap = new Bitmap(img);
+            IntPtr hBitmap = bitmap.GetHbitmap();
+
+            ImageSource wpfBitmap = Imaging.CreateBitmapSourceFromHBitmap(
+                hBitmap,
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            if (!DeleteObject(hBitmap))
+            {
+                throw new Win32Exception();
+            }
+
+            return wpfBitmap;
+        }
     }
 }

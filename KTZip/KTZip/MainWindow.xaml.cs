@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,18 +55,59 @@ namespace KTZip
 
             _FilesCollection = new ObservableCollection<FileObject>();
 
-            FilesCollection.Add(new FileObject("1", 0, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("2", 1, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("3", 2, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("4", 3, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("5", 4, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("6", 5, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
-            FilesCollection.Add(new FileObject("7", 6, DateTime.Now, true, new Icon(@"C:\Users\Konrad\Source\Repos\KTZip\KTZip\KTZip\Pictures\KTZLogoS.png.ico")));
+            foreach (string dir in Directory.GetDirectories(currentPath))
+            {
+                string dirName = Path.GetFileName(dir);
+                FileInfo fi = new FileInfo(dir);
+                DirectoryInfo di = new DirectoryInfo(dir);
+                DateTime modif, create;
+                modif = fi.LastWriteTime;
+                create = fi.CreationTime;
+                System.Drawing.Image img = new Bitmap(KTZip.Properties.Resources.folder, new System.Drawing.Size(20, 20));
+                if ((fi.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                img = ChangeOpacity(img);
+                FilesCollection.Add(new FileObject(dirName, 0, modif, false, img));
+                //filesGrid.Rows.Add(img, dirName, "", modif, create, "D");
+                //img = new Bitmap(Resources.stream, new Size(20, 20));
+                //foreach (AlternateDataStreamInfo stream in di.ListAlternateDataStreams())
+                //{
+                //    filesGrid.Rows.Add(img, dirName + ":" + stream.Name, stream.Size, "", "", "A");
+                //}
+            }
+            foreach (string filePath in Directory.GetFiles(currentPath))
+            {
+                string fileName = Path.GetFileName(filePath);
+                FileInfo fileInfo = new FileInfo(filePath);
+                DateTime modif, create;
+                modif = fileInfo.LastWriteTime;
+                create = fileInfo.CreationTime;
+                var img = System.Drawing.Icon.ExtractAssociatedIcon(filePath).ToBitmap();
+                if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                    img = ChangeOpacity(img);
+                //System.Drawing.Icon.ExtractAssociatedIcon(filePath)
+                FilesCollection.Add(new FileObject(fileName, fileInfo.Length, modif, false, img));
+                //filesGrid.Rows.Add(img, fileName, string.Format("{0:n0}", fileInfo.Length), modif, create, "F");
+                //img = new Bitmap(Resources.stream, new Size(20, 20));
+                //foreach (AlternateDataStreamInfo stream in fileInfo.ListAlternateDataStreams())
+                //{
+                //    filesGrid.Rows.Add(img, fileName + ":" + stream.Name, stream.Size, "", "", "A");
+                //}
+            }
 
             InitializeComponent();
 
         }
-
+        private Bitmap ChangeOpacity(System.Drawing.Image img, float opacityvalue = 0.5f)
+        {
+            Bitmap bmp = new Bitmap(20, 20);
+            Graphics graphics = Graphics.FromImage(bmp);
+            ColorMatrix colormatrix = new ColorMatrix() { Matrix33 = opacityvalue };
+            ImageAttributes imgAttribute = new ImageAttributes();
+            imgAttribute.SetColorMatrix(colormatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+            graphics.DrawImage(img, new Rectangle(0, 0, 20, 20), 0, 0, 20, 20, GraphicsUnit.Pixel, imgAttribute);
+            graphics.Dispose();
+            return bmp;
+        }
         private void restoreLastSesion()
         {
             return;
