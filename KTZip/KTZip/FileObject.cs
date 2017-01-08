@@ -16,6 +16,7 @@ namespace KTZip
         public string fileName { get; private set; }
         public long size { get; private set; }
         public DateTime modified { get; private set; }
+        public DateTime created { get; private set; }
         public bool isDirectory { get; private set; }
         public ImageSource imgSource
         {
@@ -36,11 +37,13 @@ namespace KTZip
         public string fileType { get; private set; }
         public string absolutePath { get; private set; }
 
-        public FileObject(string fileName, long size, DateTime modified, bool isDirectory, Icon ico)
+        public FileObject(string absolutePath, long size, DateTime modified, DateTime created, bool isDirectory, Icon ico)
         {
-            this.fileName = fileName;
+            this.absolutePath = absolutePath;
+            this.fileName = Path.GetFileName(absolutePath);
             this.size = size;
             this.modified = modified;
+            this.created = created;
             this.isDirectory = isDirectory;
             this.ico = ico;
 
@@ -52,11 +55,13 @@ namespace KTZip
             //watcher.Changed += Watcher_Changed;
             //watcher.EnableRaisingEvents = true;
         }
-        public FileObject(string fileName, long size, DateTime modified, bool isDirectory, Image img)
+        public FileObject(string absolutePath, long size, DateTime modified, DateTime created, bool isDirectory, Image img)
         {
-            this.fileName = fileName;
+            this.absolutePath = absolutePath;
+            this.fileName = Path.GetFileName(absolutePath);
             this.size = size;
             this.modified = modified;
+            this.created = created;
             this.isDirectory = isDirectory;
             this.img = img;
 

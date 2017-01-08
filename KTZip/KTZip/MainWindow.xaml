@@ -1129,7 +1129,14 @@
                         <Image Source="Pictures/1470885087_repeat.png"/>
                     </StackPanel>
                 </Button>
-                <ComboBox x:Name="comboBox" Margin="128,0,0,0" VerticalAlignment="Top" Height="32" IsEditable="True" FontFamily="Tahoma" FontSize="16" Style="{DynamicResource ComboBoxStyle1}" Foreground="#FFBFBFBF" SelectionChanged="comboBox_SelectionChanged" KeyDown="comboBox_KeyDown"/>
+                <ComboBox x:Name="comboBox" Margin="128,0,0,0" VerticalAlignment="Top" Height="32" IsEditable="True" FontFamily="Tahoma" FontSize="16" Style="{DynamicResource ComboBoxStyle1}" Foreground="#FFBFBFBF" SelectionChanged="comboBox_SelectionChanged" KeyDown="comboBox_KeyDown">
+                    <ComboBox.Background>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                            <GradientStop Color="#FF161CA2" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ComboBox.Background>
+                </ComboBox>
             </Grid>
 
             <Grid Margin="0,54,0,0">
@@ -1139,7 +1146,13 @@
                         <GradientStop Color="#FF3F46C7" Offset="1"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                <ListView x:Name="listView" ItemsSource="{Binding FilesCollection}" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick" KeyDown="listView_KeyDown" AllowDrop="True" Drop="listView_Drop" MouseDown="listView_MouseDown" MouseMove="listView_MouseMove" SelectionMode="Multiple" >
+                <ListView x:Name="listView" ItemsSource="{Binding FilesCollection}" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick" KeyDown="listView_KeyDown" AllowDrop="True" Drop="listView_Drop" MouseDown="listView_MouseDown" MouseMove="listView_MouseMove" SelectionMode="Multiple" Foreground="#FF748DCF" SizeChanged="listView_SizeChanged" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                    
+                    <ListView.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2E2E2E" Offset="0"/>
+                        </LinearGradientBrush>
+                    </ListView.Background>
                     <ListView.ContextMenu>
                         <ContextMenu Name="ContexMenu">
                             <MenuItem Name="ContextCopy"  Header="Kopiuj" VerticalAlignment="Center" Margin="2,0,0,0" FontFamily="Tahoma" />
@@ -1149,10 +1162,24 @@
                     </ListView.ContextMenu>
                     <ListView.View>
                         <GridView >
-                            <GridViewColumn Header="Nazwa" Width="Auto">
+                            <GridViewColumn Width="Auto">
+                                <GridViewColumnHeader Foreground="#FF6D6DD3">
+                                    <GridViewColumnHeader.BorderBrush>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF2F2F2" Offset="0"/>
+                                            <GradientStop Color="#FF394FDC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.BorderBrush>
+                                    <GridViewColumnHeader.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF2E2E2E" Offset="0"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.Background>
+                                    <TextBlock Text="Nazwa" />
+                                </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" >
                                             <Image Source="{Binding Path=imgSource, Mode=OneTime}" Height="20" Width="20" Stretch="Fill"/>
                                             <TextBlock x:Name="explorerText"  Text="{Binding fileName}" FontFamily="Tahoma" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0"/>
                                         </StackPanel>
@@ -1160,7 +1187,18 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="Auto">
-                                <GridViewColumnHeader>
+                                <GridViewColumnHeader Foreground="#FF6D6DD3">
+                                    <GridViewColumnHeader.BorderBrush>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF2F2F2" Offset="0"/>
+                                            <GradientStop Color="#FF394FDC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.BorderBrush>
+                                    <GridViewColumnHeader.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF2E2E2E" Offset="0"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.Background>
                                     <TextBlock Text="Rozmiar" />
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
@@ -1170,7 +1208,18 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="Auto">
-                                <GridViewColumnHeader>
+                                <GridViewColumnHeader Foreground="#FF6D6DD3">
+                                    <GridViewColumnHeader.BorderBrush>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF2F2F2" Offset="0"/>
+                                            <GradientStop Color="#FF394FDC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.BorderBrush>
+                                    <GridViewColumnHeader.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF2E2E2E" Offset="0"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.Background>
                                     <TextBlock Text="Typ" />
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
@@ -1180,12 +1229,45 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="Auto" >
-                                <GridViewColumnHeader>
+                                <GridViewColumnHeader Foreground="#FF6D6DD3">
+                                    <GridViewColumnHeader.BorderBrush>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF2F2F2" Offset="0"/>
+                                            <GradientStop Color="#FF394FDC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.BorderBrush>
+                                    <GridViewColumnHeader.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF2E2E2E" Offset="0"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.Background>
                                     <TextBlock Text="Modyfikowano" />
                                 </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
+                                    
                                     <DataTemplate>
                                         <TextBlock Text="{Binding modified, StringFormat='{}{0:dd/MM/yyyy HH:mm.ss}'}" FontFamily="Tahoma" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn >
+                                <GridViewColumnHeader Foreground="#FF6D6DD3" >
+                                    <GridViewColumnHeader.BorderBrush>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF2F2F2" Offset="0"/>
+                                            <GradientStop Color="#FF394FDC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.BorderBrush>
+                                    <GridViewColumnHeader.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF2E2E2E" Offset="0"/>
+                                        </LinearGradientBrush>
+                                    </GridViewColumnHeader.Background>
+                                </GridViewColumnHeader >
+                                <GridViewColumn.CellTemplate>
+
+                                    <DataTemplate >
+                                        <TextBlock Margin="6,0,6,0" Text="" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

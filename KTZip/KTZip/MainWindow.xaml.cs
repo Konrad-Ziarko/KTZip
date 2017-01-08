@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -38,7 +39,7 @@ namespace KTZip
         {
             throw new NotImplementedException();
         }
-
+        
         public MainWindow()
         {
             //using (var secureString = "Some string to encrypt".ToSecureString())
@@ -54,10 +55,9 @@ namespace KTZip
             restoreLastSesion();
 
             _FilesCollection = new ObservableCollection<FileObject>();
-
+            
             foreach (string dir in Directory.GetDirectories(currentPath))
             {
-                string dirName = Path.GetFileName(dir);
                 FileInfo fi = new FileInfo(dir);
                 DirectoryInfo di = new DirectoryInfo(dir);
                 DateTime modif, create;
@@ -66,7 +66,7 @@ namespace KTZip
                 System.Drawing.Image img = new Bitmap(KTZip.Properties.Resources.folder, new System.Drawing.Size(20, 20));
                 if ((fi.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                 img = ChangeOpacity(img);
-                FilesCollection.Add(new FileObject(dirName, 0, modif, false, img));
+                FilesCollection.Add(new FileObject(dir, 0, modif, create, false, img));
                 //filesGrid.Rows.Add(img, dirName, "", modif, create, "D");
                 //img = new Bitmap(Resources.stream, new Size(20, 20));
                 //foreach (AlternateDataStreamInfo stream in di.ListAlternateDataStreams())
@@ -74,9 +74,9 @@ namespace KTZip
                 //    filesGrid.Rows.Add(img, dirName + ":" + stream.Name, stream.Size, "", "", "A");
                 //}
             }
+            
             foreach (string filePath in Directory.GetFiles(currentPath))
             {
-                string fileName = Path.GetFileName(filePath);
                 FileInfo fileInfo = new FileInfo(filePath);
                 DateTime modif, create;
                 modif = fileInfo.LastWriteTime;
@@ -85,7 +85,7 @@ namespace KTZip
                 if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                     img = ChangeOpacity(img);
                 //System.Drawing.Icon.ExtractAssociatedIcon(filePath)
-                FilesCollection.Add(new FileObject(fileName, fileInfo.Length, modif, false, img));
+                FilesCollection.Add(new FileObject(filePath, fileInfo.Length, modif, create, false, img));
                 //filesGrid.Rows.Add(img, fileName, string.Format("{0:n0}", fileInfo.Length), modif, create, "F");
                 //img = new Bitmap(Resources.stream, new Size(20, 20));
                 //foreach (AlternateDataStreamInfo stream in fileInfo.ListAlternateDataStreams())
@@ -258,16 +258,11 @@ namespace KTZip
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var list = e.AddedItems;
-            if (!supsuppressNextSelection)
+            if (Keyboard.Modifiers != ModifierKeys.Control)
             {
-                if (Keyboard.Modifiers != ModifierKeys.Control)
-                {
-                    listView.UnselectAll();
-                    listView.SelectedItems.Add(list);
-                    supsuppressNextSelection = true;
-                }
+                listView.SelectedIndex = -1;
             }
-            supsuppressNextSelection = false;
+            listView.SelectedItems.Add(list);
         }
 
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -313,11 +308,15 @@ namespace KTZip
 
         private void listView_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            FileObject fo = ((ListViewItem)sender).Content as FileObject;
-            if (Keyboard.Modifiers != ModifierKeys.Control || fo == null)
+            try
             {
-                listView.UnselectAll();
+                FileObject fo = ((ListViewItem)sender).Content as FileObject;
+                if (Keyboard.Modifiers != ModifierKeys.Control || fo == null)
+                {
+                    //listView.UnselectAll();
+                }
             }
+            catch { }
         }
 
         private void listView_MouseMove(object sender, MouseEventArgs e)
@@ -328,6 +327,20 @@ namespace KTZip
                 foreach (FileObject str in listView.SelectedItems)
                     toSend += str.fileName + "\n";
                 //DragDrop.DoDragDrop(listView, toSend, DragDropEffects.Copy);
+            }
+        }
+
+        private void listView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.WidthChanged)
+            {
+                GridView view = listView.View as GridView;
+                double sumWidth = 0;
+                for (int i = 0; i < view.Columns.Count-1; i++)
+                {
+                    sumWidth += view.Columns[i].ActualWidth;
+                }
+                view.Columns[view.Columns.Count-1].Width = listView.ActualWidth - sumWidth -27;
             }
         }
     }
